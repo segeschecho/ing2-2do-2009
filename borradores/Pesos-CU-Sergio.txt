@@ -1,0 +1,53 @@
+CASOS USO TR
+
+1. 5 dias, si ambos protocolos estan implementados.
+2. 4 dias.
+3. 5 dias
+4. 4 dias La TR tiene que tener una copia de la agenda del sensor.
+5. 3 dias
+6. 6 dias Hay que implementar toda la parte para que la TR sea extensible por sensores(la idea es que sea semi automatico dar de alta un sensor)
+7. 2 dias Es solo un mensaje a la central, cuando el CMUDS le avisa bateria baja
+8. 4 dias Es como si la TR empezara de nuevo, tiene que levantar toda su configuracion
+9. 4 dias Hay que comtemplar bien que pasa cuando un sensor no envia datos en ese tiempo.
+10. 10 dias El algoritmo de encriptador tiene que ser compacto y lo mas seguro posible, y ademas hay que diseñarlo especialmente para este protocolo.
+11. 5 dias EN este punto no se si se tiene que pensar la estructura para guardar todos los datos que esten en vuelo
+12. 3 dias
+
+CAsos USO EC
+
+1. 8 dias Se tiene que ver bien que punto del sistema elegir, para que haya la menor cantidad de datos perdidos.
+2. 15 dias Si en este punto se tiene que implementar el algoritmo basado en reglas.
+3. 2 dias
+4. 2 dias
+5. 7 dias Creo que aca se tiene que pensar una forma flexible, que permita configuracion para evitar usar a cada rato Biggest Satelite
+6. 15 dias
+7. 2 dia
+8. 5 dias
+9. 7 dias hay que ver si cuando pasa esto, el sistema modifica las reglas para detectar que una TR se cayo, por que los datos van a llegar despues del minuto...
+10. 4 dias
+11. 2 dias
+12. 5 dias Es parte del diseño del protocolo seguro.
+13. 3 dias se suma a lo anterior
+14. 2 dias
+15. 4 dias
+16. 7 dias hay que implementar el web service y el protocolo de envio/recepcion de las cosas
+17. 4 dias No se si esto tambien depende de la implementacion de modelo matematico.
+18. 6 dias
+19. 10 dias. Hay que implementar todo el protocolo con la comunicacion con el satelite o el sistema de ellos.
+20. 5 dias ?
+
+CASOS USO SISTEMA MONITOREO
+
+1. 4 dias
+2. 3 dias
+3. 3 dias
+4. 7 dias hay que implementar la aplicacion en el web service, osea todas las funciones, y el protocolo de envio?
+5. es igual al uno
+6. 7 dias definir un protocolo unico de envio de datos.
+7. 6 dias hay que implementar el protocolo para recibir los datos.
+8. 10 dias hay que hacer banda de cosas :D
+9. 2 dias
+10. 6 dias
+11. 10 dias parte en la EC y parte en la BD
+12. 10 dias mismo que el anterior
+13. 20 dias
