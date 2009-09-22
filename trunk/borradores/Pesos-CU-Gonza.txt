@@ -1,5 +1,7 @@
 CASOS USO TR
 
+gonzatr = [10 4 4 5 3 7 3 3 3 4 2 3]
+
 1. 10 dias
 2. 4 dias
 3. 4 dias
@@ -14,6 +16,8 @@ CASOS USO TR
 12. 3 dias
 
 CAsos USO EC
+
+gonzaec = [8 3 3 2 4 5 1 7 4 3 2 4 2 5 4 4 2 5 4 5]
 
 1. 8 dias
 2. 3 dias
@@ -38,20 +42,20 @@ CAsos USO EC
 
 CASOS USO SISTEMA MONITOREO
 
+gonzasm = [4 2 2 4 4 4 5 2 6 5 8 4 8]
+
 1. 4 dias
 2. 2 dias
 3. 2 dias
 4. 4 dias
-5. es igual al uno
+5. 4 dias
 6. 4 dias
-7. 4 dias
-8. 5 dias
-9. 2 dias
-10. 6 dias
-11. 5 dias
+7. 5 dias
+8. 2 dias
+9. 6 dias
+10. 5 dias
+11. 8 dias
 12. 8 dias
-12. 4 dias
-13. 8 dias
 
 
 Supuse que cuando dias digo 24 horas, no dias de trabajo.
