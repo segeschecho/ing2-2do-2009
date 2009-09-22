@@ -1,49 +1,49 @@
 Casos de Uso TR
-1. Implementar una interfaz comun.
-2. Protocolo con el sensor. Guardado en memoria hasta que sea borrado. 50 hs
-3. Interfaz c el sensor y algoritmo de seleccion de fuente de energia 60 hs
-4. es un CU? Incluye tener listo el protocolo? 30 hs
-5. 10 hs
-6. idem 12 monitoreo
-7. 20 hs, el componente le avisa a la TR y esta manda un sms
-8. 30 hs (buscar la forma de "despertar la tr" nada mas)
-9. 40 hs
-10. investigar protcolos de compresion y encriptacion e implementarlos 80hs
-11. 20 hs
-12. 5 hs
+1. Implementar una interfaz comun. 10 dias.
+2. Protocolo con el sensor. Guardado en memoria hasta que sea borrado. 3 dias
+3. Interfaz c el sensor y algoritmo de seleccion de fuente de energia 3 dias
+4. es un CU? Incluye tener listo el protocolo? 2 dias.
+5. 1 dia
+6. 6 dias.
+7. El componente le avisa a la TR y esta manda un sms. 2 dias
+8. (buscar la forma de "despertar la tr" nada mas) 2 dias
+9. 2 dias.
+10. 4 dias.
+11. 1 dias.
+12. 1 dias.
 
 Casos de uso EC
-1. ??? (no me imagino q hace esto)
-2. ???? idem 1
-3. Solo le avisa al sist de mail, q hace el resto 5 hs
-4. solo guardar en la bd 5 hs
-5. 40 hs
-6. 100 hs
-7. 50 hs, la parte dificil es la 6
-8. 40 ??
-9. 50 hs 
-10. algoritmo p detectar outliers, avisarle a los empleados 100 hs
-11. 30 hs, solo hay borrar los datos
-12. 5o hs
-13. 30 hs
-14. 25 hs
-15. configuracion. 20 hs
-16. 50 hs, una interfaz comun
-17. 100 hs ? no me imagino bien esto
-18. 250 hs aca hay que hacer de todo, no?
-19. 120 hs
-20. q incluye esto exactamente? 50 hs
+1. 4 dias.
+2. 3 dias.
+3. 1 dia.
+4. 1 dia.
+5. 2 dias.
+6. 5 dias.
+7. 3 dias.
+8. 2 dias.
+9. 3 dias. 
+10. 5 dias.
+11. 3 dias. Solo hay borrar los datos
+12. 3 dias.
+13. 2 dias.
+14. 2 dias.
+15. 1 dia.
+16. 3 dias. Una interfaz comun
+17. 6 dias. No me imagino bien esto
+18. 10 dias. Aca hay que hacer de todo, no?
+19. 5 dias.
+20. q incluye esto exactamente? 2 dias.
 
 Casos de uso Sistema de monitoreo
-1. Implementar interfaz c sist de facturación, algoritmo calculo costo 50hs
-2. y 3. Van juntos porque en si no es complicado mandar un mail, pero hay que config un sistema de mail 30hs
-4. Armar la interfaz y enviar datos 40 hs
-5. WTF? Estoy dormida o esto es el punto 1 de nuevo?
-6. Interfaz comun que permita abstraer los pedidos de los clientes 40 hs
-7. Para mi tiene que recibir y comparar (como compara? no "sabe" que ciertos datos son mas precisos dependiendo de dnd vienen?) 40 hs interfaz + 50 hacer algo para q tome la decision
-8. No se como calcular esto.. Ya esta hecho el protocolo o no?
-9. 10 hs (No es muy complicado esto)
-10. 30 hs... nunca hice un ABM, page seguro dice q mas
-11. 25 hs, este ABM parece mas simple q el anterior
-12. 25 hs (En realidad, no se, hay algo q no cierra... si me agregan un sensor nuevo a una TR, no deberia programar la interfaz de ese sensor cda vez q me agregan uno diferente? Eso hay que contarlo? No entiendo)
-13. 150 hs (?) Esto es notoriamente mas que los CU de esta parte, me parece
+1. Implementar interfaz c sist de facturación, algoritmo calculo costo. 3 dias.
+2. 2 dias.
+3. 1 dia.
+4. Armar la interfaz y enviar datos. 2 dias.
+5. Interfaz comun que permita abstraer los pedidos de los clientes 2 dias.
+6. Para mi tiene que recibir y comparar (como compara? no "sabe" que ciertos datos son mas precisos dependiendo de dnd vienen?). 4 dias. 
+7. 6 dias.
+8. 1 dia. (No es muy complicado esto)
+9. Nunca hice un ABM, page seguro dice q mas. 2 dias.
+10. Este ABM parece mas simple q el anterior. 2 dias.
+11. (En realidad, no se, hay algo q no cierra... si me agregan un sensor nuevo a una TR, no deberia programar la interfaz de ese sensor cda vez q me agregan uno diferente? Eso hay que contarlo? No entiendo). 1 dia.
+12. Esto es notoriamente mas que los CU de esta parte, me parece. 7 dias.
