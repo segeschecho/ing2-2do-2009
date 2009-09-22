@@ -42,7 +42,7 @@ gonzaec = [8 3 3 2 4 5 1 7 4 3 2 4 2 5 4 4 2 5 4 5]
 
 CASOS USO SISTEMA MONITOREO
 
-gonzasm = [4 2 2 4 4 4 5 2 6 5 8 4 8]
+gonzasm = [4 2 2 4 4 4 5 2 6 5 8 8]
 
 1. 4 dias
 2. 2 dias
