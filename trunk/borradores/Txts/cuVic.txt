@@ -1,0 +1,49 @@
+Casos de Uso TR
+1. Implementar una interfaz comun. 10 dias.
+2. Protocolo con el sensor. Guardado en memoria hasta que sea borrado. 3 dias
+3. Interfaz c el sensor y algoritmo de seleccion de fuente de energia 3 dias
+4. es un CU? Incluye tener listo el protocolo? 2 dias.
+5. 1 dia
+6. 6 dias.
+7. El componente le avisa a la TR y esta manda un sms. 2 dias
+8. (buscar la forma de "despertar la tr" nada mas) 2 dias
+9. 2 dias.
+10. 4 dias.
+11. 1 dias.
+12. 1 dias.
+
+Casos de uso EC
+1. 4 dias.
+2. 3 dias.
+3. 1 dia.
+4. 1 dia.
+5. 2 dias.
+6. 5 dias.
+7. 3 dias.
+8. 2 dias.
+9. 3 dias. 
+10. 5 dias.
+11. 3 dias. Solo hay borrar los datos
+12. 3 dias.
+13. 2 dias.
+14. 2 dias.
+15. 1 dia.
+16. 3 dias. Una interfaz comun
+17. 6 dias. No me imagino bien esto
+18. 10 dias. Aca hay que hacer de todo, no?
+19. 5 dias.
+20. q incluye esto exactamente? 2 dias.
+
+Casos de uso Sistema de monitoreo
+1. Implementar interfaz c sist de facturación, algoritmo calculo costo. 3 dias.
+2. 2 dias.
+3. 1 dia.
+4. Armar la interfaz y enviar datos. 2 dias.
+5. Interfaz comun que permita abstraer los pedidos de los clientes 2 dias.
+6. Para mi tiene que recibir y comparar (como compara? no "sabe" que ciertos datos son mas precisos dependiendo de dnd vienen?). 4 dias. 
+7. 6 dias.
+8. 1 dia. (No es muy complicado esto)
+9. Nunca hice un ABM, page seguro dice q mas. 2 dias.
+10. Este ABM parece mas simple q el anterior. 2 dias.
+11. (En realidad, no se, hay algo q no cierra... si me agregan un sensor nuevo a una TR, no deberia programar la interfaz de ese sensor cda vez q me agregan uno diferente? Eso hay que contarlo? No entiendo). 1 dia.
+12. Esto es notoriamente mas que los CU de esta parte, me parece. 7 dias.
