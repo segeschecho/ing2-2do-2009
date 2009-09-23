@@ -1,0 +1,21 @@
+CU a incluir en la primera it: 
+TR : 2 4 5 7 8 9 10 11 12
+EC: 2 5 6 7 8 9 12 13 15 17 18 19
+
+TR:
+2: Implementar interfaz c el sensor (usar la API q provee el sensor)
+Guardar los datos -> Implementar una BD en las TRs? (diseñarla, implementarla, cargarla, etc)
+
+4. Configurar un cronometro que tire interrupciones cada cierto tiempo (o usar el clock de la pc)
+Implementar un algoritmo de detecciòn de caidas que use como base el tiempo que hace que no se recibe informaciòn del sensor
+
+
+
+10:
+Investigar protocolos de encriptación
+Investigar protocolos de compresiòn
+Utilizar librerias que los implementen e incluirlas en el sistema
+
+EC:
+19: Implementar interfaz con Biggest Satellite (usar la API que provee BS)
+Guardarlo en la BD (Diseñar, implementar la base...)
