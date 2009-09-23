@@ -4,4 +4,20 @@ mediaec = [8 12 2 2 6 10 5 5 7 4 2 4 2 3 3 8 4 7 8 5];
 
 mediaec = [4 3 3 6 6 5 8 6 7 10 10 27];
 
+Horas totales : 6168
+Dias de 8Hs : 771
+Con 4 desarr : 193 dias // 257 (6hs)
+Meses : 9 (8.76)
 
+iter 0 -> ellos
+iter 1 -> lo que estamos haciendo ahora
+iter 2 a 10 -> 28 dias seguidos de 6 hs c/u con 4 person (eq .28 dias de 24hs)
+un caso de uso en varias iter y viseversa
+
+iter 11 a 13 -> integracion
+
+1. protocolo
+2. sensores datos etc
+3. caida
+4. proceso mat
+5. energia tr agenda sens.
