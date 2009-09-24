@@ -81,63 +81,19 @@ Completar resumen}
 \pagestyle{plain}
 
 \newpage
-\chapter{Descripci'on de Casos de Uso:}
+\input{AnalisisEntorno}
+\clearpage
 
-En el siguiente texto se mostrar'an los casos de uso principales identificados en el sistema, junto con su descripci'on. En algunos casos, se incluir'an tambien los diferentes actores, que participan en el mismo, 'estos se corresponden con los actores que se muestran en el diagrama de contexto del sistema.
+\newpage
+\input{PlanificacionProyecto}
+\clearpage
 
+\newpage
+\input{PlanIt}
+\clearpage
 
-\section{Casos de uso dentro de las TRs:}
-
-\begin{enumerate}
-\item Configurando agenda en sensor:
-	\begin{itemize}
-	\item Agentes: Estaci'on Central, Sensor.
-	\item Descripci'on: La estación central indica que se tiene que modificar la agenda de uno de los sensores de la TR, esta recibe las instrucciones, y modifica dicha agenda utilizando el protocolo de conexión con el sensor.
-	\end{itemize}
-	
-\item Obteniendo datos censados:
-	\begin{itemize}
-	\item Agentes: Sensor.
-	\item Descripci'on: La TR recibe un dato de un sensor y lo almacena para luego cuando llegue el tiempo correcto lo envie a la estacion central.
-	\end{itemize}
-	
-\item Monitoreando/configurando consumo de energía:
-	\begin{itemize}
-	\item Agentes: Componente muy usada del mercado, Batería, Panel solar)
-	\item Descripci'on: {\bf COMPLETAR}
-	\end{itemize}
-
-\item Detectando caída del sensor:
-	\begin{itemize}
-	\item Agentes: Estaci'on Central, Sensor.
-	\item Descripci'on: Se detecta la caida de un sensor cuando la TR no recibe datos del mismo dentro del tiempo que tiene configurado para recibirlos. {\bf COMPLETAR}
-	\end{itemize}
-	
-\item Detectando recuperación del sensor:
-	\begin{itemize}
-	\item Agentes: Estaci'on Central, Sensor.
-	\item Descripci'on:	Se detecta la reactivación de un sensor cuando se comienza a recibir información del mismo. {\bf COMPLETAR}
-	\end{itemize}
-	
-\item ABM de sensor:
-	\begin{itemize}
-	\item Agentes: Sensor, Operario, {\bf Estaci'on Central?}
-	\item Descripci'on: Se instala un nuevo sensor en la TR y el operario la configura para que en determinado momento se comience a enviar sus datos a la Estación Central.
-	\end{itemize}
-
-\item Detección de posible caída por falta de energía:
-	\begin{itemize}
-	\item Agentes: Componente muy usada del mercado, Estaci'on Central.
-	\item Descripci'on: El componente muy usado del mercado le indica a la TR que la energía en la batería se encuentra en un nivel bajo y es necesario recargarla, en este caso ls TR indica esto a la estación central. {\bf COMPLETAR}
-	\end{itemize}
-
-\item Detectando caída del sensor
-	\begin{itemize}
-	\item Agentes:
-	\item Descripci'on:
-	\end{itemize}
-	
-\end{enumerate}
-
+\newpage
+\input{Conclusion}
+\clearpage
 \label{LastPage}
 \end{document}
