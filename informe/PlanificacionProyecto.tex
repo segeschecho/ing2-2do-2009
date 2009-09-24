@@ -1,6 +1,6 @@
 \chapter{Planificación del Proyecto}
 
-\section{Descripci'on de Casos de Uso}
+\section{Generación y descripci'on de Casos de Uso}
 
 En el siguiente texto se mostrar'an los casos de uso principales identificados en el sistema, junto con su descripci'on. En algunos casos, se incluir'an tambien los diferentes actores, que participan en el mismo, 'estos se corresponden con los actores que se muestran en el diagrama de contexto del sistema.
 
@@ -58,5 +58,203 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 \end{enumerate}
 
 
-\section{Estimaciones a los casos de uso del proyecto}
+\section{Estimaciones a los casos de uso del proyecto(Asignación de pesos)}
 
+El método que se utilizó para estimar las tareas fue Wideban Delphi. A continuación se detallarán las principales etapas del proceso, sus complicaciones, resultados en común y las conclusiones finales.
+
+\subsection{Planificación y reunión de lanzamiento}
+
+Estas dos etapas del proceso fueron básicamente, para poner en común que se iban a estimar los casos de uso de la sección anterior, el método utilizado, y la medida que se iba a utilizar para la estimación, en nuestro caso llegamos a que la medida para estimar viene dada por días/persona teniendo en cuenta días de 24 horas. Esta decicion fue tomada más que nada para simplificar la estimación y no tener que trabajar en horas en esta parte del proyecto. El objetivo básico de éstas estimaciones fue para poder luego determinar cantidad de iteraciones, duración y fase a la que pertenecen de manera más o menos objetiva. Los encargados de llevar a cabo las estimaciones fuimos los 4 integrantes del grupo.
+
+\subsection{Preparación individual y reunión de estimación}
+
+En estas dos etapas del proceso llevamos a cabo cada uno las estimaciones que consideramos necesarias para cada uno de los casos de uso. Luego analizamos diferencias realizando gráficos que reflejaran la información de las estimaciones como se detalla a continuación.
+
+La primera ronda de estimaciones genero los siguientes resultados:
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=13cm,height=6cm]{EstimacionTR1raRonda.png}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=13cm,height=6cm]{EstimacionEC1raRonda.png}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=13cm,height=6cm]{EstimacionSM1raRonda.png}
+\end{figure}
+
+\clearpage
+\newpage
+
+Había muchas tareas que diferían bastante en la estimación por lo cual en la primera reunión de estimación se intentó nuevamente ver el alcance de cada caso de uso, lo cual sirvió para que algunos estimadores pudieran tener en cuenta tareas y funcionalidades que en principio no habian considerado. Luego se procedió a realizar una segunda ronda de estimaciones y los resultados se detallan a continuación en los siguientes gráficos:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=13cm,height=6cm]{EstimacionTR2daRonda.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=13cm,height=6cm]{EstimacionEC2daRonda.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=13cm,height=6cm]{EstimacionSM2daRonda.png}
+\end{figure}
+
+
+\clearpage
+\newpage
+
+Si bien hubo mejorías en la segunda ronda, consideramos que existían desvíos no aceptables, por lo cual nuevamente se revisaron los casos de uso y se llegó a la conclución que una tercera ronda de estimaciones reduciría éstos desvíos. Luego de la tercera ronda consideramos detener las estimaciones ya que el desvío fue aceptable (alrededor de dos días )y las estimaciones, calculando un promedio entre ellas podían llegar a reflejar valores adecuados. Los resultados son los siguientes: 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=13cm,height=6cm]{EstimacionTR3raRonda.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=13cm,height=6cm]{EstimacionEC3raRonda.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=13cm,height=6cm]{EstimacionSM3raRonda.png}
+\end{figure}
+
+
+\clearpage
+\newpage
+\subsection{Ensamblado de tareas y revisión de resultados}
+
+Finalemnte en ésta sección se calculó un promedio de las estimaciones realizadas para cada tarea por cada estimador y se pudo concluír en resultados que a todos los integrantes le parecieron adecuados. A continuación se detallan los pesos asigandos a cada caso de uso que resultaron del proceso de estimación.
+
+\begin{itemize}
+
+\item Casos de uso de la TR.
+	
+\begin{tabular}{||l | r||}
+\hline
+\hline
+Número CU & Duración \\
+\hline
+ CU 1  & 5 \\
+\hline
+ CU 2  & 9 \\
+\hline 
+ CU 3  & 4 \\
+\hline
+ CU 4  & 3 \\
+\hline
+ CU 5  & 3 \\
+\hline
+ CU 6  & 6 \\
+\hline
+ CU 7  & 2 \\
+\hline
+ CU 8  & 3 \\
+\hline
+ CU 9  & 5 \\
+\hline
+ CU 10  & 9 \\
+\hline
+ CU 11  & 4 \\
+\hline
+ CU 12  & 2 \\
+\hline
+\hline
+\end{tabular}
+\newline
+
+\item Casos de uso de la EC.
+	
+\begin{tabular}{||l | r||}
+\hline
+\hline
+Número CU & Duración \\
+\hline
+ CU 1  & 8 \\
+\hline
+ CU 2  & 12 \\
+\hline 
+ CU 3  & 2 \\
+\hline
+ CU 4  & 2 \\
+\hline
+ CU 5  & 6 \\
+\hline
+ CU 6  & 10 \\
+\hline
+ CU 7  & 5 \\
+\hline
+ CU 8  & 5 \\
+\hline
+ CU 9  & 7 \\
+\hline
+ CU 10  & 4 \\
+\hline
+ CU 11  & 2 \\
+\hline
+ CU 12  & 4 \\
+\hline
+ CU 13  & 2 \\
+\hline
+ CU 14  & 3 \\
+\hline
+ CU 15  & 3 \\
+\hline
+ CU 16  & 8 \\
+\hline
+ CU 17  & 4 \\
+\hline
+ CU 18  & 7 \\
+\hline
+ CU 19  & 8 \\
+\hline
+ CU 20  & 5 \\
+\hline
+\hline
+\end{tabular}
+\newline
+
+\item Casos de uso del SM.
+	
+\begin{tabular}{||l | r||}
+\hline
+\hline
+Número CU & Duración \\
+\hline
+ CU 1  & 4 \\
+\hline
+ CU 2  & 3 \\
+\hline 
+ CU 3  & 3 \\
+\hline
+ CU 4  & 6 \\
+\hline
+ CU 5  & 6 \\
+\hline
+ CU 6  & 5 \\
+\hline
+ CU 7  & 8 \\
+\hline
+ CU 8  & 6 \\
+\hline
+ CU 9  & 7 \\
+\hline
+ CU 10  & 10 \\
+\hline
+ CU 11  & 10\\
+\hline
+ CU 12  & 27 \\
+\hline
+\hline
+\end{tabular}
+
+\end{itemize}
