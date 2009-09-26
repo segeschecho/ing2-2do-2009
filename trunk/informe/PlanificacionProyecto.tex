@@ -128,8 +128,8 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 
 \item TR10:
 	\begin{itemize}
-	\item Agentes:
-	\item Descripci'on: Los datos son comprimidos y encriptados
+	\item Agentes: Sistema Interno
+	\item Descripci'on: Los datos son comprimidos y encriptados para luego poder ser enviados a la EC segun idicación de un protocolo pertinente.
 	\end{itemize}
 	
 \end{enumerate}
@@ -153,7 +153,7 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 \subsection{Casos de uso dentro de la EC:}
 \item EC1:
 	\begin{itemize}
-	\item Agentes:
+	\item Agentes: Sistema Interno
 	\item Descripci'on: En esta funcionalidad la estación central determina un punto de restauración, donde todos los datos hasta dicho punto son correctos.
 	\end{itemize}
 	
@@ -161,16 +161,16 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 
 \item EC2:
 	\begin{itemize}
-	\item Agentes:
-	\item Descripci'on: Una vez que se terminaron de calcular los modelos, y se guardan los resultados, se les notifica  a los interesados.
+	\item Agentes: Sistema Interno
+	\item Descripci'on: Con un punto de restauración bien definido y con todos los datos necesarios el sistema procesa los modelos pertinentes.
 	\end{itemize}
 	
 \end{enumerate}
 
 \item EC3:
 	\begin{itemize}
-	\item Agentes:
-	\item Descripci'on:
+	\item Agentes: Sistema Interno
+	\item Descripci'on: Una vez que se terminaron de calcular los modelos, y se guardan los resultados, se les notifica  a los interesados.
 	\end{itemize}
 	
 \end{enumerate}
@@ -225,7 +225,7 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 
 \item EC10:
 	\begin{itemize}
-	\item Agentes:
+	\item Agentes: Sistema interno, operario
 	\item Descripci'on: Dependiendo de la configuración establecida para detectar outliers en los datos que se reciben, el sistema central, al detectar uno, se encarga de notificar dicho suceso a los responsables, para que lo examinen, y determinen si es un dato correcto o no.
 	\end{itemize}
 	
@@ -233,7 +233,7 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 
 \item EC11:
 	\begin{itemize}
-	\item Agentes:
+	\item Agentes: Experto en outliers
 	\item Descripci'on: Luego de la notificación de outliers, el encargado correspondiente de analizarlos, le indica al sistema que se descarten o se incluyan para procesar los modelos.
 	\end{itemize}
 	
@@ -257,7 +257,7 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 
 \item EC14:
 	\begin{itemize}
-	\item Agentes: 
+	\item Agentes: Sistema interno
 	\item Descripci'on: Cada vez que se termina de utilizar el servicio de Biggest Satelite, la estación central, guarda el tiempo utilizado, para que luego se realice la liquidación.
 	\end{itemize}
 	
@@ -265,7 +265,7 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 
 \item EC15:
 	\begin{itemize}
-	\item Agentes: Experto en modelos matematicos.
+	\item Agentes: Experto en modelos matematicos, Sistema de monitoreo
 	\item Descripci'on: El experto configura los intervalos de confianza para outliers que él considera adecuados. El sistema guarda esta configuración.
 	\end{itemize}
 	
@@ -273,15 +273,15 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 
 \item EC16:
 	\begin{itemize}
-	\item Agentes:
-	\item Descripci'on:
+	\item Agentes: Sistema de monitoreo.
+	\item Descripci'on: El sistema de monitoreo le envia a la EC los datos provenientes del sistema eólico para que esta los pueda usar segun corresponda.
 	\end{itemize}
 	
 \end{enumerate}
 
 \item EC17:
 	\begin{itemize}
-	\item Agentes: Experto en modelos matemáticos
+	\item Agentes: Experto en modelos matemáticos, Sistema de monitoreo
 	\item Descripci'on: Se ingresan o se eliminan reglas al modelo matemático, agregando de esta forma la posibilidad de realizar todo tipo de cálculos.
 	\end{itemize}
 	
@@ -289,24 +289,24 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 
 \item EC18:
 	\begin{itemize}
-	\item Agentes:
-	\item Descripci'on:
+	\item Agentes: Sistema interno
+	\item Descripci'on: Se reciben los mensajes de las distintas TRs y pasan por las capas correspondientes para descomprimir y desencriptar.
 	\end{itemize}
 	
 \end{enumerate}
 
 \item EC19:
 	\begin{itemize}
-	\item Agentes:
-	\item Descripci'on:
+	\item Agentes: Biggest Satelite
+	\item Descripci'on: El sistema BS le envia a la EC los datos pedidos luego del reemplazo de una o varias TRS o sensores
 	\end{itemize}
 	
 \end{enumerate}
 
 \item EC20:
 	\begin{itemize}
-	\item Agentes:
-	\item Descripci'on:
+	\item Agentes: Cliente Externo, experto en modelos matemáticos
+	\item Descripci'on: Mediante un mecanismo fijado se agregan nuevos modelos matemáticos para ser procesados luego para un cliente externo.
 	\end{itemize}
 	
 \end{enumerate}
@@ -378,15 +378,14 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 	\item Descripci'on: Un operario puede agregar o quitar un nuevo tipo de sensor. Dicho tipo es reflejado en el Servidor de Base de datos y en la Estación Central.
 	\end{itemize}
 
-\item SM12: Operario, Base de Datos, Sisitema de Pantallas
+\item SM12: 
 	\begin{itemize}
-	\item Agentes:
-	\item Descripci'on:
+	\item Agentes: Operario, Base de Datos, Sisitema de Pantallas
+	\item Descripci'on: Se muestra en pantallas segun sea pedido las distintas caracteristicas que el usuario desea ver.
 	    \begin{itemize}
 	      \item Vista global del estado sistema
 	      \item Vista por segmento de red
-	      \item Vista por TR
-	      \item 
+	      \item Vista por TR o sensor
 	    \end{itemize}
 	\end{itemize}
 	
