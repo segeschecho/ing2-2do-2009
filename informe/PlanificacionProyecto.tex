@@ -30,8 +30,8 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 	\item EC02. Procesando modelos matemáticos
 	\item EC03. Notificando resultado del modelo
 	\item EC04. Guardando datos del modelo
-	\item EC05. Detectando caida/alta de TR
-	\item EC06. Triangulando o reemplazando por BS TR/sensor
+	\item EC05. Triangulando o reemplazando por BS TR/sensor
+	\item EC06. Detectando alta de TR/Sensor
 	\item EC07. Anunciando remplazo o triangulacion de TR/sensor
 	\item EC08.	Normalizando TR/sensor y anunciandolo
 	\item EC09. Detectando red congestionada y anunciandolo
@@ -68,49 +68,106 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 \subsection{Casos de uso dentro de las TRs:}
 
 \begin{enumerate}
-\item Configurando agenda en sensor:
+\item TR01:
 	\begin{itemize}
 	\item Agentes: Estaci'on Central, Sensor.
 	\item Descripci'on: La estación central indica que se tiene que modificar la agenda de uno de los sensores de la TR, esta recibe las instrucciones, y modifica dicha agenda utilizando el protocolo de conexión con el sensor.
 	\end{itemize}
 	
-\item Obteniendo datos censados:
+\item TR02:
 	\begin{itemize}
 	\item Agentes: Sensor.
 	\item Descripci'on: La TR recibe un dato de un sensor y lo almacena para luego cuando llegue el tiempo correcto lo envie a la estacion central.
 	\end{itemize}
 	
-\item Monitoreando/configurando consumo de energía:
+\item TR03:
 	\begin{itemize}
 	\item Agentes: Componente muy usada del mercado, Batería, Panel solar)
-	\item Descripci'on: {\bf COMPLETAR}
+	\item Descripci'on: La TR recibe información periodica del estado de la Bateria y del Panel Solar y en base a esa información administra el consumo de energía.
 	\end{itemize}
 
-\item Detectando caída del sensor:
+\item TR04:
 	\begin{itemize}
-	\item Agentes: Estaci'on Central, Sensor.
-	\item Descripci'on: Se detecta la caida de un sensor cuando la TR no recibe datos del mismo dentro del tiempo que tiene configurado para recibirlos. {\bf COMPLETAR}
+	\item Agentes: Estaci'on Central, Sensor, clock interno.
+	\item Descripci'on: Se detecta la caida de un sensor cuando la TR no recibe datos del mismo dentro del tiempo que tiene configurado para recibirlos. Se notifica esto a la EC para que tome las medidas que considere apropiadas.
 	\end{itemize}
 	
-\item Detectando recuperación del sensor:
+\item TR05:
 	\begin{itemize}
 	\item Agentes: Estaci'on Central, Sensor.
-	\item Descripci'on:	Se detecta la reactivación de un sensor cuando se comienza a recibir información del mismo. {\bf COMPLETAR}
+	\item Descripci'on: Se reciben datos de un sensor que no estaba emitiendo (estaba roto). Se lo considera reactivado y se empiezan a almacenar normalmente los datos que este produce. Se notifica a la EC.
 	\end{itemize}
 	
-\item ABM de sensor:
+\item TR06:
 	\begin{itemize}
-	\item Agentes: Sensor, Operario, {\bf Estaci'on Central?}
-	\item Descripci'on: Se instala un nuevo sensor en la TR y el operario la configura para que en determinado momento se comience a enviar sus datos a la Estación Central.
+	\item Agentes: Sensor, Operario, Estaci'on Central
+	\item Descripci'on: Un operario instala un nuevo sensor en la TR y lo configura para enviar datos a la TR. Se notifica a la EC de la presencia de este nuevo sensor. En caso de modificación o baja sucede algo analogo: el operario hace las modificaciones físicas y de configuración pertinentes en la TR y esta comunica el cambio a la EC.
 	\end{itemize}
 
-\item Detección de posible caída por falta de energía:
+\item TR07:
 	\begin{itemize}
-	\item Agentes: Componente muy usada del mercado, Estaci'on Central.
-	\item Descripci'on: El componente muy usado del mercado le indica a la TR que la energía en la batería se encuentra en un nivel bajo y es necesario recargarla, en este caso ls TR indica esto a la estación central. {\bf COMPLETAR}
+	\item Agentes: Bateria y Panel Solar (Componente muy usada del mercado), Estaci'on Central.
+	\item Descripci'on: La TR recibe una alerta de batería en nivel mínimo del sensor de batería y una alerta de radiación solar muy baja (no utilizable) del panel solar. Como no puede utilizar ninguna de las 2 fuentes de energia que posee, notifica a la EC que va a quedarse sin energía.
 	\end{itemize}
 
-\item assdfasdf
+\item TR08:
+	\begin{itemize}
+	\item Agentes: Bateria y Panel Solar (Componente muy usada del mercado), Estaci'on Central.
+	\item Descripci'on: La TR reanuda sus funciones y comienza a almacenar nuevamente los datos que los sensores le envían, para luego hacerlos llegar a la estación central.
+	\end{itemize}
+	
+\end{enumerate}
+
+\item TR09:
+	\begin{itemize}
+	\item Agentes: Clock interno
+	\item Descripci'on:  El clock interno de la TR notifica que ha pasado un minuto desde el último envío de datos a la Estación Central. La TR recolecta los últimos datos obtenidos de los censores para ser enviados.
+	\end{itemize}
+	
+\end{enumerate}
+
+\item TR10:
+	\begin{itemize}
+	\item Agentes:
+	\item Descripci'on: Los datos son comprimidos y encriptados
+	\end{itemize}
+	
+\end{enumerate}
+
+\item TR11:
+	\begin{itemize}
+	\item Agentes: Clock interno
+	\item Descripci'on: Dado que en la red GSM hay riesgo de péridas y retrasos, la TR tiene configurado un tiempo de espera para recibir la confirmación de que un mensaje enviado fue recibido. Al haber transcurrido este tiempo y no haber recibido esta confirmación, se da el mensaje por perdido y se lo envia nuevamente.
+	\end{itemize}
+	
+\end{enumerate}
+
+\item TR12:
+	\begin{itemize}
+	\item Agentes: EC
+	\item Descripci'on: Se recibe la confirmación de recepción correcta de datos por parte de la EC. Se borran estos datos de la TR (porque ya están en la EC).
+	\end{itemize}
+	
+\end{enumerate}
+
+\subsection{Casos de uso dentro de la EC:}
+\item EC1:
+	\begin{itemize}
+	\item Agentes:
+	\item Descripci'on: En esta funcionalidad la estación central determina un punto de restauración, donde todos los datos hasta dicho punto son correctos.
+	\end{itemize}
+	
+\end{enumerate}
+
+\item EC2:
+	\begin{itemize}
+	\item Agentes:
+	\item Descripci'on: Una vez que se terminaron de calcular los modelos, y se guardan los resultados, se les notifica  a los interesados.
+	\end{itemize}
+	
+\end{enumerate}
+
+\item EC3:
 	\begin{itemize}
 	\item Agentes:
 	\item Descripci'on:
@@ -118,6 +175,222 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 	
 \end{enumerate}
 
+\item EC4:
+	\begin{itemize}
+	\item Agentes:
+	\item Descripci'on: Una vez finalizados los cálculos, y obtenidos los resultados de los modelos, la estación central los guarda en la base de datos.
+	\end{itemize}
+	
+\end{enumerate}
+
+  \item EC05:
+	\begin{itemize}
+	\item Agentes: Clock interno
+	\item Descripci'on: Cuando se detecta la caída de una TR o de un sensor de una TR, la central trata de subsanar el problema. Si la caída fue de una TR, entonces trata de triangularla utilizando la información de las TRs vecinas. De no ser posible, se utiliza el servicio de Biggest Satelite para obtener los datos de la zona donde se encuentra la TR caída, guardando el tiempo de uso del sistema. Si la caída fue de un sensor dentro de una TR, entonces, se trata de triangular el sensor, con la información de los sensores del mismo tipo, de las TRs vecinas. 
+	\end{itemize}
+	
+\end{enumerate}
+
+\item EC6:
+	\begin{itemize}
+	\item Agentes: TR  / Biggest Satellite
+	\item Descripci'on: La estación central detecta la caída de una TR cuando pasado el minuto del ultimo dato recibido, no se reciben mas datos. Así también de la misma forma, cuando se detecta la llegada de datos de una TR, la central detecta que la misma se reactivó. Desactiva una triangulación de esa TR si la hubiere o suspende los servicios de Biggest Sattelite para reemplar esa TR si estuvieran acitvos. Se toman normalmente los datos provenientes de esa TR.
+	\end{itemize}
+	
+\end{enumerate}
+
+\item EC07:
+	\begin{itemize}
+	\item Agentes: Sistema de Monitoreo
+	\item Descripci'on: Una vez que se realizo la triangulación o se comenzó a utilizar el servicio de Biggest Satelite, se anuncia al sistema de monitoreo.
+	\end{itemize}
+	
+\end{enumerate}
+
+\item EC08:
+	\begin{itemize}
+	\item Agentes: Sistema de monitoreo
+	\item Descripci'on: Cuando se detecte la reactivación de un sensor, se anuncia al sistema de monitoreo.
+	\end{itemize}
+	
+\end{enumerate}
+
+\item EC09:
+	\begin{itemize}
+	\item Agentes: Sistema de monitoreo
+	\item Descripci'on: Se detecta congestionamiento en la red, cuando los datos arriban con retraso a la estación central, en este caso se informa al sistema de monitoreo para que este avise a quien corresponda.
+	\end{itemize}
+	
+\end{enumerate}
+
+\item EC10:
+	\begin{itemize}
+	\item Agentes:
+	\item Descripci'on: Dependiendo de la configuración establecida para detectar outliers en los datos que se reciben, el sistema central, al detectar uno, se encarga de notificar dicho suceso a los responsables, para que lo examinen, y determinen si es un dato correcto o no.
+	\end{itemize}
+	
+\end{enumerate}
+
+\item EC11:
+	\begin{itemize}
+	\item Agentes:
+	\item Descripci'on: Luego de la notificación de outliers, el encargado correspondiente de analizarlos, le indica al sistema que se descarten o se incluyan para procesar los modelos.
+	\end{itemize}
+	
+\end{enumerate}
+
+\item EC12:
+	\begin{itemize}
+	\item Agentes: TR
+	\item Descripci'on: Ante el arribo de mensajes repetidos o en desorden, la EC se encarga de ordenarlos y descartar los repetidos.
+	\end{itemize}
+	
+\end{enumerate}
+
+\item EC13:
+	\begin{itemize}
+	\item Agentes: TR
+	\item Descripci'on: Al recibir un mensaje de una TR, se le envía un mensaje de confirmación para que esta sepa que el mensaje llego correctamente.
+	\end{itemize}
+	
+\end{enumerate}
+
+\item EC14:
+	\begin{itemize}
+	\item Agentes: 
+	\item Descripci'on: Cada vez que se termina de utilizar el servicio de Biggest Satelite, la estación central, guarda el tiempo utilizado, para que luego se realice la liquidación.
+	\end{itemize}
+	
+\end{enumerate}
+
+\item EC15:
+	\begin{itemize}
+	\item Agentes: Experto en modelos matematicos.
+	\item Descripci'on: El experto configura los intervalos de confianza para outliers que él considera adecuados. El sistema guarda esta configuración.
+	\end{itemize}
+	
+\end{enumerate}
+
+\item EC16:
+	\begin{itemize}
+	\item Agentes:
+	\item Descripci'on:
+	\end{itemize}
+	
+\end{enumerate}
+
+\item EC17:
+	\begin{itemize}
+	\item Agentes: Experto en modelos matemáticos
+	\item Descripci'on: Se ingresan o se eliminan reglas al modelo matemático, agregando de esta forma la posibilidad de realizar todo tipo de cálculos.
+	\end{itemize}
+	
+\end{enumerate}
+
+\item EC18:
+	\begin{itemize}
+	\item Agentes:
+	\item Descripci'on:
+	\end{itemize}
+	
+\end{enumerate}
+
+\item EC19:
+	\begin{itemize}
+	\item Agentes:
+	\item Descripci'on:
+	\end{itemize}
+	
+\end{enumerate}
+
+\item EC20:
+	\begin{itemize}
+	\item Agentes:
+	\item Descripci'on:
+	\end{itemize}
+	
+\end{enumerate}
+
+\subsection{Casos de uso dentro del sistema de Monitoreo}
+\item SM01:
+	\begin{itemize}
+	\item Agentes: Clock interno (tarea programada)
+	\item Descripci'on: El útlimo día hábil del mes el sistema envía al sistema de facturación, la cantidad de tiempo de uso del servicio de Biggest Satelite.
+	\end{itemize}
+
+\item SM02:
+	\begin{itemize}
+	\item Agentes: Ec, Sistema de mail
+	\item Descripci'on: Cuando la estación central detecta la caída de una TR, el sistema de monitoreo es notificado para que envíe un mail a los responsables avisando que una TR no esta respondiendo.
+	\end{itemize}
+
+\item SM03:
+	\begin{itemize}
+	\item Agentes: EC, Sistema de mail
+	\item Descripci'on: Cuando la estación central detecta que la red se encuentra saturada, esta le notifica al sistema de monitoreo, para que envíe un mail a los responsables avisando de la eventualidad.
+	\end{itemize}
+
+\item SM04:
+	\begin{itemize}
+	\item Agentes: Ministerio de Infraestructura, Base de datos
+	\item Descripci'on: Mediante el servicio de Web Service, se le envían los datos que el sistema del Ministerio de Infraestructura pide para mostrar en su página.
+	\end{itemize}
+
+\item SM05:
+	\begin{itemize}
+	\item Agentes: Cliente Externo, Base de Datos
+	\item Descripci'on: Mediante el sistema de Web Service, se envían los datos solicitados al cliente externo, para que los utilice.
+	\end{itemize}
+
+\item SM06:
+	\begin{itemize}
+	\item Agentes: Sistema éolico, Base de datos, EC
+	\item Descripci'on: Se recibe la información del sistema eolico, y se almacena en la base de datos, para que luego la estación central los procese. Se notifica a la EC para que luego esta compare los datos con los obtenidos de las TRs.
+	\end{itemize}
+
+\item SM07:
+	\begin{itemize}
+	\item Agentes: Base de Datos, EC, TR, operario
+	\item Descripci'on: Desde el sistema de monitoreo y através de la Estación Central, un operario puede modificar la agenda de un sensor que elija dentro de una TR. Cuando se realiza el cambio, esto es reflejado en el Servidor de Base de datos, para que quede registrado el cambio.
+	\end{itemize}
+
+\item SM08:
+	\begin{itemize}
+	\item Agentes: Operario, Base de Datos
+	\item Descripci'on: Un operario puede configurar el envío de alertas para cuando la Estación Central detecta la caída de una TR o la saturación de la red, agregando o quitando responsables en la lista de mails de notificación. Este cambio se refleja en el Servidor de Base de datos.
+	\end{itemize}
+
+\item SM09:
+	\begin{itemize}
+	\item Agentes: Operario, Base de Datos
+	\item Descripci'on: Un operario puede ingresar o eliminar a un cliente externo, el cual podra recibir o no la información que el sistema procese. Esto se refleja en el Servidor de Base de datos.
+	\end{itemize}
+
+\item SM10:
+	\begin{itemize}
+	\item Agentes: Base de Datos, operario, EC
+	\item Descripci'on: Un operario puede ingresar o quitar una TR, con toda su información relacionada (ubicación, identificación, etc.).Este cambio se refleja en el Servidor de Base de datos y en la Estación Central, la cual comenzara o no a recibir y procesar los datos que lleguen o no de dicha TR.
+	\end{itemize}
+
+\item SM11:
+	\begin{itemize}
+	\item Agentes: Base de Datos, operario, EC
+	\item Descripci'on: Un operario puede agregar o quitar un nuevo tipo de sensor. Dicho tipo es reflejado en el Servidor de Base de datos y en la Estación Central.
+	\end{itemize}
+
+\item SM12: Operario, Base de Datos, Sisitema de Pantallas
+	\begin{itemize}
+	\item Agentes:
+	\item Descripci'on:
+	    \begin{itemize}
+	      \item Vista global del estado sistema
+	      \item Vista por segmento de red
+	      \item Vista por TR
+	      \item 
+	    \end{itemize}
+	\end{itemize}
+	
+\end{enumerate}
 
 \section{Estimaciones a los casos de uso del proyecto(Asignación de pesos)}
 
