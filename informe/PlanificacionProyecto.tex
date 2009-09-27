@@ -116,23 +116,17 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 	\item Descripci'on: La TR reanuda sus funciones y comienza a almacenar nuevamente los datos que los sensores le envían, para luego hacerlos llegar a la estación central.
 	\end{itemize}
 	
-\end{enumerate}
-
 \item TR09:
 	\begin{itemize}
 	\item Agentes: Clock interno
 	\item Descripci'on:  El clock interno de la TR notifica que ha pasado un minuto desde el último envío de datos a la Estación Central. La TR recolecta los últimos datos obtenidos de los censores para ser enviados.
 	\end{itemize}
-	
-\end{enumerate}
 
 \item TR10:
 	\begin{itemize}
 	\item Agentes: Sistema Interno
 	\item Descripci'on: Los datos son comprimidos y encriptados para luego poder ser enviados a la EC segun idicación de un protocolo pertinente.
-	\end{itemize}
-	
-\end{enumerate}
+	\end{itemize}	
 
 \item TR11:
 	\begin{itemize}
@@ -140,8 +134,6 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 	\item Descripci'on: Dado que en la red GSM hay riesgo de péridas y retrasos, la TR tiene configurado un tiempo de espera para recibir la confirmación de que un mensaje enviado fue recibido. Al haber transcurrido este tiempo y no haber recibido esta confirmación, se da el mensaje por perdido y se lo envia nuevamente.
 	\end{itemize}
 	
-\end{enumerate}
-
 \item TR12:
 	\begin{itemize}
 	\item Agentes: EC
@@ -151,13 +143,15 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 \end{enumerate}
 
 \subsection{Casos de uso dentro de la EC:}
+
+\begin{enumerate}
+
 \item EC1:
 	\begin{itemize}
 	\item Agentes: Sistema Interno
 	\item Descripci'on: En esta funcionalidad la estación central determina un punto de restauración, donde todos los datos hasta dicho punto son correctos.
 	\end{itemize}
 	
-\end{enumerate}
 
 \item EC2:
 	\begin{itemize}
@@ -165,7 +159,6 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 	\item Descripci'on: Con un punto de restauración bien definido y con todos los datos necesarios el sistema procesa los modelos pertinentes.
 	\end{itemize}
 	
-\end{enumerate}
 
 \item EC3:
 	\begin{itemize}
@@ -173,15 +166,12 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 	\item Descripci'on: Una vez que se terminaron de calcular los modelos, y se guardan los resultados, se les notifica  a los interesados.
 	\end{itemize}
 	
-\end{enumerate}
 
 \item EC4:
 	\begin{itemize}
 	\item Agentes:
 	\item Descripci'on: Una vez finalizados los cálculos, y obtenidos los resultados de los modelos, la estación central los guarda en la base de datos.
 	\end{itemize}
-	
-\end{enumerate}
 
   \item EC05:
 	\begin{itemize}
@@ -189,7 +179,6 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 	\item Descripci'on: Cuando se detecta la caída de una TR o de un sensor de una TR, la central trata de subsanar el problema. Si la caída fue de una TR, entonces trata de triangularla utilizando la información de las TRs vecinas. De no ser posible, se utiliza el servicio de Biggest Satelite para obtener los datos de la zona donde se encuentra la TR caída, guardando el tiempo de uso del sistema. Si la caída fue de un sensor dentro de una TR, entonces, se trata de triangular el sensor, con la información de los sensores del mismo tipo, de las TRs vecinas. 
 	\end{itemize}
 	
-\end{enumerate}
 
 \item EC6:
 	\begin{itemize}
@@ -197,15 +186,12 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 	\item Descripci'on: La estación central detecta la caída de una TR cuando pasado el minuto del ultimo dato recibido, no se reciben mas datos. Así también de la misma forma, cuando se detecta la llegada de datos de una TR, la central detecta que la misma se reactivó. Desactiva una triangulación de esa TR si la hubiere o suspende los servicios de Biggest Sattelite para reemplar esa TR si estuvieran acitvos. Se toman normalmente los datos provenientes de esa TR.
 	\end{itemize}
 	
-\end{enumerate}
-
 \item EC07:
 	\begin{itemize}
 	\item Agentes: Sistema de Monitoreo
 	\item Descripci'on: Una vez que se realizo la triangulación o se comenzó a utilizar el servicio de Biggest Satelite, se anuncia al sistema de monitoreo.
 	\end{itemize}
 	
-\end{enumerate}
 
 \item EC08:
 	\begin{itemize}
@@ -213,7 +199,6 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 	\item Descripci'on: Cuando se detecte la reactivación de un sensor, se anuncia al sistema de monitoreo.
 	\end{itemize}
 	
-\end{enumerate}
 
 \item EC09:
 	\begin{itemize}
@@ -221,7 +206,6 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 	\item Descripci'on: Se detecta congestionamiento en la red, cuando los datos arriban con retraso a la estación central, en este caso se informa al sistema de monitoreo para que este avise a quien corresponda.
 	\end{itemize}
 	
-\end{enumerate}
 
 \item EC10:
 	\begin{itemize}
@@ -229,7 +213,6 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 	\item Descripci'on: Dependiendo de la configuración establecida para detectar outliers en los datos que se reciben, el sistema central, al detectar uno, se encarga de notificar dicho suceso a los responsables, para que lo examinen, y determinen si es un dato correcto o no.
 	\end{itemize}
 	
-\end{enumerate}
 
 \item EC11:
 	\begin{itemize}
@@ -237,15 +220,13 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 	\item Descripci'on: Luego de la notificación de outliers, el encargado correspondiente de analizarlos, le indica al sistema que se descarten o se incluyan para procesar los modelos.
 	\end{itemize}
 	
-\end{enumerate}
 
 \item EC12:
 	\begin{itemize}
 	\item Agentes: TR
 	\item Descripci'on: Ante el arribo de mensajes repetidos o en desorden, la EC se encarga de ordenarlos y descartar los repetidos.
 	\end{itemize}
-	
-\end{enumerate}
+
 
 \item EC13:
 	\begin{itemize}
@@ -253,15 +234,12 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 	\item Descripci'on: Al recibir un mensaje de una TR, se le envía un mensaje de confirmación para que esta sepa que el mensaje llego correctamente.
 	\end{itemize}
 	
-\end{enumerate}
-
 \item EC14:
 	\begin{itemize}
 	\item Agentes: Sistema interno
 	\item Descripci'on: Cada vez que se termina de utilizar el servicio de Biggest Satelite, la estación central, guarda el tiempo utilizado, para que luego se realice la liquidación.
 	\end{itemize}
 	
-\end{enumerate}
 
 \item EC15:
 	\begin{itemize}
@@ -269,7 +247,6 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 	\item Descripci'on: El experto configura los intervalos de confianza para outliers que él considera adecuados. El sistema guarda esta configuración.
 	\end{itemize}
 	
-\end{enumerate}
 
 \item EC16:
 	\begin{itemize}
@@ -277,7 +254,6 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 	\item Descripci'on: El sistema de monitoreo le envia a la EC los datos provenientes del sistema eólico para que esta los pueda usar segun corresponda.
 	\end{itemize}
 	
-\end{enumerate}
 
 \item EC17:
 	\begin{itemize}
@@ -285,15 +261,12 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 	\item Descripci'on: Se ingresan o se eliminan reglas al modelo matemático, agregando de esta forma la posibilidad de realizar todo tipo de cálculos.
 	\end{itemize}
 	
-\end{enumerate}
-
 \item EC18:
 	\begin{itemize}
 	\item Agentes: Sistema interno
 	\item Descripci'on: Se reciben los mensajes de las distintas TRs y pasan por las capas correspondientes para descomprimir y desencriptar.
 	\end{itemize}
-	
-\end{enumerate}
+
 
 \item EC19:
 	\begin{itemize}
@@ -301,7 +274,6 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 	\item Descripci'on: El sistema BS le envia a la EC los datos pedidos luego del reemplazo de una o varias TRS o sensores
 	\end{itemize}
 	
-\end{enumerate}
 
 \item EC20:
 	\begin{itemize}
@@ -312,6 +284,8 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 \end{enumerate}
 
 \subsection{Casos de uso dentro del sistema de Monitoreo}
+
+\begin{enumerate}
 \item SM01:
 	\begin{itemize}
 	\item Agentes: Clock interno (tarea programada)
