@@ -77,19 +77,19 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 \item TR02:
 	\begin{itemize}
 	\item Agentes: Sensor.
-	\item Descripci'on: La TR recibe un dato de un sensor y lo almacena para luego cuando llegue el tiempo correcto lo envie a la estacion central.
+	\item Descripci'on: La TR recibe un dato de un sensor y lo almacena para luego cuando llegue el tiempo correcto lo envíe a la estación central.
 	\end{itemize}
 	
 \item TR03:
 	\begin{itemize}
 	\item Agentes: Componente muy usada del mercado, Batería, Panel solar)
-	\item Descripci'on: La TR recibe información periodica del estado de la Bateria y del Panel Solar y en base a esa información administra el consumo de energía.
+	\item Descripci'on: La TR recibe información periódica del estado de la Bateria y del Panel Solar y en base a esa información administra el consumo de energía.
 	\end{itemize}
 
 \item TR04:
 	\begin{itemize}
 	\item Agentes: Estaci'on Central, Sensor, clock interno.
-	\item Descripci'on: Se detecta la caida de un sensor cuando la TR no recibe datos del mismo dentro del tiempo que tiene configurado para recibirlos. Se notifica esto a la EC para que tome las medidas que considere apropiadas.
+	\item Descripci'on: Se detecta la caída de un sensor cuando la TR no recibe datos del mismo dentro del tiempo que tiene configurado para recibirlos. Se notifica esto a la EC para que tome las medidas que considere apropiadas.
 	\end{itemize}
 	
 \item TR05:
@@ -107,7 +107,7 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 \item TR07:
 	\begin{itemize}
 	\item Agentes: Bateria y Panel Solar (Componente muy usada del mercado), Estaci'on Central.
-	\item Descripci'on: La TR recibe una alerta de batería en nivel mínimo del sensor de batería y una alerta de radiación solar muy baja (no utilizable) del panel solar. Como no puede utilizar ninguna de las 2 fuentes de energia que posee, notifica a la EC que va a quedarse sin energía.
+	\item Descripci'on: La TR recibe una alerta de batería en nivel mínimo del sensor de batería y una alerta de radiación solar muy baja (no utilizable) del panel solar. Como no puede utilizar ninguna de las dos fuentes de energia que posee, notifica a la EC que va a quedarse sin energía.
 	\end{itemize}
 
 \item TR08:
@@ -119,7 +119,7 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 \item TR09:
 	\begin{itemize}
 	\item Agentes: Clock interno
-	\item Descripci'on:  El clock interno de la TR notifica que ha pasado un minuto desde el último envío de datos a la Estación Central. La TR recolecta los últimos datos obtenidos de los censores para ser enviados.
+	\item Descripci'on:  El clock interno de la TR notifica que ha pasado un minuto desde el último envío de datos a la Estación Central. La TR recolecta los últimos datos obtenidos de los sensores para ser enviados.
 	\end{itemize}
 
 \item TR10:
@@ -183,13 +183,13 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 \item EC6:
 	\begin{itemize}
 	\item Agentes: TR  / Biggest Satellite
-	\item Descripci'on: La estación central detecta la caída de una TR cuando pasado el minuto del ultimo dato recibido, no se reciben mas datos. Así también de la misma forma, cuando se detecta la llegada de datos de una TR, la central detecta que la misma se reactivó. Desactiva una triangulación de esa TR si la hubiere o suspende los servicios de Biggest Sattelite para reemplar esa TR si estuvieran acitvos. Se toman normalmente los datos provenientes de esa TR.
+	\item Descripci'on: La estación central detecta la caída de una TR cuando pasado el minuto del ultimo dato recibido, no se reciben mas datos. Así también de la misma forma, cuando se detecta la llegada de datos de una TR, la central detecta que la misma se reactivó. Desactiva una triangulación de esa TR si la hubiere o suspende los servicios de Biggest Sattelite para reemplazar esa TR si estuvieran activos. Se toman normalmente los datos provenientes de esa TR.
 	\end{itemize}
 	
 \item EC07:
 	\begin{itemize}
 	\item Agentes: Sistema de Monitoreo
-	\item Descripci'on: Una vez que se realizo la triangulación o se comenzó a utilizar el servicio de Biggest Satelite, se anuncia al sistema de monitoreo.
+	\item Descripci'on: Una vez que se realizó la triangulación o se comenzó a utilizar el servicio de Biggest Satelite, se anuncia al sistema de monitoreo.
 	\end{itemize}
 	
 
@@ -271,7 +271,7 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 \item EC19:
 	\begin{itemize}
 	\item Agentes: Biggest Satelite
-	\item Descripci'on: El sistema BS le envia a la EC los datos pedidos luego del reemplazo de una o varias TRS o sensores
+	\item Descripci'on: El sistema BS le envia a la EC los datos pedidos luego del reemplazo de una o varias TRS o sensores.
 	\end{itemize}
 	
 
@@ -343,7 +343,7 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 \item SM10:
 	\begin{itemize}
 	\item Agentes: Base de Datos, operario, EC
-	\item Descripci'on: Un operario puede ingresar o quitar una TR, con toda su información relacionada (ubicación, identificación, etc.).Este cambio se refleja en el Servidor de Base de datos y en la Estación Central, la cual comenzara o no a recibir y procesar los datos que lleguen o no de dicha TR.
+	\item Descripci'on: Un operario puede ingresar o quitar una TR, con toda su información relacionada (ubicación, identificación, etc.).Este cambio se refleja en el Servidor de Base de datos y en la Estación Central, la cual comenzará o no a recibir y procesar los datos que lleguen o no de dicha TR.
 	\end{itemize}
 
 \item SM11:
@@ -591,6 +591,6 @@ A partir de los resultados anteriormente obtenidos se realizó una estimaci'on gl
 
 Se debe destacar que el orden elegido para realizar los casos de uso de debio a partes críticas del sistema y se priorizo entonces en este orden: protocolo, sensores, datos, caidas, procesos matematicos, energía de TR, y luego el resto de las tareas.
 
-Es también pertinente que en cada etapa de construcción se realicen los teste de integración posibles con los casos de usos ya realizados en las iteraciones anteriores.
+Es también pertinente que en cada etapa de construcción se realicen los test de integración posibles con los casos de usos ya realizados en las iteraciones anteriores.
 
 El tiempo de las iteraciones de construción es de un mes mientras que las de elaboración son de 5 semanas y las de transición de 3 lo que da un costo total del proyecto en tiempo de aproximadamente 60 semamas.
