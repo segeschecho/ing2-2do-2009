@@ -2,9 +2,9 @@
 
 \section{Generación y descripci'on de Casos de Uso}
 
-En el siguiente texto se mostrar'an los casos de uso principales identificados en el sistema, junto con su descripci'on. En algunos casos, se incluir'an tambien los diferentes actores, que participan en el mismo, 'estos se corresponden con los actores que se muestran en el diagrama de contexto del sistema.
+En el siguiente texto se mostrar'an los casos de uso principales identificados en el sistema, junto con su descripci'on. En algunos casos, se incluir'an también los diferentes actores, que participan en el mismo, 'estos se corresponden con los actores que se muestran en el diagrama de contexto del sistema.
 
-\subsubsection{Indice de casos de Uso}
+\subsubsection{Índice de casos de Uso}
 
 \subsubsection{Terminal Remota - TR}
 
@@ -32,10 +32,10 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 	\item EC04. Guardando datos del modelo
 	\item EC05. Triangulando o reemplazando por BS TR/sensor
 	\item EC06. Detectando alta de TR/Sensor
-	\item EC07. Anunciando remplazo o triangulacion de TR/sensor
-	\item EC08.	Normalizando TR/sensor y anunciandolo
-	\item EC09. Detectando red congestionada y anunciandolo
-	\item EC10. Detectando outliers y anunciandolo
+	\item EC07. Anunciando remplazo o triangulación de TR/sensor
+	\item EC08.	Normalizando TR/sensor y anunciándolo
+	\item EC09. Detectando red congestionada y anunciándolo
+	\item EC10. Detectando outliers y anunciándolo
 	\item EC11.	Descartando ó incluyendo posibles outliers
 	\item EC12.	Ordenando y descartando mensajes repetidos
 	\item EC13.	Confirmando llegada de mensaje
@@ -83,7 +83,7 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 \item TR03:
 	\begin{itemize}
 	\item Agentes: Componente muy usada del mercado, Batería, Panel solar)
-	\item Descripci'on: La TR recibe información periódica del estado de la Bateria y del Panel Solar y en base a esa información administra el consumo de energía.
+	\item Descripci'on: La TR recibe información periódica del estado de la Batería y del Panel Solar y en base a esa información administra el consumo de energía.
 	\end{itemize}
 
 \item TR04:
@@ -101,18 +101,18 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 \item TR06:
 	\begin{itemize}
 	\item Agentes: Sensor, Operario, Estaci'on Central
-	\item Descripci'on: Un operario instala un nuevo sensor en la TR y lo configura para enviar datos a la TR. Se notifica a la EC de la presencia de este nuevo sensor. En caso de modificación o baja sucede algo analogo: el operario hace las modificaciones físicas y de configuración pertinentes en la TR y esta comunica el cambio a la EC.
+	\item Descripci'on: Un operario instala un nuevo sensor en la TR y lo configura para enviar datos a la TR. Se notifica a la EC de la presencia de este nuevo sensor. En caso de modificación o baja sucede algo análogo: el operario hace las modificaciones físicas y de configuración pertinentes en la TR y esta comunica el cambio a la EC.
 	\end{itemize}
 
 \item TR07:
 	\begin{itemize}
-	\item Agentes: Bateria y Panel Solar (Componente muy usada del mercado), Estaci'on Central.
-	\item Descripci'on: La TR recibe una alerta de batería en nivel mínimo del sensor de batería y una alerta de radiación solar muy baja (no utilizable) del panel solar. Como no puede utilizar ninguna de las dos fuentes de energia que posee, notifica a la EC que va a quedarse sin energía.
+	\item Agentes: Batería y Panel Solar (Componente muy usada del mercado), Estaci'on Central.
+	\item Descripci'on: La TR recibe una alerta de batería en nivel mínimo del sensor de batería y una alerta de radiación solar muy baja (no utilizable) del panel solar. Como no puede utilizar ninguna de las dos fuentes de energía que posee, notifica a la EC que va a quedarse sin energía.
 	\end{itemize}
 
 \item TR08:
 	\begin{itemize}
-	\item Agentes: Bateria y Panel Solar (Componente muy usada del mercado), Estaci'on Central.
+	\item Agentes: Batería y Panel Solar (Componente muy usada del mercado), Estaci'on Central.
 	\item Descripci'on: La TR reanuda sus funciones y comienza a almacenar nuevamente los datos que los sensores le envían, para luego hacerlos llegar a la estación central.
 	\end{itemize}
 	
@@ -125,13 +125,13 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 \item TR10:
 	\begin{itemize}
 	\item Agentes: Sistema Interno
-	\item Descripci'on: Los datos son comprimidos y encriptados para luego poder ser enviados a la EC segun idicación de un protocolo pertinente.
+	\item Descripci'on: Los datos son comprimidos y encriptados para luego poder ser enviados a la EC según indicación de un protocolo pertinente.
 	\end{itemize}	
 
 \item TR11:
 	\begin{itemize}
 	\item Agentes: Clock interno
-	\item Descripci'on: Dado que en la red GSM hay riesgo de péridas y retrasos, la TR tiene configurado un tiempo de espera para recibir la confirmación de que un mensaje enviado fue recibido. Al haber transcurrido este tiempo y no haber recibido esta confirmación, se da el mensaje por perdido y se lo envia nuevamente.
+	\item Descripci'on: Dado que en la red GSM hay riesgo de pérdidas y retrasos, la TR tiene configurado un tiempo de espera para recibir la confirmación de que un mensaje enviado fue recibido. Al haber transcurrido este tiempo y no haber recibido esta confirmación, se da el mensaje por perdido y se lo envía nuevamente.
 	\end{itemize}
 	
 \item TR12:
@@ -203,7 +203,7 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 \item EC09:
 	\begin{itemize}
 	\item Agentes: Sistema de monitoreo
-	\item Descripci'on: Se detecta congestionamiento en la red, cuando los datos arriban con retraso a la estación central, en este caso se informa al sistema de monitoreo para que este avise a quien corresponda.
+	\item Descripci'on: Se detecta congestiÃ³n en la red, cuando los datos arriban con retraso a la estación central, en este caso se informa al sistema de monitoreo para que este avise a quien corresponda.
 	\end{itemize}
 	
 
@@ -243,7 +243,7 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 
 \item EC15:
 	\begin{itemize}
-	\item Agentes: Experto en modelos matematicos, Sistema de monitoreo
+	\item Agentes: Experto en modelos mate maticos, Sistema de monitoreo
 	\item Descripci'on: El experto configura los intervalos de confianza para outliers que él considera adecuados. El sistema guarda esta configuración.
 	\end{itemize}
 	
@@ -251,7 +251,7 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 \item EC16:
 	\begin{itemize}
 	\item Agentes: Sistema de monitoreo.
-	\item Descripci'on: El sistema de monitoreo le envia a la EC los datos provenientes del sistema eólico para que esta los pueda usar segun corresponda.
+	\item Descripci'on: El sistema de monitoreo le envía a la EC los datos provenientes del sistema eólico para que esta los pueda usar según corresponda.
 	\end{itemize}
 	
 
@@ -271,7 +271,7 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 \item EC19:
 	\begin{itemize}
 	\item Agentes: Biggest Satelite
-	\item Descripci'on: El sistema BS le envia a la EC los datos pedidos luego del reemplazo de una o varias TRS o sensores.
+	\item Descripci'on: El sistema BS le envía a la EC los datos pedidos luego del reemplazo de una o varias TRS o sensores.
 	\end{itemize}
 	
 
@@ -289,7 +289,7 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 \item SM01:
 	\begin{itemize}
 	\item Agentes: Clock interno (tarea programada)
-	\item Descripci'on: El útlimo día hábil del mes el sistema envía al sistema de facturación, la cantidad de tiempo de uso del servicio de Biggest Satelite.
+	\item Descripci'on: El último día hábil del mes el sistema envía al sistema de facturación, la cantidad de tiempo de uso del servicio de Biggest Satelite.
 	\end{itemize}
 
 \item SM02:
@@ -318,14 +318,14 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 
 \item SM06:
 	\begin{itemize}
-	\item Agentes: Sistema éolico, Base de datos, EC
-	\item Descripci'on: Se recibe la información del sistema eolico, y se almacena en la base de datos, para que luego la estación central los procese. Se notifica a la EC para que luego esta compare los datos con los obtenidos de las TRs.
+	\item Agentes: Sistema eÃ³lico, Base de datos, EC
+	\item Descripci'on: Se recibe la información del sistema eólico, y se almacena en la base de datos, para que luego la estación central los procese. Se notifica a la EC para que luego esta compare los datos con los obtenidos de las TRs.
 	\end{itemize}
 
 \item SM07:
 	\begin{itemize}
 	\item Agentes: Base de Datos, EC, TR, operario
-	\item Descripci'on: Desde el sistema de monitoreo y através de la Estación Central, un operario puede modificar la agenda de un sensor que elija dentro de una TR. Cuando se realiza el cambio, esto es reflejado en el Servidor de Base de datos, para que quede registrado el cambio.
+	\item Descripci'on: Desde el sistema de monitoreo y a través de la Estación Central, un operario puede modificar la agenda de un sensor que elija dentro de una TR. Cuando se realiza el cambio, esto es reflejado en el Servidor de Base de datos, para que quede registrado el cambio.
 	\end{itemize}
 
 \item SM08:
@@ -354,8 +354,8 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 
 \item SM12: 
 	\begin{itemize}
-	\item Agentes: Operario, Base de Datos, Sisitema de Pantallas
-	\item Descripci'on: Se muestra en pantallas segun sea pedido las distintas caracteristicas que el usuario desea ver.
+	\item Agentes: Operario, Base de Datos, Sistema de Pantallas
+	\item Descripci'on: Se muestra en pantallas según sea pedido las distintas características que el usuario desea ver.
 	    \begin{itemize}
 	      \item Vista global del estado sistema
 	      \item Vista por segmento de red
@@ -367,11 +367,11 @@ En el siguiente texto se mostrar'an los casos de uso principales identificados e
 
 \section{Estimaciones a los casos de uso del proyecto(Asignación de pesos)}
 
-El método que se utilizó para estimar las tareas fue Wideban Delphi. A continuación se detallarán las principales etapas del proceso, sus complicaciones, resultados en común y las conclusiones finales.
+El método que se utilizó para estimar las tareas fue Wideband Delphi. A continuación se detallarán las principales etapas del proceso, sus complicaciones, resultados en común y las conclusiones finales.
 
 \subsection{Planificación y reunión de lanzamiento}
 
-Estas dos etapas del proceso fueron básicamente, para poner en común que se iban a estimar los casos de uso de la sección anterior, el método utilizado, y la medida que se iba a utilizar para la estimación, en nuestro caso llegamos a que la medida para estimar viene dada por días/persona teniendo en cuenta días de 24 horas. Esta decicion fue tomada más que nada para simplificar la estimación y no tener que trabajar en horas en esta parte del proyecto. El objetivo básico de éstas estimaciones fue para poder luego determinar cantidad de iteraciones, duración y fase a la que pertenecen de manera más o menos objetiva. Los encargados de llevar a cabo las estimaciones fuimos los 4 integrantes del grupo.
+Estas dos etapas del proceso fueron básicamente, para poner en común que se iban a estimar los casos de uso de la sección anterior, el método utilizado, y la medida que se iba a utilizar para la estimación, en nuestro caso llegamos a que la medida para estimar viene dada por días/persona teniendo en cuenta días de 24 horas. Esta decisiÃ³n fue tomada más que nada para simplificar la estimación y no tener que trabajar en horas en esta parte del proyecto. El objetivo básico de éstas estimaciones fue para poder luego determinar cantidad de iteraciones, duración y fase a la que pertenecen de manera más o menos objetiva. Los encargados de llevar a cabo las estimaciones fuimos los 4 integrantes del grupo.
 
 \subsection{Preparación individual y reunión de estimación}
 
@@ -397,7 +397,7 @@ La primera ronda de estimaciones genero los siguientes resultados:
 \clearpage
 \newpage
 
-Había muchas tareas que diferían bastante en la estimación por lo cual en la primera reunión de estimación se intentó nuevamente ver el alcance de cada caso de uso, lo cual sirvió para que algunos estimadores pudieran tener en cuenta tareas y funcionalidades que en principio no habian considerado. Luego se procedió a realizar una segunda ronda de estimaciones y los resultados se detallan a continuación en los siguientes gráficos:
+Había muchas tareas que diferían bastante en la estimación por lo cual en la primera reunión de estimación se intentó nuevamente ver el alcance de cada caso de uso, lo cual sirvió para que algunos estimadores pudieran tener en cuenta tareas y funcionalidades que en principio no habían considerado. Luego se procedió a realizar una segunda ronda de estimaciones y los resultados se detallan a continuación en los siguientes gráficos:
 
 \begin{figure}[!Hb]
     \centering
@@ -418,7 +418,7 @@ Había muchas tareas que diferían bastante en la estimación por lo cual en la pri
 \clearpage
 \newpage
 
-Si bien hubo mejorías en la segunda ronda, consideramos que existían desvíos no aceptables, por lo cual nuevamente se revisaron los casos de uso y se llegó a la conclución que una tercera ronda de estimaciones reduciría éstos desvíos. Luego de la tercera ronda consideramos detener las estimaciones ya que el desvío fue aceptable (alrededor de dos días )y las estimaciones, calculando un promedio entre ellas podían llegar a reflejar valores adecuados. Los resultados son los siguientes: 
+Si bien hubo mejorías en la segunda ronda, consideramos que existían desvíos no aceptables, por lo cual nuevamente se revisaron los casos de uso y se llegó a la conclusión que una tercera ronda de estimaciones reduciría éstos desvíos. Luego de la tercera ronda consideramos detener las estimaciones ya que el desvío fue aceptable (alrededor de dos días )y las estimaciones, calculando un promedio entre ellas podían llegar a reflejar valores adecuados. Los resultados son los siguientes: 
 
 \begin{figure}[!Hb]
     \centering
@@ -440,7 +440,7 @@ Si bien hubo mejorías en la segunda ronda, consideramos que existían desvíos no 
 \newpage
 \subsection{Ensamblado de tareas y revisión de resultados}
 
-Finalemnte en ésta sección se calculó un promedio de las estimaciones realizadas para cada tarea por cada estimador y se pudo concluír en resultados que a todos los integrantes le parecieron adecuados. A continuación se detallan los pesos asigandos a cada caso de uso que resultaron del proceso de estimación.
+Finalmente en ésta sección se calculó un promedio de las estimaciones realizadas para cada tarea por cada estimador y se pudo concluir en resultados que a todos los integrantes le parecieron adecuados. A continuación se detallan los pesos asignados a cada caso de uso que resultaron del proceso de estimación.
 
 \begin{itemize}
 
@@ -573,7 +573,7 @@ A partir de los resultados anteriormente obtenidos se realizó una estimaci'on gl
 \begin{itemize}
 	\item Inception 01 - Resuelta por los docentes de ISII
 	\item Elaboration 01 - Iteraci'on actual
-	\item Elaboration 02 - Refinamiento final de casos de uso y definicion de algunos protocolos críticos
+	\item Elaboration 02 - Refinamiento final de casos de uso y definición de algunos protocolos críticos
 	\item Construction 01 - TR10, TR11, TR12, EC12, EC13, EC18 (lo que no se llegó a hacer en Elab. 1 y 2)
 	\item Construction 02 - TR01, TR02, TR04, TR05, TR06
 	\item Construction 03 - TR03, TR07, TR08, TR09, EC01, EC10
@@ -589,8 +589,8 @@ A partir de los resultados anteriormente obtenidos se realizó una estimaci'on gl
 	\item Transition 03 - Puesta en producción y test integral
 \end{itemize}
 
-Se debe destacar que el orden elegido para realizar los casos de uso de debio a partes críticas del sistema y se priorizo entonces en este orden: protocolo, sensores, datos, caidas, procesos matematicos, energía de TR, y luego el resto de las tareas.
+Se debe destacar que el orden elegido para realizar los casos de uso de debio a partes críticas del sistema y se priorizo entonces en este orden: protocolo, sensores, datos, caídas, procesos matemáticos, energía de TR, y luego el resto de las tareas.
 
 Es también pertinente que en cada etapa de construcción se realicen los test de integración posibles con los casos de usos ya realizados en las iteraciones anteriores.
 
-El tiempo de las iteraciones de construción es de un mes mientras que las de elaboración son de 5 semanas y las de transición de 3 lo que da un costo total del proyecto en tiempo de aproximadamente 60 semamas.
+El tiempo de las iteraciones de construcción es de un mes mientras que las de elaboración son de 5 semanas y las de transición de 3 lo que da un costo total del proyecto en tiempo de aproximadamente 60 semanas.
