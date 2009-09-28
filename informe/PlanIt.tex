@@ -20,17 +20,17 @@ En esta sección consideraremos las tareas asociadas a los casos de uso que fuero
 		\item Implementación
 			\begin{itemize}
 			\item Verificador de datos completos.
-			\item Completador de datods según datos históricos.
-			\item	Armador de paquete de datos.
+			\item Completador de datos según datos históricos.
+			\item Armador de paquete de datos.
 			\end{itemize}
-		\item Testeo
+		\item Testing
 		 \begin{itemize}
-		 \item Armar datos falsos con posibles datos faltantes. 
+		 \item Armardo de datos falsos con posibles datos faltantes. 
 		 \item Testing de unidad.
 		 \end{itemize}
 		\item Otros
       \begin{itemize}
-      \item Armado de ambiente falso para realizar implementación.
+      \item Armado de sandboxes para realizar implementación.
        \item Generación de datos falsos.
 			\end{itemize}	
 \end{itemize}
@@ -40,33 +40,33 @@ En esta sección consideraremos las tareas asociadas a los casos de uso que fuero
 \item Investigación
 \begin{itemize}
 \item Protocolo seguro y confiable para la TR con la EC.
-\item Modelos de encriptación/compresión de datos (NO para esta iter)
+\item Modelos de encriptación/compresión de datos (NO para esta iteración)
 \end{itemize}
 \item Implementación
 \begin{itemize}
 \item Interfaz de capa de encriptación/compresión de datos.
 \item Capa de envío de datos segura y confiable.
 \end{itemize}
-\item Testeo
+\item Testing
 \item Otros
 \begin{itemize}
 \item Definir forma de generar datos falsos que luego puedan ser levantados por la EC.
 \end{itemize}
 \end{itemize}
 
-\item Repetiendo mensaje si no llega confirmacion. (TR11)
+\item Repetiendo mensaje si no llega confirmación. (TR11)
 \begin{itemize}
 \item Investigación
 \begin{itemize}
 	\item Formas de protocolos que permiten reenvío de mensajes.
-	\item Cual es el tiempo esperado para el ACK.
+	\item Definir el tiempo esperado para el ACK.
 \end{itemize}
 \item Implementación
 \begin{itemize}
 	\item Obtención de dato anteriormente enviado sin ACK recibido.
 	\item Protocolo de no reenvio dato si llega algun ACK de todos los enviados.
 \end{itemize}
-\item Testeo
+\item Testing
 \item Otros
 \begin{itemize}
 	\item Generación de ACK falsos con probabilidad de arrivo.
@@ -80,7 +80,7 @@ En esta sección consideraremos las tareas asociadas a los casos de uso que fuero
 	\item Buffer de datos historicos ya enviados.
 	\item Verificador de existencia de datos y sacarlo.
 \end{itemize}
-\item Testeo
+\item Testing
 \item Otros
 \begin{itemize}
 	\item Generación de datos falsos los cual seran los borrados luego.
@@ -103,7 +103,7 @@ En esta sección consideraremos las tareas asociadas a los casos de uso que fuero
 	\item Modelos Matemáticos simples.
 	\item Simulador de pedido de procesamiento de datos (Ya que no se hace CU1).
 \end{itemize}
-\item Testeo
+\item Testing
 \item Otros
 \begin{itemize}
 	\item Armado de arquitectura que permita procesamiento de modelo.
@@ -122,7 +122,7 @@ En esta sección consideraremos las tareas asociadas a los casos de uso que fuero
 	\item Verificador real de que la TR de que la esta caída.
 	\item Regenerarador de TR original al detectar alta.
 \end{itemize}
-\item Testeo
+\item Testing
 \item Otros
 \begin{itemize}
 	\item Armado de escenario falsos simulando caída de TR.
@@ -133,7 +133,7 @@ En esta sección consideraremos las tareas asociadas a los casos de uso que fuero
 \begin{itemize}
 \item Investigación
 \begin{itemize}
-	\item Formas de triangular inteligentemnte para minibar error en datos.
+	\item Formas de triangular inteligentemente para minimizar errores en los datos.
 \end{itemize}
 \item Implementación
 \begin{itemize}
@@ -141,7 +141,7 @@ En esta sección consideraremos las tareas asociadas a los casos de uso que fuero
 	\item Simulador de enviador de datos desde la TR virtual.
 	\item Generador de datos de dicha TR al tener datos de las TR trianguladas.
 \end{itemize}
-\item Testeo
+\item Testing
 \item Otros
 \begin{itemize}
 	\item Armado de escenario falsos simulando caida de TR.
@@ -160,7 +160,7 @@ En esta sección consideraremos las tareas asociadas a los casos de uso que fuero
 	\item Almacenamiento de mensajes historicos para verificar si es repetido.
   \item Etiquetador unico para mensaje.
 \end{itemize}
-\item Testeo
+\item Testing
 \item Otros
 \begin{itemize}
 	\item Armado de ambiente para simular mensajes repetidos
@@ -173,7 +173,7 @@ En esta sección consideraremos las tareas asociadas a los casos de uso que fuero
 \item Investigación
 \begin{itemize}
 	\item 
-Formato de ACK y información extra que pueda ser últil enviar (como número de error).
+Formato de ACK e información extra que pueda ser últil enviar (como un identificador único de error).
 \end{itemize}
 \item Implementación
 \begin{itemize}
@@ -182,7 +182,7 @@ Formato de ACK y información extra que pueda ser últil enviar (como número de er
 	\item Capa (simple) de desencriptación / descompresión. 
 	\item Envío de mensaje con ACK.
 \end{itemize}
-\item Testeo
+\item Testing
 \item Otros
 \begin{itemize}
 	\item Generación de mensajes falsos para poder simular recibirlos y confirmar.
@@ -200,10 +200,10 @@ Formato de ACK y información extra que pueda ser últil enviar (como número de er
 \begin{itemize}
 	\item Capa de recibo de mensajes (ver CU anterior).
 \end{itemize}
-\item Testeo
+\item Testing
 \item Otros
 \begin{itemize}
-	\item Generar datos falos para poder recibir.
+	\item Generar datos falsos para poder recibir.
 \end{itemize}
 \end{itemize}
 
