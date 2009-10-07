@@ -1,0 +1,279 @@
+\chapter{Planificación de la primera iteración}
+
+En esta parte del informe se mostrarán todos los procedimientos llevados a cabo para obtener una completa y consistente  planificación de la primera iteración. Finalizadas dichas etapas se presentará el diagrama Gantt resultante de la recopilación de todos los datos de la planificación. 
+
+\section{División en tareas de los casos de uso para la primera iteración}
+
+En esta sección consideraremos las tareas asociadas a los casos de uso que fueron determinados para la primera iteración por la cátedra. Cabe destacar que sólo se van a considerar un subconjunto de las tareas para cada caso de uso, ya que constituyen una prueba de concepto y la funcionalidad completa se podrá completar en el resto de las iteraciones.
+
+\subsection{Casos de uso asociados a la terminal remota}
+
+\begin{enumerate}
+  \item Sincronizando datos de censados. (TR09)
+
+	\begin{itemize}
+			\item Investigación
+		\begin{itemize}
+			\item Posibles formar de completar datos según métodos numéricos.
+			\item Librerías de alarmas y precisión de las mismas(deben tener en cuenta el tiempo REAL que paso y no solo el que tardo la aplicación en ejecutar).
+		\end{itemize}
+		\item Implementación
+			\begin{itemize}
+			\item Verificador de datos completos.
+			\item Completador de datos según datos históricos.
+			\item Armador de paquete de datos.
+			\end{itemize}
+		\item Testing
+		 \begin{itemize}
+		 \item Armado de datos falsos con posibles datos faltantes. 
+		 \item Testing de unidad.
+		 \end{itemize}
+		\item Otros
+      \begin{itemize}
+      \item Armado de sandboxes para realizar implementación.
+       \item Generación de datos falsos.
+			\end{itemize}	
+\end{itemize}
+
+\item Encriptando/comprimiendo datos y enviado según protocolo. (TR10)
+\begin{itemize}
+\item Investigación
+\begin{itemize}
+\item Protocolo seguro y confiable para la TR con la EC.
+\item Modelos de encriptación/compresión de datos (NO para esta iteración)
+\end{itemize}
+\item Implementación
+\begin{itemize}
+\item Interfaz de capa de encriptación/compresión de datos.
+\item Capa de envío de datos segura y confiable.
+\end{itemize}
+\item Testing
+\item Otros
+\begin{itemize}
+\item Definir forma de generar datos falsos que luego puedan ser levantados por la EC.
+\end{itemize}
+\end{itemize}
+
+\item Repitiendo mensaje si no llega confirmación. (TR11)
+\begin{itemize}
+\item Investigación
+\begin{itemize}
+	\item Formas de protocolos que permiten reenvío de mensajes.
+	\item Definir el tiempo esperado para el ACK.
+\end{itemize}
+\item Implementación
+\begin{itemize}
+	\item Obtención de dato anteriormente enviado sin ACK recibido.
+	\item Protocolo de no reenvío dato si llega algún ACK de todos los enviados.
+\end{itemize}
+\item Testing
+\item Otros
+\begin{itemize}
+	\item Generación de ACK falsos con probabilidad de arribo.
+\end{itemize}
+\end{itemize}
+
+\item Borrando mensaje al llegar confirmación. (TR12) 
+\begin{itemize}
+\item Implementación
+\begin{itemize}
+	\item Buffer de datos históricos ya enviados.
+	\item Verificador de existencia de datos y sacarlo.
+\end{itemize}
+\item Testing
+\item Otros
+\begin{itemize}
+	\item Generación de datos falsos los cual serán los borrados luego.
+\end{itemize}
+\end{itemize}
+\end{enumerate}
+
+\subsection{Casos de uso asociados a la Estación central}
+
+\begin{enumerate}
+
+\item Procesando modelos matemáticos. (EC02)
+\begin{itemize}
+\item Investigación
+\begin{itemize}
+	\item Modelos matemáticos más simples para primera etapa.
+\end{itemize}
+\item Implementación
+\begin{itemize}
+	\item Modelos Matemáticos simples.
+	\item Simulador de pedido de procesamiento de datos (Ya que no se hace CU1).
+\end{itemize}
+\item Testing
+\item Otros
+\begin{itemize}
+	\item Armado de arquitectura que permita procesamiento de modelo.
+\end{itemize}
+\end{itemize}
+
+\item Detectando caída/alta de TR. (EC05)
+\begin{itemize}
+\item Investigación
+\begin{itemize}
+	\item Motivos de caída de una TR y formas de detección.
+\end{itemize}
+\item Implementación
+\begin{itemize}
+	\item Capa de detección de caída por los casos antes mencionados.
+	\item Verificador real de que la TR de que la esta caída.
+	\item Regenerarador de TR original al detectar alta.
+\end{itemize}
+\item Testing
+\item Otros
+\begin{itemize}
+	\item Armado de escenario falsos simulando caída de TR.
+\end{itemize}
+\end{itemize}
+
+\item Triangulando o reemplazando BS por TR/sensor. (EC06)
+\begin{itemize}
+\item Investigación
+\begin{itemize}
+	\item Formas de triangular inteligentemente para minimizar errores en los datos.
+\end{itemize}
+\item Implementación
+\begin{itemize}
+	\item Generador de TR virtual.
+	\item Simulador de enviador de datos desde la TR virtual.
+	\item Generador de datos de dicha TR al tener datos de las TR trianguladas.
+\end{itemize}
+\item Testing
+\item Otros
+\begin{itemize}
+	\item Armado de escenario falsos simulando caída de TR.
+\end{itemize}
+\end{itemize}
+
+\item Ordenando/descartando mensajes repetidos. (EC12)
+
+\begin{itemize}
+\item Investigación
+\begin{itemize}
+	\item Protocolos de descarte de SMS y formas de darse cuenta de dicho caso.
+\end{itemize}
+\item Implementación
+\begin{itemize}
+	\item Almacenamiento de mensajes históricos para verificar si es repetido.
+  \item Etiquetador único para mensaje.
+\end{itemize}
+\item Testing
+\item Otros
+\begin{itemize}
+	\item Armado de ambiente para simular mensajes repetidos
+\end{itemize}
+\end{itemize}
+
+\item Confirmando llegada de mensaje. (EC13)
+
+\begin{itemize}
+\item Investigación
+\begin{itemize}
+	\item 
+Formato de ACK e información extra que pueda ser útil enviar (como un identificador único de error).
+\end{itemize}
+\item Implementación
+\begin{itemize}
+	\item Recibidor de mensaje.
+	\item Verificador de mensaje correcto.
+	\item Capa (simple) de desencriptación / descompresión. 
+	\item Envío de mensaje con ACK.
+\end{itemize}
+\item Testing
+\item Otros
+\begin{itemize}
+	\item Generación de mensajes falsos para poder simular recibirlos y confirmar.
+\end{itemize}
+\end{itemize}
+
+\item Recibiendo, descomprimiendo y desencriptando mensaje de TR. (EC18)
+
+\begin{itemize}
+\item Investigación
+\begin{itemize}
+	\item Formato de datos a recibir.
+\end{itemize}
+\item Implementación
+\begin{itemize}
+	\item Capa de recibo de mensajes (ver CU anterior).
+\end{itemize}
+\item Testing
+\item Otros
+\begin{itemize}
+	\item Generar datos falsos para poder recibir.
+\end{itemize}
+\end{itemize}
+
+
+\end{enumerate}
+
+\clearpage
+\newpage
+
+\section{Estimación, duración de tareas asociadas a la primera iteración}
+
+En principio, lo que se hizo en ésta etapa es, como resultado de la división en subtareas para llevar a cabo la prueba de concepto, reducir considerablemente los tiempos estimados de dichos casos de uso, ya que la funcionalidad completa no era necesaria a esta altura del proyecto, sino que las funcionalidades a implementar se corresponden con un conjunto minimal de dichos casos de uso. Entonces luego de una evaluación y puesta en común de todos los integrantes del grupo se llegó a la conclusión que el tiempo que se necesita para implementar ese conjunto de funcionalidades para cada caso de uso es el siguiente:
+
+\begin{tabular}{||l | r||}
+\hline
+\hline
+Número CU & Duración( En días/persona de 8 horas) \\
+\hline
+ TR09  & 2 \\
+\hline
+ TR10  & 3 \\
+\hline 
+ TR11  & 2 \\
+\hline
+ TR12  & 2 \\
+\hline
+ EC02  & 2 \\
+\hline
+ EC05  & 3 \\
+\hline
+ EC06  & 4 \\
+\hline
+ EC12  & 2 \\
+\hline
+ EC13  & 1 \\
+\hline
+ EC18  & 3 \\
+\hline
+\hline
+\end{tabular}
+
+Estos tiempos corresponden a la implementación de todas las subtareas mencionadas en la etapa anterior para los casos de uso abarcados en ésta iteración.
+También se consideraron en las estimaciones presentadas en la tabla anterior los tiempos asociados a la instalación de entornos de desarrollo para dichos casos de uso.
+
+\section{Generación de dependencias}
+
+Luego lo que se hizo a partir de éstos casos de uso fue analizar dependencias entre sí. Se tuvieron en cuenta dependencias en cuanto a implementaciones necesarias para llevar a cabo otras, es decir del estilo: No voy a poder implentar este caso de uso a menos que tenga éstos otros dos implementados. Sin embargo como se verá mas adelante en el Gantt realizado nos surgieron dependencias por falta de recursos. 
+
+\section{Definición y asignación de recursos}
+
+Los 4 recursos que se utilizarán son los cuatro integrantes del grupo cumpliendo cualquiera de los posibles roles como ser programador, analista de requerimientos, testers, etc. En general hubo muchas tareas en las cuales decidimos participar íntegramente todos y otras en las cuales hacerlas en paralelo dividiendo recursos nos era más ventajoso ya que los tiempos se acortaban considerablemente.
+
+\section{Estimación y precedencias en el resto de las tareas del proyecto y generación de diagrama Gantt}
+
+En esta sección vamos a describir brevemente el armado del diagrama Gantt correspondiente a la planificación de la primera iteración. Además de las tareas asociadas a los casos de uso mencionadas anteriormente (para la prueba de concepto), en el proyecto se tuvieron en cuenta todas las tareas asociadas a la primera iteración tales como análisis de requerimientos, análisis de riesgo, definición de arquitectura e incluso las tareas que conllevaron a la planificación y el armado del Gantt propiamente dicho.
+
+Muchas de éstas tareas se estimaron de manera sencilla, o bien porque ya las habíamos hecho antes de diseñar el Gantt o bien porque en trabajos prácticos de otras materias habíamos realizado tareas similares. Sin embargo tuvimos que hacer estimaciones sin muchos argumentos para aquellas tareas en las que en principio no conocemos un tiempo para realizarlas, tales como el armado de la arquitectura. De todos modos intentamos ser lo más realistas posibles en las estimaciones y dentro de lo posible cumplir con el cronograma y las fechas de entrega de cada parte del proyecto.
+
+En el Gantt que se verá en la siguiente sección, se podrán observar tareas generales, precedencias por recursos o funcionalidad, tareas críticas e incluso tres hitos que propusimos: fin de la preentrega, fin de la arquitectura y fin de la primera iteración. Cabe destacar que las tareas asociadas a generación de documentos de preentrega o entrega de primera iteración corresponden a armar finalmente dicho documento para entregarlo. Sin embargo no corresponde a realizarlo en su totalidad, sino que el documento se realizará en paralelo a medida que se avanza en el proyecto y lo que ésta tarea refleja es el armado, juntada de partes y revisiones finales. 
+
+Es importante destacar que el calendario que utilizamos son los días laborables de 8 horas diarias. Intentamos balancear éstas ocho horas(ya que evidentemente no dedicaremos este tiempo por día al proyecto) con el hecho de que no se considerarán los días sábado y domingo(que en varias etapas por ahí harían falta). Sin embargo creemos que el calendario elegido es realista y refleja de manera correcta el tiempo destinado a cada tarea.
+
+\section{Diagrama de Gantt}
+
+A continuación se presentará el diagrama de Gantt finalmente concluido.
+
+\newpage
+\input{Gantt1}
+\clearpage
+
+
+
+
