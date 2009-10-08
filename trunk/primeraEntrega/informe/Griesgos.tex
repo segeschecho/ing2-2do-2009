@@ -1,0 +1,217 @@
+\chapter{Gestión de riesgos}
+
+En esta sección se discutirán los riesgos más relevantes en el contexto de nuestro problema. Para cada uno de ellos definiremos las características que los definen incluyendo la probabilidad de que ocurran, el impacto (negativo) si ocurren (en una escala del 1 al 10), la exposición al riesgo (medida como probabilidad * impacto). Además incluiremos en los casos que sea posible, formas de mitigarlo y también posibles planes de contingencia en caso de que ocurriesen.
+
+\section{Identificación de riesgos}
+
+Para llevar a cabo la identificación de riesgos llevamos a cabo en mayor o menor menor medida los siguientes métodos:
+
+\begin{itemize}
+
+\item Brainstorm.
+\item Cuestionario de identificación taxonómica.
+\item Lista de riesgos comunes.
+
+\end{itemize}
+
+Finalmente los riesgos determinados fuero:
+
+\begin{enumerate}
+
+\item - R1 - Incorporar modelos matemáticos erróneos.
+
+\begin{itemize}
+\item Probabilidad: 0.2
+\item Impacto: 10
+\item Exposicición al riesgo: 2.0
+\item Mitigación: Testear localmente los modelos antes de de ponerlos en funcionamiento.
+\item Plan de Contingencia: Volver al último modelo matemático válido.
+\end{itemize}
+
+\textbf{En caso de:} incorporar modelos matemáticos inconsistentes se procesarán datos erróneos lo cual perjudica a nuestro sistema en gran medida ya que uno de los requerimientos fundamentales es tener siempre y en todo momento información consistente.
+
+\item - R2 - Mal interpretación de requerimientos no escenciales.
+
+\begin{itemize}
+\item Probabilidad: 0.3
+\item Impacto: 6
+\item Exposicición al riesgo: 1.8
+\item Mitigación: Mayor tiempo de validación con los stakeholders.
+\item Plan de Contingencia: Solucionar de alguna manera, en tiempo de ejecución los problemas generados.
+\end{itemize}
+
+\textbf{En caso de:} una mala interpretacíón de los requerimientos no escenciales(aquellos no necesariamente críticos) los usuarios no estarán en conformidad y el el peor de los casos habrá que corregir dichos errores en tiempo de ejecución.
+
+\item - R3 - Infiltración en modelo eólico.
+
+\begin{itemize}
+\item Probabilidad: 0.1
+\item Impacto: 6
+\item Exposicición al riesgo: 0.6
+\item Mitigación: --
+\item Plan de Contingencia: Utilizar los datos generados por nuestro sistema aunque no sean más precisos que los del sistema eólico.
+\end{itemize}
+
+\textbf{En caso de:} infiltración en el modelo eólico llegarán datos incorrectos lo cual producirá, en caso de ser considerados válidos, resultados y reportes incorrectos de nuestro sistema.
+
+\item - R4 - Quiebra de empresas que previamente hayan contratado nuestros servicios.
+
+\begin{itemize}
+\item Probabilidad: 0.09
+\item Impacto: 7
+\item Exposicición al riesgo: 0.63
+\item Mitigación: Analizar y estudiar posibilidades de quiebra antes dela contratación.
+\item Plan de Contingencia: Aprovechamiento de instalaciones en otras empresas.
+\end{itemize}
+
+\textbf{En caso de:} Quiebre de empresas que previamente nos hayan contratado y se hayan intalado las componentes solicitadas los gastos de intalación perjudicarían la economía de la empresa con lo cual se tendría que intentar subsanar esta situación buscando otra empresa similar y convencerla de la utilización de nuestros servicios. Esta solución es poco probable pero es una posible alternativa a dicho problema.
+
+\item - R5 - Caída página de la infrestructura.
+
+\begin{itemize}
+\item Probabilidad: 0.4
+\item Impacto: 4
+\item Exposicición al riesgo: 1.6
+\item Mitigación: Analizar con la infraestructura la posibilidad de que el mantenimiento del sitio web sea por parte de la empresa.
+\item Plan de Contingencia: En caso de recuperación tardía crear una página simple y temporal que provea nuestros servicios.
+\end{itemize}
+
+\textbf{En caso de:} Caída de la página de la infraestuctura los usuarios no podrán acceder a la información provista por el sistema.
+
+\item - R6 - Caída del servidor web (Alarmas).
+
+\begin{itemize}
+\item Probabilidad: 0.3
+\item Impacto: 5
+\item Exposicición al riesgo: 1.5
+\item Mitigación: Estudiar, analizar e investigar el servido que garantice mayor disponibilidad.
+\item Plan de Contingencia: Utilizar algún tipo de sistema vía sms para informar a los usuarios.
+\end{itemize}
+
+\textbf{En caso de:} caída del servidor web no podrá alertarse a los empleados de problemas como congestión o caídas de TRs con lo cual habría que implementar algun tipo de interfaz alternativa que utilice mensajes de texto.
+
+\item - R7 - Desarrollo de proyecto centralizado.
+
+\begin{itemize}
+\item Probabilidad: 0.1
+\item Impacto: 6
+\item Exposicición al riesgo: 0.6
+\item Mitigación: Imponer pautas a cumplir por cada uno de los encargados del proyecto para evitar centralización.
+\item Plan de Contingencia: Incrementar tiempo de proyecto.
+\end{itemize}
+
+\textbf{En caso de:} centralización del proyecto el mismo tenderá a desarrollarce en más tiempo.
+
+\item - R8 - Incremento de requerimientos en tiempo de construcción.
+
+\begin{itemize}
+\item Probabilidad: 0.5
+\item Impacto: 5
+\item Exposicición al riesgo: 2.5
+\item Mitigación: Planificar lo mejor que se pueda de manera pesimista.
+\item Plan de Contingencia: Negarlos, en caso de no ser posible llevarlos a cabo pero intentando convencer a los stakeholders de un cierto incremento en el tiempo de entrega.
+\end{itemize}
+
+\textbf{En caso de:} incremento de los requerimientos el tiempo de desarrollo del proyecto se verá necesariamente en aumento.
+
+\item - R9 - Baja en los recursos.
+
+\begin{itemize}
+\item Probabilidad: 0.1
+\item Impacto: 9
+\item Exposicición al riesgo: 0.9
+\item Mitigación: --
+\item Plan de Contingencia: Incrementar tiempo de proyecto / incorporar nuevo recurso.
+\end{itemize}
+
+\textbf{En caso de:} una posible baja de alguno de los recursos que llevan a cabo el proyecto, el tiempo de desarrollo en el mismo tenderá a incrementarse.
+
+\item - R10 - Mal funcionamiento de la CMUM (Componente muy usada en el mercado).
+
+\begin{itemize}
+\item Probabilidad: 0.1
+\item Impacto: 5
+\item Exposicición al riesgo: 0.5
+\item Mitigación: --
+\item Plan de Contingencia: Cambiar la componente.
+\end{itemize}
+
+\textbf{En caso de:} mal funcionamiento de la componente muy usada en el mercado para alguna TR, se puede producir la situación de que la misma deje de funcionar, por lo cual hay que detectar la situación rápidamente y solucionar el problema.
+
+\item - R11 - La arquitetura no satisface los requerimientos.
+
+\begin{itemize}
+\item Probabilidad: 0.4
+\item Impacto: 9
+\item Exposicición al riesgo: 3.6
+\item Mitigación: Incrementar el tiempo dedicado a la arquitectura lo más que se pueda.
+\item Plan de Contingencia: Solucionar los posibles problemas incrementalmente en tiempo de ejecución.
+\end{itemize}
+
+\textbf{En caso de:} generar una mala arquitectura, se pueden producir muchos problemas posibles tales como lentitud en las conexiones, datos erroneos o inconsistentes, falta de disponibilidad, lo que harñia que nuestro software sea de mala calidad, co lo cual la idea es dedicarle el mayor tiempo posible validando en todo momento lo que se haya realizado. En todo caso se intentará realizar una arquitectura flexible para que cualquier posible cambio se aplicable.
+
+\item - R12 - Caída del servicio Biggest Satellit.
+
+\begin{itemize}
+\item Probabilidad: 0.2
+\item Impacto: 8
+\item Exposicición al riesgo: 1.6
+\item Mitigación: --
+\item Plan de Contingencia: cambiar el radio de triangulación para generar TRs virtuales y calcular promedios con datos previos a la caída.
+\end{itemize}
+
+\textbf{En caso de:} caída del servicio Biggest Satellit en caso de necesidad de acceder a sus servicios por la caída de una TR y no poder triangular estaríamos dejando de proveer datos lo cual no puede suceder en nuestro sistema.
+
+\item - R13 - Caída red GSM.
+
+\begin{itemize}
+\item Probabilidad: 0.05
+\item Impacto: 10
+\item Exposicición al riesgo: 0.5
+\item Mitigación: Testear --
+\item Plan de Contingencia: Utilizar el servicio Biggest Satellit a pesar de sus costos.
+\end{itemize}
+
+\textbf{En caso de:} caída de la red GSM nuestro proyecto es obsoleto.
+\end{enumerate}
+
+\section{Selección de principales riesgos}
+
+En esta sección usaremos una técnica provista por el SEI la cual consta de armar un tabla, descartando los riesgos que no tengan tanta relevancia y quedándonos con aquellos riegos(5 a 10 en general), que más sean preocupantes o con mayor necesidad de análisis para el proyecto.
+
+En dicha tabla se ubicará cada riesgo en su correspondiente celda de acuerdo al siguiente criterio:
+
+En cuanto a probabilidad se clasificarán en:
+
+\begin{itemize}
+\item Baja : menos de 0.3
+\item Media : entre 0.3 y 0.6
+\item Alta : mayor a 0.6
+\end{itemize}
+
+En cuanto a severidad se clasificarán en:
+
+\begin{itemize}
+\item Crítica : menos de 3 
+\item Normal : entre 3 y 6
+\item Marginal : mayor a 6
+\end{itemize}
+
+A continuación se podrán observar cada uno de los riesgos mencionados en la sección anterior en la tabla.
+
+\begin{tabular}{||l | c| c| c||}
+\hline
+\hline
+Severidad/Probabilidad & Alta & Media & Baja\\
+\hline
+ Crítica  &  & R11 & R1,R4,R9,R12,R13 \\
+\hline
+ Normal  &  & R8,R6,R2,R5 & R7,R10,R3\\
+\hline 
+ Marginal &  &  & \\
+\hline
+\hline
+\end{tabular}
+
+
+Finalmente seleccionaremos 7 riesgos. Rechazaremos los riesgos R7, R10 y R3, luego viendo la tabla nos vamos a quedar con los riesgos R11,R8,R2,R5 y R6, así que por consiguiente debebemos seleccionar de los restantes 6 los 2 que nos parezcan más importantes. Nuestro criterio de selección será la exposición al riesgo claculada anteriormente, así que finalmente los últimos cuatro seleccionados serán R1 y R12
