@@ -1,12 +1,14 @@
 \chapter{Escenarios}
 
-En esta sección se mostrarán y detallarán los diferentes escenarios para los atributos de calidad identificados en el sistema a desarrollar.
+En esta sección se mostrarán y detallarán los diferentes escenarios para los atributos de calidad identificados en el sistema a desarrollar. Estos, consideramos que son los principales, y que definirán la arquitectura. Mas adelante se mostrará el diagrama de arquitectura pensada para este sistema y las tácticas usadas para cubrir los principales atriburos de calidad encontrados.
 
-\begin{enumerate}
+Se hán indentificado 4 atributos de calidad en total, estos son: performace, disponibilidad, confiabilidad y modificabilidad. Cada uno tiene 1 o mas escenarios en los cuales cada atributo aplica.
+
+\begin{itemize}
 \item Atributos de Performace:
 
-    \begin{itemize}
-    \item La información critica de los resultados del modelo matemático se en envía lo mas rapido posible a la pagina del ministerio.\\    
+    \begin{enumerate}
+    \item La información critica de los resultados del modelo matemático se en envía lo mas rapido posible a la pagina del ministerio.\\ \\
     \textbf{Fuente:} interna (alarma).\\    
     \textbf{Estimulo:} El modelo matemático genera una predicción de los fenomenos meteorologicos critica.\\    
     \textbf{Artefacto:} Sistema de monitoreo.\\    
@@ -14,14 +16,69 @@ En esta sección se mostrarán y detallarán los diferentes escenarios para los atr
     \textbf{Respuesta:} Se envia la información critica al ministerio.\\    
     \textbf{Medición de la respuesta:} La información relacionada con la predicción se envia en a lo sumo 30 segundos.
     
-    \item El procesamiento de los datos obtenidos para generar una predicción se realiza lo mas rapido posible.\\
+    \item El procesamiento de los datos obtenidos para generar una predicción se realiza lo mas rapido posible.\\ \\
     \textbf{Fuente:} interna (alarma).\\
     \textbf{Estimulo:} Pedido de procesamiento de los datos almacenados.\\
     \textbf{Artefacto:} Estación central (procesamiento).\\
     \textbf{Entorno:} Sobrecarga.\\
     \textbf{Respuesta:} Los datos son procesados y se devuelve un resultado.\\
     \textbf{Medición de la respuesta:} El resultado se procesa en menos de 1 minuto.
-    \end{itemize}
+    \end{enumerate}
     
 \item Atributos de disponibilidad:
-\end{enumerate}
+
+    \begin{enumerate}
+    \item Los mensajes que se reciben en forma correcta son procesados.\\ \\
+    \textbf{Fuente:} TR, Biggest Satelite, Sistema eolico.\\
+    \textbf{Estimulo:} Se recibe un mensaje con datos capturados.\\
+    \textbf{Artefacto:} Estación central.\\
+    \textbf{Entorno:} Normal.\\
+    \textbf{Respuesta:} El mensaje es procesado.\\
+    \textbf{Medición de la respuesta:} El mensaje es procesado y almacenado en el 99,99\% de las veces.
+    
+    \item La información del sistema esta disponible para los clientes externos o usuários.\\ \\
+    \textbf{Fuente:} Cliente externo, usuário.\\
+    \textbf{Estimulo:} Pedido de datos almacenados.\\
+    \textbf{Artefacto:} Sistema de monitoreo.\\
+    \textbf{Entorno:} Normal.\\
+    \textbf{Respuesta:} Los datos son enviados a los que lo solicitaron.\\
+    \textbf{Medición de la respuesta:} Los datos se encuentran disponibles en el 99,999\% de los casos.
+    \end{enumerate}
+    
+\item Atributos de confiabilidad:
+
+    \begin{enumerate}
+    \item Los resultados obtenidos son correctos.\\ \\
+    \textbf{Fuente:} Componente interna.\\
+    \textbf{Estimulo:} Se realiza un pedido de la información meteorologica.\\
+    \textbf{Artefacto:} Estación central.\\
+    \textbf{Entorno:} Normal.\\
+    \textbf{Respuesta:} Los datos almacenados son procesados y se devuelve un resultado(pronostico).\\
+    \textbf{Medición de la respuesta:} El pronostico se confirma en un 99,9\% de los casos.
+    \end{enumerate}
+
+\item Atributos de seguridad:
+
+    \begin{enumerate}
+    \item Los mensajes que arriban a la Estación central corruptos o erroneos son descartados.\\ \\
+    \textbf{Fuente:} Intruso, usuário, TR.\\
+    \textbf{Estimulo:} Arriba un mensaje alterado, corrupto o erroneo.\\
+    \textbf{Artefacto:} Estación central.\\
+    \textbf{Entorno:} Online.\\
+    \textbf{Respuesta:} Se detecta el mensaje alterado, corrupto o erroneo y se descarta.\\
+    \textbf{Medición de la respuesta:} Los mensajes alterados, corruptos o erroneos, son descartados en el 99,99\% de los casos.
+    \end{enumerate}
+
+\item Atrbutos de modificabilidad:
+
+    \begin{enumerate}
+    \item La modificación del modelo se puede realizar en un lapso de tiempo aceptable.\\ \\
+    \textbf{Fuente:} Usuario, experto, desarrollador.\\
+    \textbf{Estimulo:} Se quiere modificar el modelo matemático.\\
+    \textbf{Artefacto:} Estación central (computo).\\
+    \textbf{Entorno:} \textcolor{red}{\large \textbf{Normal??}}\\
+    \textbf{Respuesta:} El modelo matemático es modificado.\\
+    \textbf{Medición de la respuesta:} La modificación se realiza en a lo sumo 72 horas.
+    \end{enumerate}
+
+\end{itemize}
