@@ -4,7 +4,7 @@ En esta sección se discutirán los riesgos más relevantes en el contexto de nuest
 
 \section{Identificación de riesgos}
 
-Para llevar a cabo la identificación de riesgos llevamos a cabo en mayor o menor menor medida los siguientes métodos:
+Para llevar a cabo la identificación de riesgos tuvimos en cuenta en mayor o menor menor medida los siguientes métodos:
 
 \begin{itemize}
 
@@ -148,7 +148,7 @@ Finalmente los riesgos determinados fuero:
 \item Plan de Contingencia: Solucionar los posibles problemas incrementalmente en tiempo de ejecución.
 \end{itemize}
 
-\textbf{En caso de:} generar una mala arquitectura, se pueden producir muchos problemas posibles tales como lentitud en las conexiones, datos erroneos o inconsistentes, falta de disponibilidad, lo que harñia que nuestro software sea de mala calidad, co lo cual la idea es dedicarle el mayor tiempo posible validando en todo momento lo que se haya realizado. En todo caso se intentará realizar una arquitectura flexible para que cualquier posible cambio se aplicable.
+\textbf{En caso de:} generar una mala arquitectura, se pueden producir muchos problemas posibles tales como lentitud en las conexiones, datos erroneos o inconsistentes, falta de disponibilidad, lo que haría que nuestro software sea de mala calidad, co lo cual la idea es dedicarle el mayor tiempo posible validando en todo momento lo que se haya realizado. En todo caso se intentará realizar una arquitectura flexible para que cualquier posible cambio se aplicable.
 
 \item - R12 - Caída del servicio Biggest Satellit.
 
@@ -168,12 +168,26 @@ Finalmente los riesgos determinados fuero:
 \item Probabilidad: 0.05
 \item Impacto: 10
 \item Exposicición al riesgo: 0.5
-\item Mitigación: Testear --
+\item Mitigación: Testear 
 \item Plan de Contingencia: Utilizar el servicio Biggest Satellit a pesar de sus costos.
 \end{itemize}
 
 \textbf{En caso de:} caída de la red GSM nuestro proyecto es obsoleto.
 \end{enumerate}
+
+\item - R14 - Falta de conocimiento o certeza en la duración de las tareas.
+
+\begin{itemize}
+\item Probabilidad: 0.5
+\item Impacto: 7
+\item Exposicición al riesgo: 3.5
+\item Mitigación: Dedicar mayon tiempo a la estimación y análisis en la duración de las tareas.
+\item Plan de Contingencia: Evaluar en el seguimiento del proyecto la idea de incrementar el tiempo de alguna de las iteraciones.
+\end{itemize}
+
+\textbf{En caso de:} falta de certeza en la duración de las tareas las estimaciones serán pobres y la planificación de baja calidad.
+\end{enumerate}
+
 
 \section{Selección de principales riesgos}
 
@@ -192,9 +206,9 @@ En cuanto a probabilidad se clasificarán en:
 En cuanto a severidad se clasificarán en:
 
 \begin{itemize}
-\item Crítica : menos de 3 
+\item Marginal : menos de 3 
 \item Normal : entre 3 y 6
-\item Marginal : mayor a 6
+\item Crítica : mayor a 6
 \end{itemize}
 
 A continuación se podrán observar cada uno de los riesgos mencionados en la sección anterior en la tabla.
@@ -204,7 +218,7 @@ A continuación se podrán observar cada uno de los riesgos mencionados en la secc
 \hline
 Severidad/Probabilidad & Alta & Media & Baja\\
 \hline
- Crítica  &  & R11 & R1,R4,R9,R12,R13 \\
+ Crítica  &  & R11, R14 & R1,R4,R9,R12,R13 \\
 \hline
  Normal  &  & R8,R6,R2,R5 & R7,R10,R3\\
 \hline 
@@ -214,4 +228,4 @@ Severidad/Probabilidad & Alta & Media & Baja\\
 \end{tabular}
 
 
-Finalmente seleccionaremos 7 riesgos. Rechazaremos los riesgos R7, R10 y R3, luego viendo la tabla nos vamos a quedar con los riesgos R11,R8,R2,R5 y R6, así que por consiguiente debebemos seleccionar de los restantes 6 los 2 que nos parezcan más importantes. Nuestro criterio de selección será la exposición al riesgo claculada anteriormente, así que finalmente los últimos cuatro seleccionados serán R1 y R12
+Finalmente seleccionaremos 8 riesgos. Rechazaremos los riesgos R7, R10 y R3, luego viendo la tabla nos vamos a quedar con los riesgos R14, R11,R8,R2,R5 y R6, así que por consiguiente debebemos seleccionar de los restantes 6 los 2 que nos parezcan más importantes. Nuestro criterio de selección será la exposición al riesgo claculada anteriormente, así que finalmente los últimos cuatro seleccionados serán R1 y R12.
