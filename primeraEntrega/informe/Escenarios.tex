@@ -2,7 +2,7 @@
 
 En esta sección se mostrarán y detallarán los diferentes escenarios para los atributos de calidad identificados en el sistema a desarrollar. Estos, consideramos que son los principales, y que definirán la arquitectura. Mas adelante se mostrará el diagrama de arquitectura pensada para este sistema y las tácticas usadas para cubrir los principales atriburos de calidad encontrados.
 
-Se hán indentificado 4 atributos de calidad en total, estos son: performace, disponibilidad, confiabilidad y modificabilidad. Cada uno tiene 1 o mas escenarios en los cuales cada atributo aplica.
+Se hán indentificado 6 atributos de calidad en total, estos son: performace, disponibilidad, confiabilidad, modificabilidad, interoperabilidad, usabilidad. Cada uno tiene 1 o mas escenarios en los cuales cada atributo aplica.
 
 \begin{itemize}
 \item Atributos de Performace:
@@ -11,7 +11,7 @@ Se hán indentificado 4 atributos de calidad en total, estos son: performace, dis
     \item La información critica de los resultados del modelo matemático se en envía lo mas rapido posible a la pagina del ministerio.\\ \\
     \textbf{Fuente:} interna (alarma).\\    
     \textbf{Estimulo:} El modelo matemático genera una predicción de los fenomenos meteorologicos critica.\\    
-    \textbf{Artefacto:} Sistema de monitoreo.\\    
+    \textbf{Artefacto:} Procesamiento (Estación central), Datos(sistema de monitoreo).\\    
     \textbf{Entorno:} Normal/Sobrecarga.\\    
     \textbf{Respuesta:} Se envia la información critica al ministerio.\\    
     \textbf{Medición de la respuesta:} La información relacionada con la predicción se envia en a lo sumo 30 segundos.
@@ -19,7 +19,7 @@ Se hán indentificado 4 atributos de calidad en total, estos son: performace, dis
     \item El procesamiento de los datos obtenidos para generar una predicción se realiza lo mas rapido posible.\\ \\
     \textbf{Fuente:} interna (alarma).\\
     \textbf{Estimulo:} Pedido de procesamiento de los datos almacenados.\\
-    \textbf{Artefacto:} Estación central (procesamiento).\\
+    \textbf{Artefacto:} Procesamiento (Estación central).\\
     \textbf{Entorno:} Sobrecarga.\\
     \textbf{Respuesta:} Los datos son procesados y se devuelve un resultado.\\
     \textbf{Medición de la respuesta:} El resultado se procesa en menos de 1 minuto.
@@ -31,7 +31,7 @@ Se hán indentificado 4 atributos de calidad en total, estos son: performace, dis
     \item Los mensajes que se reciben en forma correcta son procesados.\\ \\
     \textbf{Fuente:} TR, Biggest Satelite, Sistema eolico.\\
     \textbf{Estimulo:} Se recibe un mensaje con datos capturados.\\
-    \textbf{Artefacto:} Estación central.\\
+    \textbf{Artefacto:} Data manager (Estación central).\\
     \textbf{Entorno:} Normal.\\
     \textbf{Respuesta:} El mensaje es procesado.\\
     \textbf{Medición de la respuesta:} El mensaje es procesado y almacenado en el 99,99\% de las veces.
@@ -39,10 +39,26 @@ Se hán indentificado 4 atributos de calidad en total, estos son: performace, dis
     \item La información del sistema esta disponible para los clientes externos o usuários.\\ \\
     \textbf{Fuente:} Cliente externo, usuário.\\
     \textbf{Estimulo:} Pedido de datos almacenados.\\
-    \textbf{Artefacto:} Sistema de monitoreo.\\
+    \textbf{Artefacto:} Datos (Sistema de monitoreo).\\
     \textbf{Entorno:} Normal.\\
     \textbf{Respuesta:} Los datos son enviados a los que lo solicitaron.\\
     \textbf{Medición de la respuesta:} Los datos se encuentran disponibles en el 99,999\% de los casos.
+    
+    \item Los resultados de los modelos son cosistentes .\\ \\
+    \textbf{Fuente:} Componente de procesamiento.\\
+    \textbf{Estimulo:} Resultado de modulo invalido.\\
+    \textbf{Artefacto:} Sistema de corroborador de resultados(Estación central).\\
+    \textbf{Entorno:} Normal.\\
+    \textbf{Respuesta:} Se detectan los errores y no se modifica el estado actual consistente.\\
+    \textbf{Medición de la respuesta:} El sistema tiene resultados consistentes en el 99,999\% de los casos.
+    
+    \item Los mensajes desordenados son ordenados correctamente.\\ \\
+    \textbf{Fuente:} Terminal Remota.\\
+    \textbf{Estimulo:} Llegan datos desordenados.\\
+    \textbf{Artefacto:} Recepcion segura (Estación central).\\
+    \textbf{Entorno:} Normal.\\
+    \textbf{Respuesta:} Los mesajes son ordenados correctamente.\\
+    \textbf{Medición de la respuesta:} Los mensajes desordenados son ordenados correctamente en el 99,999\% de los casos.    
     \end{enumerate}
     
 \item Atributos de confiabilidad:
@@ -51,7 +67,7 @@ Se hán indentificado 4 atributos de calidad en total, estos son: performace, dis
     \item Los resultados obtenidos son correctos.\\ \\
     \textbf{Fuente:} Componente interna.\\
     \textbf{Estimulo:} Se realiza un pedido de la información meteorologica.\\
-    \textbf{Artefacto:} Estación central.\\
+    \textbf{Artefacto:} Procesamiento (Estación central).\\
     \textbf{Entorno:} Normal.\\
     \textbf{Respuesta:} Los datos almacenados son procesados y se devuelve un resultado(pronostico).\\
     \textbf{Medición de la respuesta:} El pronostico se confirma en un 99,9\% de los casos.
@@ -63,22 +79,73 @@ Se hán indentificado 4 atributos de calidad en total, estos son: performace, dis
     \item Los mensajes que arriban a la Estación central corruptos o erroneos son descartados.\\ \\
     \textbf{Fuente:} Intruso, usuário, TR.\\
     \textbf{Estimulo:} Arriba un mensaje alterado, corrupto o erroneo.\\
-    \textbf{Artefacto:} Estación central.\\
+    \textbf{Artefacto:} Recepción segura (Estación central).\\
     \textbf{Entorno:} Online.\\
     \textbf{Respuesta:} Se detecta el mensaje alterado, corrupto o erroneo y se descarta.\\
     \textbf{Medición de la respuesta:} Los mensajes alterados, corruptos o erroneos, son descartados en el 99,99\% de los casos.
     \end{enumerate}
 
-\item Atrbutos de modificabilidad:
+\item Atributos de modificabilidad:
 
     \begin{enumerate}
     \item La modificación del modelo se puede realizar en un lapso de tiempo aceptable.\\ \\
     \textbf{Fuente:} Usuario, experto, desarrollador.\\
     \textbf{Estimulo:} Se quiere modificar el modelo matemático.\\
-    \textbf{Artefacto:} Estación central (computo).\\
-    \textbf{Entorno:} \textcolor{red}{\large \textbf{Normal??}}\\
+    \textbf{Artefacto:} Procesamiento (Estación central).\\
+    \textbf{Entorno:} Ejecución\\
     \textbf{Respuesta:} El modelo matemático es modificado.\\
     \textbf{Medición de la respuesta:} La modificación se realiza en a lo sumo 72 horas.
-    \end{enumerate}
 
+		\item Se pueden instalar TRs o sensores en menos de 10 días.\\ \\
+    \textbf{Fuente:} Empresa.\\
+    \textbf{Estimulo:} Instalación de nuevas TRs o sensores.\\
+    \textbf{Artefacto:} Controlador Estado (Estación central).\\
+    \textbf{Entorno:} Normal.\\
+    \textbf{Respuesta:} Se instalan las componentes solicitadas.\\
+    \textbf{Medición de la respuesta:} La instalación se realiza en menos de 10 días.
+
+    \item La agenda de una TR se realiza correctamente.\\ \\
+    \textbf{Fuente:} Usuario u Operario.\\
+    \textbf{Estimulo:} Cambio de la agenda de un sensor.\\
+    \textbf{Artefacto:} Configuración agenda (Terminal Remota).\\
+    \textbf{Entorno:} Ejecución.\\
+    \textbf{Respuesta:} La agenda se configura adecuadamente.\\
+    \textbf{Medición de la respuesta:} La configuración se realiza en menos de 60 segundos.
+
+    \end{enumerate}
+    
+\item Atributos de usabilidad:
+
+   \begin{enumerate}
+   \item La información del sistema brinda al los usuarios.\\ \\
+   \textbf{Fuente:} Usuario final / empresa.\\
+   \textbf{Estimulo:} Acceso a la información mediante Google Maps, estado del tiempo, etc.\\
+   \textbf{Artefacto:} Servicios página (Sistema de monitoreo).\\
+   \textbf{Entorno:} Ejecución.\\
+   \textbf{Respuesta:} Se brinda el servicio solicitado.\\
+   \textbf{Medición de la respuesta:} El usuario obtiene un 90\% de satisfacción.
+   
+   \item El acceso a la información del sistema se hace facilmente.\\ \\
+   \textbf{Fuente:} Empleado.\\
+   \textbf{Estimulo:} Acceso a la información de estadofacilmente.\\
+   \textbf{Artefacto:} Visualización (Sistema de monitoreo).\\
+   \textbf{Entorno:} Ejecución.\\
+   \textbf{Respuesta:} La información es brindada correctamente.\\
+   \textbf{Medición de la respuesta:} El usuario obtiene un 90\% de satisfacción.
+  
+   \end{enumerate}
+   
+\item Atributos de interoperabilidad:
+
+   \begin{enumerate}
+   \item El acceso a la información del sistema se hace facilmente.\\ \\
+   \textbf{Fuente:} Sistema eolico.\\
+   \textbf{Estimulo:} Llegan datos al sistema.\\
+   \textbf{Artefacto:} Arbitro 1 (Estación central).\\
+   \textbf{Entorno:} Normal.\\
+   \textbf{Respuesta:} Se procesan los datos y se seleccionan los mas precisos.\\
+   \textbf{Medición de la respuesta:} Los datos se reciben en el 99,99\% de los casos.
+  
+   \end{enumerate}
+   
 \end{itemize}
