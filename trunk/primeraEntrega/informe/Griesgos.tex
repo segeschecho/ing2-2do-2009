@@ -24,13 +24,12 @@ Finalmente los riesgos determinados fuero:
 \item Probabilidad: 0.2
 \item Impacto: 10
 \item Exposicición al riesgo: 2.0
-\item Mitigación: Testear localmente los modelos antes de de ponerlos en funcionamiento.
+\item Mitigación: Hacer pruebas con los modelos antes de de ponerlos en funcionamiento. Probarlos con datos históricos reales y ver si acierta las predicciones. Estas pruebas deberian hacerse en conjunto con el meteorólogo que desarollo el modelo para que pueda corregir eventuales errores.
 \item Plan de Contingencia: Volver al último modelo matemático válido.
 \end{itemize}
 
-\textbf{En caso de:} incorporar modelos matemáticos inconsistentes se procesarán datos erróneos lo cual perjudica a nuestro sistema en gran medida ya que uno de los requerimientos fundamentales es tener siempre y en todo momento información consistente.
-
-\item - R2 - Mal interpretación de requerimientos no escenciales.
+\textbf{En caso de:} incorporar modelos matemáticos inexactos posiblemente se hagan predicciones incorrectas, lo cual es gravísimo en el contexto de nuestro sistema.
+\item - R2 - Mala interpretación de requerimientos no escenciales.
 
 \begin{itemize}
 \item Probabilidad: 0.3
@@ -40,7 +39,7 @@ Finalmente los riesgos determinados fuero:
 \item Plan de Contingencia: Solucionar de alguna manera, en tiempo de ejecución los problemas generados.
 \end{itemize}
 
-\textbf{En caso de:} una mala interpretacíón de los requerimientos no escenciales(aquellos no necesariamente críticos) los usuarios no estarán en conformidad y el el peor de los casos habrá que corregir dichos errores en tiempo de ejecución.
+\textbf{En caso de:} una mala interpretacíón de los requerimientos no escenciales (aquellos no necesariamente críticos) los usuarios no estarán conformes y el posiblemente haya que corregir dichos errores en tiempo de ejecución.
 
 \item - R3 - Infiltración en modelo eólico.
 
@@ -60,11 +59,10 @@ Finalmente los riesgos determinados fuero:
 \item Probabilidad: 0.09
 \item Impacto: 7
 \item Exposicición al riesgo: 0.63
-\item Mitigación: Analizar y estudiar posibilidades de quiebra antes dela contratación.
-\item Plan de Contingencia: Aprovechamiento de instalaciones en otras empresas.
+\item Mitigación: Cobrar por adelantado los costos de la instalación física.
 \end{itemize}
 
-\textbf{En caso de:} Quiebre de empresas que previamente nos hayan contratado y se hayan intalado las componentes solicitadas los gastos de intalación perjudicarían la economía de la empresa con lo cual se tendría que intentar subsanar esta situación buscando otra empresa similar y convencerla de la utilización de nuestros servicios. Esta solución es poco probable pero es una posible alternativa a dicho problema.
+\textbf{En caso de:} Quiebre de empresas que previamente nos hayan contratado y se hayan intalado las componentes solicitadas los gastos de intalación perjudicarían la economía de la empresa. Para evitar esto, se debería cobrar por adelantado a la empresa siempre que sea posible.
 
 \item - R5 - Caída página de la infrestructura.
 
@@ -84,7 +82,7 @@ Finalmente los riesgos determinados fuero:
 \item Probabilidad: 0.3
 \item Impacto: 5
 \item Exposicición al riesgo: 1.5
-\item Mitigación: Estudiar, analizar e investigar el servido que garantice mayor disponibilidad.
+\item Mitigación: Estudiar, analizar e investigar el servidor que garantice mayor disponibilidad.
 \item Plan de Contingencia: Utilizar algún tipo de sistema vía sms para informar a los usuarios.
 \end{itemize}
 
@@ -150,7 +148,7 @@ Finalmente los riesgos determinados fuero:
 
 \textbf{En caso de:} generar una mala arquitectura, se pueden producir muchos problemas posibles tales como lentitud en las conexiones, datos erroneos o inconsistentes, falta de disponibilidad, lo que haría que nuestro software sea de mala calidad, co lo cual la idea es dedicarle el mayor tiempo posible validando en todo momento lo que se haya realizado. En todo caso se intentará realizar una arquitectura flexible para que cualquier posible cambio se aplicable.
 
-\item - R12 - Caída del servicio Biggest Satellit.
+\item - R12 - Caída del servicio Biggest Satellite.
 
 \begin{itemize}
 \item Probabilidad: 0.2
@@ -160,7 +158,7 @@ Finalmente los riesgos determinados fuero:
 \item Plan de Contingencia: cambiar el radio de triangulación para generar TRs virtuales y calcular promedios con datos previos a la caída.
 \end{itemize}
 
-\textbf{En caso de:} caída del servicio Biggest Satellit en caso de necesidad de acceder a sus servicios por la caída de una TR y no poder triangular estaríamos dejando de proveer datos lo cual no puede suceder en nuestro sistema.
+\textbf{En caso de:} caída del servicio Biggest Satellite en caso de necesidad de acceder a sus servicios por la caída de una TR y no poder triangular estaríamos dejando de proveer datos lo cual no puede suceder en nuestro sistema.
 
 \item - R13 - Caída red GSM.
 
@@ -168,8 +166,8 @@ Finalmente los riesgos determinados fuero:
 \item Probabilidad: 0.05
 \item Impacto: 10
 \item Exposicición al riesgo: 0.5
-\item Mitigación: Testear 
-\item Plan de Contingencia: Utilizar el servicio Biggest Satellit a pesar de sus costos.
+\item Mitigación: Ninguna, la red GSM no depende de nosotros.
+\item Plan de Contingencia: Utilizar el servicio Biggest Satellite a pesar de sus costos en conjunto con el sistema eólico.
 \end{itemize}
 
 \textbf{En caso de:} caída de la red GSM nuestro proyecto es obsoleto.
@@ -182,7 +180,7 @@ Finalmente los riesgos determinados fuero:
 \item Probabilidad: 0.5
 \item Impacto: 7
 \item Exposicición al riesgo: 3.5
-\item Mitigación: Dedicar mayon tiempo a la estimación y análisis en la duración de las tareas.
+\item Mitigación: Dedicar mayor tiempo a la estimación y análisis en la duración de las tareas.
 \item Plan de Contingencia: Evaluar en el seguimiento del proyecto la idea de incrementar el tiempo de alguna de las iteraciones.
 \end{itemize}
 
