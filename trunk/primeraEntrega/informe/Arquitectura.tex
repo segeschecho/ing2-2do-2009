@@ -4,9 +4,41 @@ En esta parte se desarrollará la arquitectura general del producto. Analiceremos
 
 \section{Componentes y conectores}
 
-La primera de las estructuras que vamos a analizar es la asociada a entidades run-time. Para ello utilizaremos vistas de componentes y conectores que nos permitan identificar éstas entidades y poder instanciarlas como componentes o conectores. Esto nos dará una idea de como los diferentes componentes contribuyen a la ejecución de las funcionalidades solicitadas y como las tácticas aplicadas se corresponden al control de los diferentes atributos de calidad. Presentaremos tres vistas de acuerdo a los componentes que funcionan en cada uno de las tres grandes partes que componen nuestro sistema(Terminal Remota, Estación central y Sistema de Monitoreo) y también explicaremos la forma de comunicación y flujo de datos entre dichas partes. Cada una de las tres vistas se encuentran al final de ésta sección por lo que es aconsejable analizarla en paralelo a medida que se lee la explicación del funcionamiento de las componentes internas.
+La primera de las estructuras que vamos a analizar es la asociada a entidades run-time. Para ello utilizaremos vistas de componentes y conectores que nos permitan identificar éstas entidades y poder instanciarlas como componentes o conectores. Esto nos dará una idea de como los diferentes componentes contribuyen a la ejecución de las funcionalidades solicitadas y como las tácticas aplicadas se corresponden al control de los diferentes atributos de calidad. Presentaremos tres vistas de acuerdo a los componentes que funcionan en cada uno de las tres grandes partes que componen nuestro sistema(Terminal Remota, Estación central y Sistema de Monitoreo) y también explicaremos la forma de comunicación y flujo de datos entre dichas partes, por lo cual también puede verse como una vista de Deployment combinada con componentes y conectores. Cada una de las tres vistas se encuentran al final de ésta sección por lo que es aconsejable analizarla en paralelo a medida que se lee la explicación del funcionamiento de las componentes internas.
+
+
+\subsection{Funcionamiento de las Terminales Remotas}
+
+Las Terminales Remotas represantan los nodos o unidades que sensan y proveen información a la red telemétrica. Tienen a su cargo tareas como:
+
+\begin{itemize}
+\item Recopilación de información de sensores.
+\item Envío de datos a la EC.
+\item Configuración en la Agenda de los Sensores.
+\item Minimización del consumo de energía de las baterías.
+\item Mantenimiento de Estado de sensores.
+
+\end{itemize}
+
+\subsubsection{Tácticas elegidas en las Terminales Remotas}
+
 
 \subsection{Funcionamiento de la Estación Central}
+
+La Estación Central representa el gran cerebro del sistema. Tiene a su cargo funcionalidades tales como: 
+
+\begin{itemize}
+\item Comunicación con las terminales remotas ya sea para  conocer su estado, para recibir datos o bien para configurar agendas. 
+\item  Comunicición con el Sistema de Monitoreo para proveer la información necesaria a agentes externos e internos del sistema.
+\item Procesamiento de datos.
+\item Estado general del sistema.
+\item Estrategias alternativas como triangulaciones, Biggest Satellit, etc.
+\item Mantener consistencia, completitud y coherencia en la información.
+
+\end{itemize}
+
+\subsubsection{Descripción de las componentes de la Estación Central}
+
 
 
 \subsubsection{Tácticas elegidas en la Estación Central}
@@ -17,9 +49,9 @@ La primera de las estructuras que vamos a analizar es la asociada a entidades ru
 El Sistema de Monitoreo es la parte del sistema encargada de la interfaz con los usuarios, clientes y otros sistemas externos. En este sector se prestarán diferentes servicios, ya sea mediante una interfaz de comunicación directa o mediante Web Services. Estos servicios tienen que ver, en su mayoría, a la visualización de los datos que el sistema tenga disponible en el momento. Éstos datos pueden ser:
 
 \begin{itemize}
-\item Los resultados de los métodos procesados por la Estación Central, que pueden estar destinados a clientes externos, como por ejemplo la página del Ministerio de Infraestructura, o para otros clientes externos que se espera tener en un futuro, como es el caso de la empresa AgroTop.
+\item Los resultados de los datos procesados por la Estación Central, que pueden estar destinados a operarios internos o usuarios , como por ejemplo la página del Ministerio de Infraestructura, o para otros clientes externos que se espera tener en un futuro, como es el caso de la empresa AgroTop.
 
-\item Los datos que se refieren al estado general del sistema en tiempo real, el estado de la conexión entre las TRs y la Estación central, el estado individual de cada TR, cuales de éstas están funcionando correctamente, cuales fueron trianguladas, y cuales no fueron trianguladas y se esta utilizando el sistema satelital Biggest Satelite para obtener los datos de su zona.
+\item Los datos que se refieren al estado general del sistema en tiempo real, el estado de la conexión entre las TRs y la Estación central, el estado individual de cada TR, cuáles de éstas están funcionando correctamente, cuales fueron trianguladas, y cuales no fueron trianguladas y se está utilizando el sistema satelital Biggest Satelite para obtener los datos de su zona.
 
 \item La información que es enviada en forma de mail a los responsables por alertas que se producen.
 
@@ -29,23 +61,39 @@ El Sistema de Monitoreo es la parte del sistema encargada de la interfaz con los
 
 Como se puede observar, el Sistema de Monitoreo es la gran interfaz que tiene el sistema.
 
-\subsubsection{Descripción de los componentes del Sistema de Monitoreo}
+\subsubsection{Descripción de las componentes del Sistema de Monitoreo}
 
 En ésta sección se nombrarán y explicarán los componentes que forman parte del Sistema de Monitoreo, asi también como su rol dentro de la arquitectura.
 
 \begin{itemize}
 
-\item \textbf{Interfaz SE:} Este componente es el encargado de 	comunicarse con el Sistema Eólico, implementando su protocolo de comunicación, y a su vez se encarga de comunicarse con la Estación Central, para enviarle los datos recibidos al componente encargado del procesamiento de los mismos.
+\item \textbf{Interfaz SE:} Esta componente es el encargado de 	comunicarse con el Sistema Eólico, implementando su protocolo de comunicación, y a su vez se encarga de comunicarse con la Estación Central, para enviarle los datos recibidos a la componente encargado del procesamiento de los mismos.
+
+\item \textbf{Interfaz Pagos:} Esta interfaz se encarga de la transferencia mediante un protocolo sensillo con el Sistema de Pagos de los minutos acumulados por la utilización del Sistema Biggest Satellite, el canal debe ser seguro para que se cobre adecuadamente el uso del servicio.
+
+\item \textbf{ABM Cliente-Sensor-Tr:} Esta componente se encarga básicamente de las funciones de alta, baja y modificación de algún cliente externo, terminal remota o sensor, es por ello que contempla y se comunica con una base de datos que tiene un estado general de dichos elementos. A su vez recibe éstas configuraciones de la consola de mando de los operarios mediante una comunicación segura.
+
+\item \textbf{Programación Agenda:} Esta componente se encarga de enviarle los datos de configuración recibidos por la consola de mando a la Estación Central. La comunicación entre la consola de mando es segura se podría utilizar SSL o similares, cuestiones que probablemente se puedan estblecer mejor en las iteraciones de contrucción asociadas a dichos casos de uso. 
+
+\item \textbf{Datos:} Esta componente es avisada por la EC cada vez que un lote de datos es procesado por los modelos mátematicos, por lo cual luego de dicho aviso recupera dichos datos de los resultados almacenados en la base de datos(Resultados) y se encarga de transferirla al sistema de visualización.
+
+\item \textbf{Monitor Tráfico:} La función que cumple esta componente como su nombre lo indica es monitorear el tráfico existente entre los canales de comunicación de la Trs y la EC, para ellos consulta regularmente a una componente en la EC que se encarga de obtener dicha información. Una vez obtenida la información de tráfico, la mísma es envíada a las componentes encargadas de la visualización para los operarios como para la que se encarga de proveer dichos servicios a la página web del ministerio. Finalmente ésta componente en caso de detectar un mucho tráfico (cuyos límites serán definidos al momento de implementar ésta funcionalidad) se comunicará con el sistema de alertas (Sistema de mails) para que se informe de dicha situación a los destinatarios de la misma.
+
+\item \textbf{Monitor Estado:} Al igual que la componente anterior monitorea regularmente el estado de las Trs/Sensores, para ello le consulta a una componente en la EC (Estado) quien mantiene una base de datos con dicha información. Es importante destacar que si bien es competente más a una decisión más cercana a la implementación que a la arquitectura, los tiempos de consulta o polling serán de fracciones de segundo para poder tener un sistema lo más parecido a uno en tiempo real. La información recopilada seá enviada a las mismas componentes mencionadas anteriormente. 
+
+\item \textbf{Sistema de mails:} EL sistema de mails actúa como las alarmas mencionadas en casos críticos, en caso de que le llegue información para informar, se comunicará con un servidor de mails para envíar las alarmas correspondientes a los destinatarios.
+
+\item \textbf{Visualización:} Esta componente recopila toda la información en tiempo real que le va llegando y la transforma en datos útiles para la visualización de la misma en las consolas de mando de los operarios.
+
+\item \textbf{Servicios Página:} Provee los web services a la página de la infraestructura con la información en tiempo real que va adquiriendo. La comunicación es Cliente(Pagina infraestructura) Servido(Servicios Página).
+
+\item \textbf{Servicios Empresas:} Filtra la información requerida para cada empresa y como la componente anterior la comunicación es mediante el protocolo Cliente Servidor.
+
+\item \textbf{Consola de mando:} Es la componente que se encarga de la comunicación con los operarios, ya sea para mostrar la información(Estado de TRs en colores, Trafico, Etc), así como para cambios en las agendas de los sensores o ABM de TRs, Sensores y Clientes.  
 
 \end{itemize}
 
 \subsubsection{Tácticas elegidas en el Sistema de Monitoreo}
 
 
-\subsection{Funcionamiento de las Terminales Remotas}
-
-
-\subsubsection{Tácticas elegidas en las Terminales Remotas}
-
-
-\section{Comunicación entre la Estación Central y el Sistema de Monitoreo}
+\subsection{Comunicación entre la Estación Central y el Sistema de Monitoreo}
