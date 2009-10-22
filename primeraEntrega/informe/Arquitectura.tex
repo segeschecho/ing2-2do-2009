@@ -1,10 +1,10 @@
 \chapter{Arquitectura}
 
-En esta parte se desarrollará la arquitectura general del producto. Analiceremos estilos arquitectónicos, las tácticas correspondientes para poder contemplar los atributos de calidad y finalmente diferentes estructuras que nos conllevarán a relizar las vistas arquitectónicas apropiadas para lograr un buen entendimiento.
+En esta parte se desarrollará la arquitectura general del producto. Analiceremos estilos arquitectónicos, las tácticas correspondientes para poder contemplar los atributos de calidad y finalmente diferentes estructuras que nos conllevarán a realizar las vistas arquitectónicas apropiadas para lograr un buen entendimiento de las diferentes partes del sistema.
 
 \section{Componentes y conectores}
 
-La primera de las estructuras que vamos a analizar es la asociada a entidades run-time. Para ellos utilizaremos vistas de componentes y conectores que nos permitan identificar éstas entidades y poder instanciarlas como componentes o conectores. Esto nos dará una idea de como los diferentes componentes contribuyen a la ejecución de las funcionalidades solicitadas y como las tácticas aplicadas se corresponden al control de los diferentes atributos de calidad. Presentaremos tres vistas de acuerdo a los componentes que funcionan en cada uno de las tres grandes partes que componen nuestro sistema(Terminal Remota, Estación central, Sistema de Monitoreo) y también explicaremos la forma de comunicación y flujo de datos entre dichas partes. Cada una de las tres vistas se encuentra al final de ésta sección por lo que es aconsejable analizarla en paralelo a medida que se lee la explicación del funcionamiento de las componentes internas.
+La primera de las estructuras que vamos a analizar es la asociada a entidades run-time. Para ello utilizaremos vistas de componentes y conectores que nos permitan identificar éstas entidades y poder instanciarlas como componentes o conectores. Esto nos dará una idea de como los diferentes componentes contribuyen a la ejecución de las funcionalidades solicitadas y como las tácticas aplicadas se corresponden al control de los diferentes atributos de calidad. Presentaremos tres vistas de acuerdo a los componentes que funcionan en cada uno de las tres grandes partes que componen nuestro sistema(Terminal Remota, Estación central y Sistema de Monitoreo) y también explicaremos la forma de comunicación y flujo de datos entre dichas partes. Cada una de las tres vistas se encuentran al final de ésta sección por lo que es aconsejable analizarla en paralelo a medida que se lee la explicación del funcionamiento de las componentes internas.
 
 \subsection{Funcionamiento de la Estación Central}
 
@@ -14,8 +14,38 @@ La primera de las estructuras que vamos a analizar es la asociada a entidades ru
 
 \subsection{Funcionamiento del Sistema de Monitoreo}
 
+El Sistema de Monitoreo es la parte del sistema encargada de la interfaz con los usuarios, clientes y otros sistemas externos. En este sector se prestarán diferentes servicios, ya sea mediante una interfaz de comunicación directa o mediante Web Services. Estos servicios tienen que ver, en su mayoría, a la visualización de los datos que el sistema tenga disponible en el momento. Éstos datos pueden ser:
+
+\begin{itemize}
+\item Los resultados de los métodos procesados por la Estación Central, que pueden estar destinados a clientes externos, como por ejemplo la página del Ministerio de Infraestructura, o para otros clientes externos que se espera tener en un futuro, como es el caso de la empresa AgroTop.
+
+\item Los datos que se refieren al estado general del sistema en tiempo real, el estado de la conexión entre las TRs y la Estación central, el estado individual de cada TR, cuales de éstas están funcionando correctamente, cuales fueron trianguladas, y cuales no fueron trianguladas y se esta utilizando el sistema satelital Biggest Satelite para obtener los datos de su zona.
+
+\item La información que es enviada en forma de mail a los responsables por alertas que se producen.
+
+\item La recepción de datos provenientes del Sistema Eólico, que son utilizados por la Estación Central para discernir que datos son mas precisos.
+
+\end{itemize}
+
+Como se puede observar, el Sistema de Monitoreo es la gran interfaz que tiene el sistema.
+
+\subsubsection{Descripción de los componentes del Sistema de Monitoreo}
+
+En ésta sección se nombrarán y explicarán los componentes que forman parte del Sistema de Monitoreo, asi también como su rol dentro de la arquitectura.
+
+\begin{itemize}
+
+\item \textbf{Interfaz SE:} Este componente es el encargado de 	comunicarse con el Sistema Eólico, implementando su protocolo de comunicación, y a su vez se encarga de comunicarse con la Estación Central, para enviarle los datos recibidos al componente encargado del procesamiento de los mismos.
+
+\end{itemize}
 
 \subsubsection{Tácticas elegidas en el Sistema de Monitoreo}
+
+
+\subsection{Funcionamiento de las Terminales Remotas}
+
+
+\subsubsection{Tácticas elegidas en las Terminales Remotas}
 
 
 \section{Comunicación entre la Estación Central y el Sistema de Monitoreo}
