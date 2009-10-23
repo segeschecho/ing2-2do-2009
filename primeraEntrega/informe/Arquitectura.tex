@@ -67,7 +67,7 @@ En ésta sección se nombrarán y explicarán los componentes que forman parte del S
 
 \begin{itemize}
 
-\item \textbf{Interfaz SE:} Esta componente es el encargado de 	comunicarse con el Sistema Eólico, implementando su protocolo de comunicación, y a su vez se encarga de comunicarse con la Estación Central, para enviarle los datos recibidos a la componente encargado del procesamiento de los mismos.
+\item \textbf{Interfaz SE:} Esta componente es la encargada de 	comunicarse con el Sistema Eólico, implementando su protocolo de comunicación, y a su vez se encarga de comunicarse con la Estación Central, para enviarle los datos recibidos a la componente encargado del procesamiento de los mismos.
 
 \item \textbf{Interfaz Pagos:} Esta interfaz se encarga de la transferencia mediante un protocolo sensillo con el Sistema de Pagos de los minutos acumulados por la utilización del Sistema Biggest Satellite, el canal debe ser seguro para que se cobre adecuadamente el uso del servicio.
 
@@ -76,6 +76,8 @@ En ésta sección se nombrarán y explicarán los componentes que forman parte del S
 \item \textbf{Programación Agenda:} Esta componente se encarga de enviarle los datos de configuración recibidos por la consola de mando a la Estación Central. La comunicación entre la consola de mando es segura se podría utilizar SSL o similares, cuestiones que probablemente se puedan estblecer mejor en las iteraciones de contrucción asociadas a dichos casos de uso. 
 
 \item \textbf{Datos:} Esta componente es avisada por la EC cada vez que un lote de datos es procesado por los modelos mátematicos, por lo cual luego de dicho aviso recupera dichos datos de los resultados almacenados en la base de datos(Resultados) y se encarga de transferirla al sistema de visualización.
+
+\item \textbf{Outliers:} Esta componente es notificada por la EC cada v'ez que se detecta un dato que es considerado de tipo outlier. Luego de recibir esta infoemaci'on, la componente envia estos al componente Visualizaci'on para que se muestre por pantalla y sea analizado por alg'un experto. A esta altura, tenemos conocimiento de que los datos que son outliers, solo deben ser notificados, sin esperar respuesta de la persona que los analice.
 
 \item \textbf{Monitor Tráfico:} La función que cumple esta componente como su nombre lo indica es monitorear el tráfico existente entre los canales de comunicación de la Trs y la EC, para ellos consulta regularmente a una componente en la EC que se encarga de obtener dicha información. Una vez obtenida la información de tráfico, la mísma es envíada a las componentes encargadas de la visualización para los operarios como para la que se encarga de proveer dichos servicios a la página web del ministerio. Finalmente ésta componente en caso de detectar un mucho tráfico (cuyos límites serán definidos al momento de implementar ésta funcionalidad) se comunicará con el sistema de alertas (Sistema de mails) para que se informe de dicha situación a los destinatarios de la misma.
 
