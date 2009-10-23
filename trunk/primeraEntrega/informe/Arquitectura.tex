@@ -67,6 +67,8 @@ La Estación Central representa el gran cerebro del sistema. Tiene a su cargo fun
 
 \subsubsection{Descripción de las componentes de la Estación Central}
 
+\begin{itemize}
+
 \item \textbf{Históricos:} Este base de datos contempla la información histórica recopilada por la red telemétrica, es decir todos los datos desde el comienzo de la ejecución del sistema hasta el día actual. Esto sirve para aplicar algoritmos para la detección de posibles outlaiers o mismo para recuperar y comparar datos históricos con actuales. La implementación de la misma no es necesaria a esta altura del diseño pero según nuestros conocimientos podría llevarse a cabo algún tipo de base de datos similar a un Data Warehouse, lo cual resulta muy cómodo a la hora de tomar decisiones y comparar con datos históricos.
 
 \item \textbf{Resultados:} Esta base de datos va almacenando los resultados del procesamiento de los datos provenientes de las terminales remotas. Esta información es la que necesita verdaderamente ser confiable, precisa y en tiempo real para poder dar a conocer las predicciones correctas hacerca del sistema meteorológico.
@@ -106,6 +108,8 @@ La Estación Central representa el gran cerebro del sistema. Tiene a su cargo fun
 \item \textbf{Modificación Agenda:} Esta componente recibe las peticiones en la modificación de la agenda para un sensor de una TR en particular, y envía dicha información al divisor de datos asignado a la Terminal Remota cuyo sensor necesita de la configuración.
 
 \item \textbf{Procesamiento:} Cada cierto lapso de tiempo, ésta componente adquiere los datos en la base de datos Data, los últimos válidos, y procesa mediante la aplicación de modelos matemáticos dichos datos. Una vez llevada a cabo ésta tarea notifica al sistema de monitoreo la finalización del procesamiento y guarda los resultados en la base de datos resultados.
+
+\end{itemize}
 
 \subsubsection{Tácticas elegidas en la Estación Central}
 
