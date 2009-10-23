@@ -20,6 +20,34 @@ Las Terminales Remotas represantan los nodos o unidades que sensan y proveen inf
 
 \end{itemize}
 
+\subsubsection{Descripción de las componentes de la Terminal Remota}
+
+\begin{itemize}
+
+\item \textbf{Procesador Estado:} Esta componente se encarga de la iteracción con la componente muy utilizada en el mercado. Dicha componente proveerá la información acerca del monitoreo de paneles solares y baterías. Una vez obtenida dicha información ésta componente la procesará y determinará las acciones a llevar a cabo, enviándo dichas ordenes al Switch Estado.
+
+\item \textbf{Switch Estado:} A partir de las órdenes generadas por el Porcesador Estado, ésta componente se encargará de switchear la forma de obtención de energía por parte de la TR ordenando apagar las baterías y habilitar los paneles solares o viceverza. Finalemnte cada vez que se produce un cambio en la fuente de alimentación
+
+\item \textbf{ABM Sensor:} Esta componente es la encargada de llevar a cabo la alta, moificación y baja de sensores en la terminal remota.
+
+\item \textbf{Datos TR:} Esta base de datos tiene la información de los datos que van llegando por parte de los sensores y además el estado general de los mismos. Por otro lado también existe información asociada al consumo de energía de la Terminal Remota.
+
+\item \textbf{Adaptador Sensor:} Los adaptadores de sensores, permiten como su nombre lo indica normalizar los datos provenientes de los distintos sensores. Además es importante su existencia debido a las distintas formas de conexión que tienen cada uno de los sensores con la Terminal Remota. Está asociado a dos conectores de imput y dos de ouput por los cuales se llevan a cabo las funcionalidades de configuracíon de las agendas de los sensores y la llegada de datos por parte de los mismos. Hay un adaptador por cada sensor comunicado con la Terminal Remota.
+
+
+\item \textbf{Configuración Agenda:} Esta componente se encarga de recibir las órdenes en el cambio de una agenda de un determinado sensor proveniente de la Estación Central y envía dicha información al adaptador del sensor correspondiente.
+
+\item \textbf{Receptor Datos:} Esta componente se encarga de ir almacenando los datos obtenidos por los diferentes sensores para su posterior envío. Además de acuerdo a la frecuencia de envío de los sensores puede determinar si existe alguno de ellos se cayó y avisar de dicha información a la componente de Inf Estado Tr/Sensor.
+
+\item \textbf{Inf Estado Tr/Sensor:} Esta componente se encarga de manejar el estado general de la TR(consumo de energía) y el funcionamiento de los sensores de la misma. Adémas se encarga de proveer ésta información almacenada en la base de daros Datos TR, a la Estación Central cuando la misma así lo requiera.
+
+\item \textbf{Sincronizador:} El sincronizador se encargarga del envío de datos cada 1 minuto a la Estación Central. Es decir, cada un minuto envía la información obtenida por los sensores almacenada en la base de datos aplicando algún algoritmo para solucionar el problema de las distintas frecuencias de envío de los sensores. Una vez armada la transmisión envía dicha información a la componente Comunicación EC.
+
+\item \textbf{Comunicación EC:} Esta componente se encarga del protocolo de comunicación segura y confiable con la Estación central. Dicho protocolo se detallará con mayor detalle posteriormente en éste informe. 
+
+\end{itemize}
+
+
 \subsubsection{Tácticas elegidas en las Terminales Remotas}
 
 
@@ -39,7 +67,45 @@ La Estación Central representa el gran cerebro del sistema. Tiene a su cargo fun
 
 \subsubsection{Descripción de las componentes de la Estación Central}
 
+\item \textbf{Históricos:} Este base de datos contempla la información histórica recopilada por la red telemétrica, es decir todos los datos desde el comienzo de la ejecución del sistema hasta el día actual. Esto sirve para aplicar algoritmos para la detección de posibles outlaiers o mismo para recuperar y comparar datos históricos con actuales. La implementación de la misma no es necesaria a esta altura del diseño pero según nuestros conocimientos podría llevarse a cabo algún tipo de base de datos similar a un Data Warehouse, lo cual resulta muy cómodo a la hora de tomar decisiones y comparar con datos históricos.
 
+\item \textbf{Resultados:} Esta base de datos va almacenando los resultados del procesamiento de los datos provenientes de las terminales remotas. Esta información es la que necesita verdaderamente ser confiable, precisa y en tiempo real para poder dar a conocer las predicciones correctas hacerca del sistema meteorológico.
+
+\item \textbf{Data:} Esta base de datos almacena temporalmente (Suponemos alrededor de un día) los datos provenientes de las distintas terminales remotas a ser procesados, es necesario almacenar ésta información para triangulación y procesamiento correcto de los datos completos.
+
+\item \textbf{Estado:} Esta base de datos contempla el estado de las terminales remotas en tiempo real, ésta información es necesaria para la triangulación y o utilización del sistema Biggest Satellite y para informar en la página web y operarios acerca del estado real del sistema.
+
+\item \textbf{Información/Rollback:} Es necesario llevar a cabo algún tipo del Log o seguimiento de las acciones (llegada de datos, etc) para poder tomar decisiones acerca de la vuelta a estados consistentes en caso de fallas. Esta base de datos lleva a cabo dicho seguimiento.
+
+\item \textbf{Recepción Segura:} Esta componente representa el otro extremo de la comunicación con las terminales remotas. Vamos a suponer que existen muchos de estos componentes asignados estáticamente a cada una de las terminales remotas para evitar cuellos de botella. La componente se encarga del protocolo de comunicación y la seguridad en el envío/recepción de mensajes con las Terminales Remotas asignadas y luego envía ésta información a un divisor de mensajes asignado también estáticamente.
+
+\item \textbf{Divisor mensajes:} Esta componente se encarga de transferir los distintos tipos de mensajes a cada componente asociada a ellos. Los de estado a la componente Estado y los de datos a la componente Data Manager. Es importante reflejar que las transmisiones a este punto ya están completas porque el protocolo de comunicación es llevado a cabo por la componente Recepción Segura.
+
+\item \textbf{Info Tráfico:} Esta componente se encarga de enviar información de tráfico al sistema de monitoreo cuando éste así lo requiera, para ellos en caso de recibir una petición de tráfico particular, consulta a la componente recepción segura que es la que tiene dicha información por la funcionalidad que emplea
+
+\item \textbf{Interfaz SE:} Esta componente se encarga de recibir la información del sistema eólico capturada por el sistema de monitoreo, y tranformarla a un formato útil para compararla, luego la envía al Arbitro 1.
+
+\item \textbf{Data Manager:} Esta componente centraliza todos los datos obtenidos por cada una de las Tr, y los va almacenando en Data. Cuando los datos están completos se los envía al Arbitro 1. El data manager también se encarga de ir llevando un Log para en caso de fallas poder regresar a un estado consistente.
+
+\item \textbf{Arbitro 1:} El árbitro 1 compara los datos que son comparables con los del sistema eólico y selecciona los más precisos de acuerdo a la zona de la cual provengan los datos. Por ejemplo se dice que los datos del sistema eólico suelen ser más precisos en el sur del país. Una vez normalizados los datos se los envía al Arbitro 2.
+
+\item \textbf{Arbitro 2:} El árbitro 2 compara los datos con los de la base de datos histórica, los almacena pero además analiza la posible existencia de outliers. En caso de existir envía dicha información al sistema de monitoreo para generar warnings. Un vez analizada ésta información se comunica nuevamente con el Data Manager quien actualiza los datos en la base de datos si así fuese necesario.
+
+\item \textbf{Controlador Estado:} El controlador de estado es la componente encargada de llevar a cabo el estado del sistema y sus posibles transiciones. Es quién cada cierto tiempo consulta el estado de las TR y sus sensores y actualiza la base de datos de estado.Si le llega información en caso de caída de una Terminal Remota se comunica con el Administrador Fallas TR y luego actualiza el estado de dicha TR de acuerdo a la solución obtenida. Es consultado por el Monitor de Estado del Sistema de Monitoreo y se encarga de recibir la información de alta, baja, modificación y de TRs o sensores para actualizar el estado. Cuando se detecta el alta de una Terminal Remota también se comunica con el administrador de Fallas De Para que todo vuelva a funcionar normalemente.
+
+\item \textbf{Administrador fallas Tr:} Esta componente lleva a cabo la solución cuando se detecta la caída de una terminal remota. El primer paso es comunicarse con un triangulador, que en caso de poder triangular lo hace y si no devuelve algun mensaje que no pudo. Si ésto llegase a suceder el administrador de fallas se comunica con el BS Proveedor para que adquiera los servicios correspondientes a Biggest Satellite para la zona en donde la TR se ha caído. Una vez llevado a cabo éste procedimiento se comunica nuevamente con el controlador de estado informando qué solución se llevó a cabo. Finalmente cuando se detecta el alta de la TR nueva mente el administrador de fallas interrumpe la triangulación o la adquisición del sistema Biggest Satellite.
+
+\item \textbf{Triangulador:} Ante la caída de una terminal remota accede a la base de datos de estado para determinar si es posible triangular dicha terminal. En caso de que sea posible accede a la base de datos Data para obtener las mediciones de terminales utilizadas en la triangulación, calcula promedios y luego pasa los datos triangulados a la base de datos Data nuevamente. Si no pudiese triangular, ya sea porque no hay terminales remotas próximas o están caídas simplemente le conterta a Adminisrador de Fallas que no se pudo triangular.
+
+\item \textbf{BS Proveedor:} En caso de que se necesite usar el servicio BS se comunica con la BS interfaz para que acceda a ellos y luego determina que parte de los datos necesita para esa terminal remota caída. Una vez hecho ésto envía los datos a la base de datos Data y comienza a contar el tiempo transcurrido hasta que se recupere la Tr y se deje de proveer el servicio, enviando el consumo realizado a la Interfaz Pagos.
+
+\item \textbf{BS Interfaz:} Representa la interfaz de acceso al servicio Biggest Satellit mediante un protocolo Cliente-Servidor.
+
+\item \textbf{Interfaz Pagos:} La interfaz de pago almacena los minutos consumidos en el uso de Biggest Satellite, cada cierto tiempo, envía dicha información al Sistema de Monitoreo para transferirla al sistema de pagos.
+
+\item \textbf{Modificación Agenda:} Esta componente recibe las peticiones en la modificación de la agenda para un sensor de una TR en particular, y envía dicha información al divisor de datos asignado a la Terminal Remota cuyo sensor necesita de la configuración.
+
+\item \textbf{Procesamiento:} Cada cierto lapso de tiempo, ésta componente adquiere los datos en la base de datos Data, los últimos válidos, y procesa mediante la aplicación de modelos matemáticos dichos datos. Una vez llevada a cabo ésta tarea notifica al sistema de monitoreo la finalización del procesamiento y guarda los resultados en la base de datos resultados.
 
 \subsubsection{Tácticas elegidas en la Estación Central}
 
