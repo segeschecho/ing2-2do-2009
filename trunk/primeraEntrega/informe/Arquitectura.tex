@@ -129,7 +129,7 @@ El Sistema de Monitoreo es la parte del sistema encargada de la interfaz con los
 
 \end{itemize}
 
-Como se puede observar, el Sistema de Monitoreo es la gran interfaz que tiene el sistema.
+Como se puede observar, el Sistema de Monitoreo es la gran interfaz que tiene el sistema y por esta raz'on debe cumplir con los atributos de calidad relacionados con la disponibilidad de la informaci'on y la seguridad.
 
 \subsubsection{Descripción de las componentes del Sistema de Monitoreo}
 
@@ -137,7 +137,7 @@ En ésta sección se nombrarán y explicarán los componentes que forman parte del S
 
 \begin{itemize}
 
-\item \textbf{Interfaz SE:} Esta componente es la encargada de 	comunicarse con el Sistema Eólico, implementando su protocolo de comunicación, y a su vez se encarga de comunicarse con la Estación Central, para enviarle los datos recibidos a la componente encargado del procesamiento de los mismos.
+\item \textbf{Interfaz SE:} Esta componente es la encargada de comunicarse con el Sistema Eólico, implementando su protocolo de comunicación, y a su vez se encarga de comunicarse con la Estación Central, para enviarle los datos recibidos a la componente encargado del procesamiento de los mismos. Los dos conectores que esta componente utiliza son seguros.
 
 \item \textbf{Interfaz Pagos:} Esta interfaz se encarga de la transferencia mediante un protocolo sensillo con el Sistema de Pagos de los minutos acumulados por la utilización del Sistema Biggest Satellite, el canal debe ser seguro para que se cobre adecuadamente el uso del servicio.
 
@@ -167,5 +167,42 @@ En ésta sección se nombrarán y explicarán los componentes que forman parte del S
 
 \subsubsection{Tácticas elegidas en el Sistema de Monitoreo}
 
+Como ya se sabe, uno de los principales atributos de calidad es que el sistema este disponible en todo momento. Por este motivo, la mayor parte del sistema de monitoreo dispone de algún tipo de redundancia para cubrir este exigencia.
+
+Los componentes de uso mas critico, y que son usados en todo momento, disponen de redundancia activa, ya que permite tener un tiempo mínimo, casi nulo de estado fuera de servicio. Estos componentes son los encargados de brindar la informaci'on en tiempo real y los resultados obtenidos luego de procesar la informaci'on que env'ien las TRs. Esta medida se pens'o para satisfacer el atributo de calidad relacionado con la disponibilidad de los datos hacia los usu'arios.
+
+Las componentes de uso menos cr'itico o que no requieren un estado para trabajar (es decir, que tiene una funci'on mas bien de interfaz), utilizan redundancia de tipo pasiva. Esta medida, si bien tiene un tiempo de fuera de servicio un poco mas alto que la redundancia activa, no es un tiempo que se considere alto a la hora de la caída de un componente. Las componentes que utilizan este tipo de redundancia son aquellas que brindan sus funciones a clientes externos, realizan la comunicaci'on con otros sistemas, y realizan tareas que pueden ser tolerables a la ca'ida de un componente por un tiempo un poco mayor (como es el caso de la configuraci'on de la agenda de un sensor).
+
+Por 'ultimo, las componentes que son bastante mas tolerables a fallas, utilizan repuestos. Este es el caso de la Interfaz de Pagos y ABM Cliente-Sensor-TR, que pueden estar un tiempo considerable fuera de servicio.
+
+Estas decisiones ayudan como ya se dijo a los atributos de disponibilidad del sistema. Pero adem'as de esto, las comunicaciones hacia los clientes externos, los usu'arios y hasta la comunucaci'on con la Estaci'on Central requieren ser seguras, para evitar que intrusos puedan interferir en los datos que se env'ian en todo momento. Es por esta raz'on que los conectores, hacia el exterior del Sistema de Monitoreo son seguros e implementan algún protocolo que garantice la integridad y la confidencialidad de los mismos. Con esto se cubren los atributos de calidad relacionados con la seguridad de los datos que envía y recibe el sistema a usu'arios y clientes.
+
 
 \subsection{Comunicación entre la Estación Central y el Sistema de Monitoreo}
+
+Estas dos partes del sistema, están conectadas mediante varios conectores como se puede observar en los diagramas de arquitectura de cada una. Una de las principales características que se puede observar en esta conexión, es el hecho de que los conectores utilizados para el transporte de los datos, son seguros. Esto se debe a que la parte del Sistema de Monitoreo puede estar físicamente separada de la Estaci'on Central, y por este motivo se requerido este tipo de comunicaci'on segura, para evitar que alguien pueda alterar la informaci'on que viaja de una parte a la otra.
+
+A continuaci'on se describir'an los conectores entre estas dos partes, nombrando las componentes que unen. Vale aclarar que cada uno de los conectores que se explicar'an est'an identificados por una etiqueta en los correspondientes diagramas de arquitectura.
+
+\begin{itemize}
+\item \textbf{I1:} Este conector une las dos componentes que procesan los datos correspondientes al Sistema E'olico, Interfaz SE de la Estaci'on Central e Interfaz SE del Sistema de monitoreo. Por 'ultimo, este conector es de tipo OneWay.
+
+\item \textbf{T1:} Este conector es el encargado de transportar la informaci'on del tr'afico en la red de comunicaci'on de las TRs que le brinda el componente Info. Tr'afico de la Estaci'on Central al componente llamado Monitor Tr'afico en el Sistema de Monitoreo. Este conector es de tipo Client-Server, donde el extremo cliente en este caso se encuentra en el lado del Sistema de Monitoreo.
+
+\item \textbf{E1:} Es el conector encargado de transportar la informaci'on referida al est'ado de las TRs entre el $Controlador$ $de$ $Estado$ de la EC y el $Monitor$ $de$ $Estado$ en el SM. Este conector es seguro y es de tipo $Client-Server$, donde el cliente se encuentra del lado del SM.
+
+\item \textbf{OL:} Conector encargado de transportar la informaci'on relacionada con los outliers que se detectan en el sistema. Este es seguro y es de tipo $OneWay$, y une el componente $Arbitro2$ de la EC, con $Outliers$ del SM.
+
+\item \textbf{D1:} Conector de tipo $OneWay$, donde se envían las notificaciones desde la componente $Procesamiento$ en la EC a la componente $Datos$ en el SM, indicando que se h'an generado nuevos resultados.
+
+\item \textbf{D2:} Es el complemento del conector D1, y es utlizado para transportar los datos referidos a los resultados de los modelos matematicos. Ya sea cuando hubo una notificaci'on previa, enviada por D1, o cuando alguno de los clientes externos desean obtenerlos. Este conector es de tipo $Client-Server$, donde el cliente se encuentra del lado del SM. Une las componentes $Resultados$ en la EC, con $Datos$ en el SM.
+
+\item \textbf{A1:} Este conector se utiliza para transportar la informaci'on referida a la modificaci'on de la agenda de una TR. Une las componentes $Programaci'on$ $Agenda$ en el SM, con $Modificaci'on$ $Agenda$ en la EC. Este conector es seguro y es de tipo $OneWay$.
+
+\item \textbf{ABM1:} Es el encargado de comunicar el componente $ABM$ $Cliente-Sensor-TR$ del SM con el $Controlador$ $Estado$ de la EC, y de transportar la informaci'on del sensor o TR que se instalo hacia el $Controlador$ $Estado$.Es de tipo $OneWay$.
+
+\item \textbf{P1:} Es el encargado de transportar la informaci'on relacionada al pago por el uso del servicio del sistema de Biggest Satelite. Es de tipo $OneWay$ y comunica las componentes $interfaz$ $Pagos$ en ambas partes.
+
+
+
+\end{itemize}
