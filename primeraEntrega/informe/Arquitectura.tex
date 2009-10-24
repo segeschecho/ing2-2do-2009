@@ -114,6 +114,31 @@ La Estación Central representa el gran cerebro del sistema. Tiene a su cargo fun
 \subsubsection{Tácticas elegidas en la Estación Central}
 
 
+En las vistas de arquitectura intentamos mostrar los principales componentes así como las tácticas más fáciles de reflejar en un diagrama sin embargo en ésta sección no sólo comentaremos los motivos de elección de tales tácticas sino qe también denotaremos otras que en caso de incluirlas en las vistas dificultarían la comprension de las mismas.
+
+Como señalamos anteriormente existirán varias componentes Recepción segura, asignadas cada una de ellas a un grupo de terminales remotas determinado (en principio podría ser por zona) de manera estática. Con ésto lo que intentamos reflejar es un balanceo de carga estático para no generar un único cuello de botella, de modo tal de no saturar una única componente, lo que hace que la llegada de datos sea más performante debido a que cada una de ellas recibirá y procesará un subconjunto de los datos recibidos. A su vez cada una de éstas componentes tendrá asociado un único divisor de mensajes. Por su parte y ya que logramos performance en la llegada de los datos, éstas componentes no pueden fallar, ya que de hacerlo no estaríammos recibiendo datos de todas las terminales remotas con lo cual atenta a la completitud de la información, es por ellos que existe redundancia activa en éstas dos componentes.
+
+Es importante también notar que todo tipo de comunicación entre partes es segura, ya sea Sistema de Monitoreo-Estación Central o mismo la de la Estación Central  con las terminales remotas. La componente Recepción segura, no sólo se encargará del protocolo de comunicación con las terminales remotas sino que verificará la autenticidad de los datos por algun modo de codificación y ya que cada terminal remota tendrá un código unívocamente identificatorio se podrá determinar si un mensaje proviene de ella o algún intruso intervino en el medio. 
+
+Como se mencionó la componente recepción segura encargada del protocolo de comunicación y seguridad es la que proveereá un correcto ordenamiento de los mensajes entrantes.
+
+Pasemos a analizar ahora algunas cuestiones relacionadas con la performance y la confiabilidad de los datos procesados lo cual constituye uno de los punto más importantes en nuestro sistema. En general cuando hablamos de redundancia activa estamos connsiderando una sola componente de redundancia y aclararemos en caso de necesitar más de una. Por ejemplo en el caso de la componente procesamiento vamos a utilizar tres componenetes activos, y ésto no sólo nos servirá para disponibilidad y tolerancia a fallas sino también para confiabilidad. Como las tres componentes van a realizar los mismos cálculos (también se intentará lograr una concurrencia o paralelismo de procesos dentro de cada una de las componentes en lo que sea posible) utilizaremos un voter (o Sistema de corroboración)de modo tal de lograr un sistema duplex en la cual, las tres componentes procesan datos y se evalúa la mayor coincidencia de los mismos (es por ello la elección de un número impar de componentes). Esto nos proporcionará performance y confiabilidad en el procesamiento de los mismos y garantizará por otro lado un buen nivel de disponibilidad de ésta componente.
+
+La existencia de componenetes bien diferenciadas para el ABM de diferentes componentes hace que sea menos acoplado el sistema 
+y las modificaciones puedan llevarse a cabo a partir de éstas componentes.
+
+Como se definió en la arquitectura cada vez que se procesa información se avisa inmediatamente al sistema de monitoreo, por lo cual en caso de existir algún fenómeno meteorológico crítico el mismo será informado en tiempo y forma.
+
+La interfaz con el sistema eólico en la Estación Central permite que los datos le lleguen al arbitro 1 en un formato comparable con los datos capturados por las terminales remotas, por lo cual la interoperabilidad es garantizada.
+
+Al separar las interfaces con los sistemas externos como usuarios, operarios, otras empresas, etc, en el sistema de monitoreo con el procesamiento de los datos, la información almacenada, etc en la Estación Central probablemente sea más facil cuestiones relacionadas con la facilidad en los cambios.
+
+Una vez aclaradas éstas cuestiones adicionales al diagrama podemos destacar que utilizamos redundancia activa en todas aquellas componentes que consideramos que su caída es crítica para nuestro sistema y atenta fuertemente a la disponibilidad del mismo. Si embargo consideramos redundanci pasiba en componentes tales como las interfaces con biggest satellit o el triangulador ya que consideramos que como no siempre están en uso exclusivo tenemos un margen de tiempo para corregirlo en caso de fallas. 
+
+
+
+
+
 \subsection{Funcionamiento del Sistema de Monitoreo}
 
 El Sistema de Monitoreo es la parte del sistema encargada de la interfaz con los usuarios, clientes y otros sistemas externos. En este sector se prestarán diferentes servicios, ya sea mediante una interfaz de comunicación directa o mediante Web Services. Estos servicios tienen que ver, en su mayoría, a la visualización de los datos que el sistema tenga disponible en el momento. Éstos datos pueden ser:
@@ -206,3 +231,20 @@ A continuaci'on se describir'an los conectores entre estas dos partes, nombrando
 
 
 \end{itemize}
+
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.6]{TR.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.6]{EC.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.6]{SisMon.png}
+\end{figure}
