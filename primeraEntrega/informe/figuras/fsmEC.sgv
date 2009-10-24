@@ -1,0 +1,10 @@
+digraph fsmEC {
+	rankdir=LR;
+	size="8,5"
+	node [shape=none]; {node [label=""] start;}
+	node [shape = circle, label = ""];
+	start -> LR_0;
+	LR_0 -> LR_1 [ label = "Recepción mensaje i j" ];
+	LR_1 -> LR_0 [ label = "Envío ACK i j"];
+
+}
