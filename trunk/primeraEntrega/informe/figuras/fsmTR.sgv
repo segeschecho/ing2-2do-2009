@@ -6,8 +6,8 @@ digraph fsmCanal {
 	size="10"
 	node [shape = circle, label = " "];
 	start -> LR_0;
-	LR_0 -> LR_1 [ label = "Envío mensaje i j \n {t}" ];
-	LR_1 -> LR_0 [ label = "Recepción ACK i j \n [t<60]"];
-	LR_1 -> LR_2 [ label = "No se recibió ACK i j \n [t = 60s]" ];
-	LR_2 -> LR_1 [ label = "Envío mensaje i j \n {t}" ];
+	LR_0 -> LR_1 [ label = "Envío fragmento k del mensaje i j \n {t}" ];
+	LR_1 -> LR_0 [ label = "Recepción fragmento k del mensaje i j \n [t<60]"];
+	LR_1 -> LR_2 [ label = "No se recibió fragmento k del mensaje i j \n [t = 60s]" ];
+	LR_2 -> LR_1 [ label = "Envío fragmento k del mensaje i j \n {t}" ];
 }
