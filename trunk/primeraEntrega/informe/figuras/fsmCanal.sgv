@@ -1,0 +1,15 @@
+digraph fsmCanal {
+	rankdir=LR;
+	size="8,5"
+	node [shape=none]; {node [label=""] start;}
+	node [shape = circle, label = ""];
+	start -> LR_0;
+	LR_0 -> LR_2 [ label = "Envío mensaje i j" ];
+	LR_0 -> LR_1 [ label = "Envío mensaje i j" ];
+	LR_1 -> LR_0 [ label = "Recepción mensaje i j" ];
+	LR_2 -> LR_0 [ label = "Pérdida mensaje i j" ];
+	LR_0 -> LR_3 [ label = "Envío ACK i j" ];
+	LR_0 -> LR_4 [ label = "Envío ACK i j" ];
+	LR_3 -> LR_0 [ label = "Recepción ACK i j" ];
+	LR_4 -> LR_0 [ label = "Pérdida ACK i j" ];
+}
