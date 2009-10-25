@@ -1,0 +1,14 @@
+digraph fsmEC {
+	rankdir=LR;
+	size="8,5"
+	node [shape=circle]; {node [label="[t<120]"] LR_2;}
+	node [shape=none]; {node [label=""] start;}
+	node [shape = circle, label = ""];
+	start -> LR_0;
+	LR_0 -> LR_1 [ label = "Recepción fragmento k del mensaje i j \n {t; #frag <- 1}" ];
+	LR_1 -> LR_2 [ label = "Guardado fragmento k del mensaje i j \n"];
+	LR_2 -> LR_0 [ label = "Descarte fragmentos mensaje i j \n [ t = 120 && #frag < #fragMensajeij]"];
+	LR_2 -> LR_0 [ label = "Guardado completo del mensaje  i j \n  [ t < 120 && #frag = #fragMensajeij]"];
+	LR_2 -> LR_2 [ label = "Recepción fragmento m del mensaje i j \n {#frag++}"];
+
+}
