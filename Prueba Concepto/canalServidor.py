@@ -1,19 +1,18 @@
-import socket
+import xmlrpclib
+from SimpleXMLRPCServer import SimpleXMLRPCServer
+
 #canal donde se escuchan los mensajes que envian las trs
 
-host = ""
+def enviarAEc(datos):
+    print "se recibieron: ", datos
+    return 0
+
+host = "localhost"
 puerto = 5555
 
-escucha = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-escucha.bind((host,puerto))
+server = SimpleXMLRPCServer((host, puerto))
+print "Escuchando en el puerto...", puerto
+server.register_function(enviarAEc, "enviarAEc")
+server.serve_forever()
 
-escucha.listen(1)
 
-cliente, direccion = escucha.accept()
-
-print "se conectaron desde",direccion
-
-datos = cliente.recv(1024)
-cliente.close
-
-print "se recibio del cliente: ", datos
