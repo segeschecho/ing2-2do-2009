@@ -1,14 +1,19 @@
-import socket
-#ejemplo de tr enviando cosas
+import xmlrpclib
+import time
 
+#ejemplo de tr enviando cosas
 
 host = "localhost"
 puerto = 5555
 
-conexion = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+proxy = xmlrpclib.ServerProxy("http://%s:%s/"%(host,puerto))
 
-conexion.connect((host, puerto))
-conexion.send("Gonza puto )
-
-conexion.close()
+proxy.enviarAEc("gonza trolo, que no la ve ni en fotos")
+time.sleep(5)
+proxy.enviarAEc("gonza trolo, que no la ve ni en fotos")
+time.sleep(5)
+proxy.enviarAEc("gonza trolo, que no la ve ni en fotos")
+time.sleep(5)
+proxy.enviarAEc("gonza trolo, que no la ve ni en fotos")
+    
 print "sali"
