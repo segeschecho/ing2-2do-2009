@@ -14,7 +14,9 @@ Para llevar a cabo la identificación de riesgos tuvimos en cuenta en mayor o men
 
 \end{itemize}
 
-Finalmente los riesgos determinados fuero:
+Para determinar la probabilidad de impacto y exposición al riesgo, primero determinamos los riesgos y luego cada uno estimó por separado estos valores (para no influirnos entre nosotros) y en base a esto discutimos después y consensuamos los valores finales.
+
+Finalmente los riesgos determinados fueron:
 
 \begin{enumerate}
 
@@ -39,7 +41,7 @@ Finalmente los riesgos determinados fuero:
 \item Plan de Contingencia: Solucionar de alguna manera, en tiempo de ejecución los problemas generados.
 \end{itemize}
 
-\textbf{En caso de:} una mala interpretacíón de los requerimientos no escenciales (aquellos no necesariamente críticos) los usuarios no estarán conformes y el posiblemente haya que corregir dichos errores en tiempo de ejecución.
+\textbf{En caso de:} una mala interpretacíón de los requerimientos no escenciales (aquellos no necesariamente críticos) los usuarios no estarán conformes y el posiblemente haya que corregir dichos errores después de haber puesto el proyecto en producción.
 
 \item - R3 - Infiltración en modelo eólico.
 
@@ -136,7 +138,7 @@ Finalmente los riesgos determinados fuero:
 
 \textbf{En caso de:} mal funcionamiento de la componente muy usada en el mercado para alguna TR, se puede producir la situación de que la misma deje de funcionar, por lo cual hay que detectar la situación rápidamente y solucionar el problema.
 
-\item - R11 - La arquitetura no satisface los requerimientos.
+\item - R11 - La arquitectura no satisface los requerimientos.
 
 \begin{itemize}
 \item Probabilidad: 0.4
@@ -173,24 +175,24 @@ Finalmente los riesgos determinados fuero:
 \textbf{En caso de:} caída de la red GSM nuestro proyecto es obsoleto.
 
 
-\item - R14 - Falta de conocimiento o certeza en la duración de las tareas.
-
+\item - R15 - Uso de sensores que no soporten encriptación de la información enviada a las TRs.
 
 \begin{itemize}
-\item Probabilidad: 0.5
-\item Impacto: 7
-\item Exposicición al riesgo: 3.5
-\item Mitigación: Dedicar mayor tiempo a la estimación y análisis en la duración de las tareas.
+\item Probabilidad: 0.4
+\item Impacto: 5
+\item Exposicición al riesgo: 2.0
+\item Mitigación: Informar a los stakeholders que tomen decisiones de que productos comprar, la nececidad de comprar sensores seguros.
 \item Plan de Contingencia: Evaluar en el seguimiento del proyecto la idea de incrementar el tiempo de alguna de las iteraciones.
 \end{itemize}
 
-\textbf{En caso de:} falta de certeza en la duración de las tareas las estimaciones serán pobres y la planificación de baja calidad.
+\textbf{En caso de:} utilizar sensores que se comunican en medios inseguros (Comunicaciones wireless, bluetooth, etc) y no encripten los datos que envían, podría suceder que un intruso alterara los datos en vuelo (mediciones) antes de que lleguen a la TR y podamos detectarlo, tendriamos datos incorrectos en el sistema y podríamos arrojar pronósticos (parcialmente) incorrectos.
+
+
 \end{enumerate}
 
 \section{Selección de principales riesgos}
 
-En esta sección usaremos una técnica provista por el SEI la cual consta de armar un tabla, descartando los riesgos que no tengan tanta relevancia y quedándonos con aquellos riegos(5 a 10 en general), que más sean preocupantes o con mayor necesidad de análisis para el proyecto.
-
+En esta sección usaremos una técnica provista por el SEI la cual consiste en armar una tabla, que nos permite, una vez armada nuestra lista de riesgos, clasificarlos según 2 criterios: probabilidad y severidad de impacto. De esa forma, podremos determinar cuales son los riesgos mas severos que podrían hacer fracasar nuestro proyecto.
 En dicha tabla se ubicará cada riesgo en su correspondiente celda de acuerdo al siguiente criterio:
 
 En cuanto a probabilidad se clasificarán en:
@@ -218,7 +220,7 @@ Severidad/Probabilidad & Alta & Media & Baja\\
 \hline
  Crítica  &  & R11, R14 & R1,R4,R9,R12,R13 \\
 \hline
- Normal  &  & R8,R6,R2,R5 & R7,R10,R3\\
+ Normal  &  & R8,R6,R2,R5 & R7,R10,R3,R15\\
 \hline 
  Marginal &  &  & \\
 \hline
@@ -226,4 +228,17 @@ Severidad/Probabilidad & Alta & Media & Baja\\
 \end{tabular}
 
 
-Finalmente seleccionaremos 8 riesgos. Rechazaremos los riesgos R7, R10 y R3, luego viendo la tabla nos vamos a quedar con los riesgos R14, R11,R8,R2,R5 y R6, así que por consiguiente debebemos seleccionar de los restantes 6 los 2 que nos parezcan más importantes. Nuestro criterio de selección será la exposición al riesgo claculada anteriormente, así que finalmente los últimos cuatro seleccionados serán R1 y R12.
+Finalmente seleccionaremos los riesgos mas críticos para nuestro proyecto. En base a la tabla, decidimos que los 2 riesgos más críticos son R11 y R14, ya que son altamente probables y el riesgo de imapcto es crítico. Luego, decidimos que el resto de los risgos críticos eran los que tenían alta probabilidad o un impacto muy grande, es decir, dejamos de lado los riesgos R3, R7, R10 y R15.
+
+Finalmente, nos pareció que a los 2 riesgos mencionados antes, deberíamos agregar como críticos los riesgos: R1, R5, R6 y R12 por un lado, y por otro R2, R8, R11 y R14. Los primeros 4 riesgos son riesgos que tendrían como consecuencia no poder cumplir con el objetivo del sistema, ya se no poder realizar pronósticos adecuados (1 y 5) o no poder alertar a la población / los stakeholders de las amenazas (6 y 12). Por otro lado, están los riesgos que harían fracasar nuestro proyecto de software desde el punto de vista del Plan de Proyecto (riesgos no espcíficos al tema del proyecto, riesgos estándar que enfrenta un proyecto de software): no comprender los requerimientos correctamente, excederse en los plazos, no cumplir los atributos de calidad, es decir riesgos que hacen a la satisfacción del cliente.
+
+Esta selección se riesgos se hizo para reducir la lista y poder monitorear durante el resto del proyecto los riesgos críticos para el proyecto, y concentrarse en ellos, restandole algo de atención a los menos críticos (que sin embargo, tampoco serán dejados de lado por completo).
+
+\section{Análisis de los riesgos obtenidos}
+Los riesgos encontrados pueden dividirse en dos categorias: riesgos técnicos y riesgos de negocio. En su mayoría son riesgos generales y no tan específicos: esto responde a la etapa del proyecto en la que nos encontramos (es una etapa temprana, en la que se tiene una visión mas general o ``macro'' del proyecto). 
+
+Si bien en la etapa de elaboración suelen aparecer más que nada riesgos técnicos, es entendible que también hayan aparecido riesgos de negocio (que suelen aparecer en la fase de inception) ya que por un lado las disciplinas se superponen (que en la fase de elaboración aparezcan riesgos técnicos no significa que sean los únicos, ya que a veces aparecen espontaneamente algunos riesgos) y por otro porque el documento generado en la fase de Inception (el enunciado) no incluía un documento de gestión de riesgos.
+
+Estamos contentos con los hacer utilizado mas de una técnica de identificación de riesgos ya que se complementaron muy bien: debido a nuestra formación académica y profesional tenemos un sesgo técnico muy grande y es difícil que se nos ocurran riesgos de negocio / gestión, con lo cual leer cuestionarios y listas de riesgos comunes nos ayudó a tener una visión más completa.
+
+Finalmente, hay que entender que este es solo un análisis de riesgos inicial, y que la gestión de riesgos tiene que seguir durante todo el proyecto. A medida que se avance en las diferentes etapas del proyecto, algunos riesgos desaparecerán, y aparecerán otros nuevos.
