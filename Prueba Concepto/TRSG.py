@@ -16,7 +16,7 @@ def guardar_mensaje(dato, id_men, id_TR):
     un_encriptador = Encriptador.Encriptador()
     archivo.write(un_encriptador.encriptar(dato_json))
     archivo.close()
-    return dato_json
+    return informacion
 
 def datos_auditoria(id_men, tipo_mensaje, id_TR):
     """
@@ -26,6 +26,7 @@ def datos_auditoria(id_men, tipo_mensaje, id_TR):
     informacion['Timestamp'] = time.time()
     informacion['Id Mensaje'] = id_men
     informacion['Id Parte'] = 1
+    informacion['Cantidad partes'] = 1
     informacion['Tipo Mensaje'] = tipo_mensaje
     return informacion
 
@@ -45,13 +46,15 @@ def frecuenciaEnvio(veces, tiempo, id_TR):
         cada cierto tiempo y cierta cantidad de veces
     """
     host = "localhost"
-    puerto = 5555
+    puerto = 6000 + id_TR
 
     proxy = xmlrpclib.ServerProxy("http://%s:%s/"%(host,puerto))
     
     id_mensaje = 0
     for i in range(veces):
-        proxy.enviarAEc(enviarMensaje(id_mensaje, id_TR))
+        res = enviarMensaje(id_mensaje, id_TR)
+        print res
+        proxy.enviarAEC(res)
         time.sleep(tiempo)
         id_mensaje = id_mensaje + 1
     
@@ -76,7 +79,7 @@ if __name__ == '__main__':
     #creo las 5 trs
     trs = []
     for i in range(canTR):
-        hacerXTiempo = Process(target = frecuenciaEnvio, args = (veces, tiempo, i))
+        hacerXTiempo = Process(target = frecuenciaEnvio, args = (veces, tiempo, i+1))
         trs.append(hacerXTiempo)
         
     #las arranco

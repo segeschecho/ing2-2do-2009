@@ -16,6 +16,7 @@ def datos_auditoria(id_men, tipo_mensaje):
 	informacion['Timestamp'] = time.time()
 	informacion['Id Mensaje'] = id_men
 	informacion['Id Parte'] = 1
+    informacion['Cantidad partes'] = 1
 	informacion['Tipo Mensaje'] = tipo_mensaje
 	return informacion
 
