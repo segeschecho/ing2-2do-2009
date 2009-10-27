@@ -1,7 +1,8 @@
-import xmlrpclib
 import time
 import random
+import thread
 from SimpleXMLRPCServer import SimpleXMLRPCServer
+from xmlrpclib import ServerProxy
 
 host = "localhost"
 puerto_canal = 5555
@@ -12,30 +13,41 @@ probabilidad_perdida = 0.05
 delay_min = 0.05
 delay_max = 15 
 
+# CLIENTE
+proxy_ec = ServerProxy("http://%s:%s/"%(host,puerto_ec))
+
+proxys_tr = {}
+for i in range(1, 10):
+	puerto_actual = puerto_tr + i
+	proxys_tr[i] = ServerProxy("http://%s:%s/"%(host, puerto_actual))
+
+
 def enviarAEC(mensaje):
-	enviarMensaje(mensaje, proxy_ec.recibirDeTR)
-	return 0
+        #proceso = Process(target = enviarMensaje, args = (mensaje))
+        #proceso.start()
+        thread.start_new_thread(enviarMensaje, (mensaje, proxy_ec.recibirDeTR))
+        return 0
 
 def enviarATR(mensaje):
 	enviarMensaje(mensaje, proxys_tr[mensaje.IdTR].recibirDeEC)
 	return 0
 	
-def enviarMensaje(mensaje, recibir):
-	random = random.random()
-	if(random > probabilidad_perdida):
+def enviarMensaje(mensaje, receptor):
+	print "Estoy enviando el mensaje ", mensaje
+	probabilidad_perdida_actual = random.random()
+	if(probabilidad_perdida_actual > probabilidad_perdida):
 		delay = random.uniform(delay_min, delay_max)
 		time.sleep(delay)
-		recibir(mensaje)
-		
-server = SimpleXMLRPCServer((host, puerto_canal))
-print "Escuchando en el puerto... ", puerto_canal
-server.register_function(enviarAEC, "enviarAEC")
-server.register_function(enviarATR, "enviarATR")
-server.serve_forever()
+		receptor(mensaje)
 
-proxy_ec = ServerProxy("http://%s:%s/"%(host,puerto_ec))
+def main():
+        # SERVER		
+        server = SimpleXMLRPCServer((host, puerto_canal))
+        print "Escuchando en el puerto... ", puerto_canal
+        server.register_function(enviarAEC, "enviarAEC")
+        server.register_function(enviarATR, "enviarATR")
 
-proxys_tr = {}
-for i in range(1, 10)
-	puerto_actual = puerto_tr + i
-	proxys_tr[i] = ServerProxy("http://%s:%s/"%(host, puerto_actual))
+        server.serve_forever()
+
+if __name__ == '__main__':
+        main()
