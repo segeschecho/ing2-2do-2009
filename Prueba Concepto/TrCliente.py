@@ -4,16 +4,16 @@ import time
 #ejemplo de tr enviando cosas
 
 host = "localhost"
-puerto = 5555
+puerto = 6001
 
 proxy = xmlrpclib.ServerProxy("http://%s:%s/"%(host,puerto))
 
-proxy.enviarAEc("gonza trolo, que no la ve ni en fotos")
+proxy.enviarAEC(3)
 time.sleep(5)
-proxy.enviarAEc("gonza trolo, que no la ve ni en fotos")
+proxy.enviarAEC(3)
 time.sleep(5)
-proxy.enviarAEc("gonza trolo, que no la ve ni en fotos")
+proxy.enviarAEC(3)
 time.sleep(5)
-proxy.enviarAEc("gonza trolo, que no la ve ni en fotos")
+proxy.enviarAEC(3)
     
 print "sali"
