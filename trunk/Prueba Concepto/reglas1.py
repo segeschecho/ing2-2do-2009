@@ -1,0 +1,7 @@
+if (T > 33 and H > 60): print 'Habra precipitaciones en los proximos 10 minutos'
+if (T < 33 or H < 60): print'No habra precipitaciones a partir de los proximos 10 minutos'
+if (P > 60 and H > 50 and V > 600): print 'Existencia de posibles tornados en 10 minutos!!!'
+if (H > 60 and P > 50): print 'La temperatura a partir de los proximos 10 minutos sera de', int(T) + 1, 'grados.' 
+if (H < 60 and P < 50): print'La temperatura a partir de los proximos 10 minutos sera de', int(T) - 1, 'grados.'
+if (H > 60 and P < 50): print 'La temperatura a partir de los proximos 10 minutos sera de', int(T), 'grados.'
+if (H < 60 and P > 50): print 'La temperatura a partir de los proximos 10 minutos sera de', int(T), 'grados.'
