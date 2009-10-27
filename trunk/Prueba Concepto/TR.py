@@ -1,43 +1,42 @@
-import signal, os
-import sys, time, json, random, Encriptador
+import sys
+import time
+from multiprocessing import Process
+from sincronizador import recolectarDatos #def recolectarDatos(veces, tiempo, id_TR):
+from comunicacionEc import enviadorTR #def enviadorTR(id_tr):
 
-def guardar_mensaje(dato, id_men):
-	print "Estoy ecribiendo con id de mensaje : " + str(id_men)
-	archivo = open("TR\\Id TR - " + str(id_TR) + " - Id Mensaje - "+ str(id_men) + ".tr", "w")
-	informacion = datos_auditoria(id_men, 'DATOS')
-	informacion['Contenido'] = dato
-	dato_json = json.dumps(informacion)
-	un_encriptador = Encriptador.Encriptador()
-	archivo.write(un_encriptador.encriptar(dato_json))
-	archivo.close()	
+#TR.py simula una tr, con una parte que se encarga de simular el sensado de los datos de los sensores
+#y otra parte que se encarga del envio de los datos hacia la EC
 
-def datos_auditoria(id_men, tipo_mensaje):
-	informacion = {'Id TR' : id_TR}
-	informacion['Timestamp'] = time.time()
-	informacion['Id Mensaje'] = id_men
-	informacion['Id Parte'] = 1
-    informacion['Cantidad partes'] = 1
-	informacion['Tipo Mensaje'] = tipo_mensaje
-	return informacion
 
-def handler(a, b):
-	id_mensaje += 1
-	hacer(id_mensaje)
-	
-id_TR = sys.argv[1]
-id_mensaje = 0
-
-def hacer(id_mensaje):
-	temperatura = random.random()
-	humedad = random.randint(0, 100)
-	datos = {'Temperatura' : temperatura, 'Humedad' : humedad}
-	guardar_mensaje(datos, id_mensaje)
-	id_mensaje += 1
-	if ( id_mensaje < 5 ):
-		signal.signal(signal.SIGALRM, handler)
-		signal.alarm(1)
-
-hacer(id_mensaje)
-
-#def inicializar_alarma():
-#raw_input("Pulsa una tecla para continuar...") 
+if __name__ == '__main__':
+    #parte que genera una TR y hace que envie informacion.
+    #obtengo los parametros que me pasan para que todo ande bien
+    if len(sys.argv) < 4:
+        print "faltan parametros..."
+        print "1 - Intervalo de tiempo para el envio (usual 60)"
+        print "2 - Cantidad de mensajes que enviara la TR"
+        print "3 - ID de la TR"
+        sys.exit(1)
+            
+    tiempo = int(sys.argv[1])
+    veces = int(sys.argv[2])
+    id_tr = int(sys.argv[3])
+   
+    #genero un proceso que representa al  recolectorTR
+    #enviador = Process(target = recolectarDatos, args = (veces, tiempo, i+1))
+    recolector = Process(target = recolectarDatos, args = (veces, tiempo, id_tr))
+        
+    #genero un proceso que representa al enviador de la tr
+    enviador = Process(target = enviadorTR, args = (id_tr,))
+    
+    #corro los 2 procesos
+    enviador.start()
+    #time.sleep(3.0)
+    recolector.start()
+    
+    
+    #espero hasta que me digan que apague la TR
+    x = raw_input("los procesos estan corriendo, presione una tecla para terminar")
+    recolector.terminate()
+    enviador.terminate()
+    print "la TR se apago"

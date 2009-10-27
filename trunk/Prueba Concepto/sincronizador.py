@@ -3,6 +3,13 @@ import sys, time, json, random, Encriptador
 from multiprocessing import Process #para  crear procesos a nivel del sistema operativo
 import xmlrpclib
 
+hostEnviador = "localhost"
+puertoEnviador = 6000 #hay que sumarle el ID_TR
+
+def pruebaRecolectarDatos(veces, tiempo, id_TR):
+    while 1:
+        pass
+
 
 def guardar_mensaje(dato, id_men, id_TR):
     """
@@ -40,15 +47,22 @@ def enviarMensaje(id_mensaje, id_TR):
     return guardar_mensaje(datos, id_mensaje, id_TR)
 	
 
-def frecuenciaEnvio(veces, tiempo, id_TR):
+def recolectarDatos(veces, tiempo, id_TR):
     """
         Funcion que se encarga de enviar informacion de una TR
         cada cierto tiempo y cierta cantidad de veces
-    """
-    host = "localhost"
-    puerto = 6000 + id_TR
 
-    proxy = xmlrpclib.ServerProxy("http://%s:%s/"%(host,puerto))
+	"""
+    
+    time.sleep(5.0)
+	#defino el puerto donde escucha el enviador de esta TR
+    puertoEnviador = 6000 + id_TR
+
+    #me conecto al enviador para pasarle los mensajes que recolecto de los sensores.
+    proxy = xmlrpclib.ServerProxy("http://%s:%s/"%(hostEnviador,puertoEnviador))
+    
+    print "host enviador: ",hostEnviador
+    print "puerto enviador: ",puertoEnviador
     
     id_mensaje = 0
     for i in range(veces):
@@ -57,35 +71,3 @@ def frecuenciaEnvio(veces, tiempo, id_TR):
         proxy.enviarAEC(res)
         time.sleep(tiempo)
         id_mensaje = id_mensaje + 1
-    
-	
-
-
-if __name__ == '__main__':
-    #parte que genera TR y hace que envien informacion.
-    #obtengo los parametros que me pasan para que todo ande bien
-    if len(sys.argv) < 4:
-        print "faltan parametros..."
-        print "1 - Cantidad de TRs a simular"
-        print "2 - Intervalo de tiempo para el envio (usual 60)"
-        print "3 - Cantidad de mensajes que enviaran cada TR"
-        sys.exit(1)
-            
-    canTR = int(sys.argv[1])
-    tiempo = int(sys.argv[2])
-    veces = int(sys.argv[3])
-    #Vamos a simular 5 trs
-
-    #creo las 5 trs
-    trs = []
-    for i in range(canTR):
-        hacerXTiempo = Process(target = frecuenciaEnvio, args = (veces, tiempo, i+1))
-        trs.append(hacerXTiempo)
-        
-    #las arranco
-    for i in range(canTR):
-        trs[i].start()
-
-    # las termino
-    for i in range(canTR):
-        trs[i].join()
