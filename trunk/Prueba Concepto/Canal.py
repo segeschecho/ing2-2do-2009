@@ -1,9 +1,10 @@
 import time
 import random
-import thread
+import threading
 from SimpleXMLRPCServer import SimpleXMLRPCServer
 from xmlrpclib import ServerProxy
 
+print "Soy el Canal"
 host = "localhost"
 puerto_canal = 5555
 puerto_ec = 5557
@@ -11,7 +12,7 @@ puerto_tr = 6000
 
 probabilidad_perdida = 0.05
 delay_min = 0.05
-delay_max = 15 
+delay_max = 2 # antes era 15 
 
 # CLIENTE
 proxy_ec = ServerProxy("http://%s:%s/"%(host,puerto_ec))
@@ -23,22 +24,29 @@ for i in range(1, 10):
 
 
 def enviarAEC(mensaje):
-        #proceso = Process(target = enviarMensaje, args = (mensaje))
-        #proceso.start()
-        thread.start_new_thread(enviarMensaje, (mensaje, proxy_ec.recibirDeTR))
-        return 0
+	#proceso = Process(target = enviarMensaje, args = (mensaje))
+	#proceso.start()
+	un_thread = threading.Thread(target = enviarMensaje, args = (mensaje, proxy_ec.recibirDeTR))
+	un_thread.setDaemon(True)
+	un_thread.start()
+	return 0
 
 def enviarATR(mensaje):
-	enviarMensaje(mensaje, proxys_tr[mensaje.IdTR].recibirDeEC)
+	print 'Me llego una repuesta de la EC'
+	#un_thread = thread.Thread(target = enviarMensaje, args = (mensaje, proxys_tr[mensaje.IdTR].recibirDeEC))
+	#un_thread.setDaemon(True)
+	#un_thread.start()
 	return 0
 	
 def enviarMensaje(mensaje, receptor):
-	print "Estoy enviando el mensaje ", mensaje
+	print "Estoy enviando el mensaje"
 	probabilidad_perdida_actual = random.random()
-	if(probabilidad_perdida_actual > probabilidad_perdida):
+	if probabilidad_perdida_actual > probabilidad_perdida :
 		delay = random.uniform(delay_min, delay_max)
 		time.sleep(delay)
 		receptor(mensaje)
+	else :
+		print "Perdi el mensaje"
 
 def main():
         # SERVER		
