@@ -1,7 +1,8 @@
 import time
 import random
 import threading
-from SimpleXMLRPCServer import SimpleXMLRPCServer
+import sys
+from SimpleXMLRPCServer import SimpleXMLRPCServer, SimpleXMLRPCRequestHandler
 from xmlrpclib import ServerProxy
 import Encriptador
 import json
@@ -10,7 +11,7 @@ print "Soy la Recepcion Segura de la EC"
 host = "localhost"
 puerto_canal = 5555
 puerto_ec = 5557
-tiempo_caida = 30
+tiempo_caida = int(sys.argv[1])
 # deberia ser 120
 proxy_canal = ServerProxy("http://%s:%s/"%(host,puerto_canal))
 
@@ -135,7 +136,7 @@ def tratarDeEnpaquetarYMandar(id_mensaje, id_tr_page):
         
 def main():
     # SERVER        
-    server = SimpleXMLRPCServer((host, puerto_ec))
+    server = SimpleXMLRPCServer((host, puerto_ec), SimpleXMLRPCRequestHandler, False)
     print "Escuchando en el puerto... ", puerto_ec
     server.register_function(recibirDeTR, "recibirDeTR")
     server.serve_forever()

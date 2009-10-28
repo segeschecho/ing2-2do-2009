@@ -7,5 +7,5 @@ del TR\.tr
 del EC\.ec
 start Canal.py
 start RecepcionSegura.py
-start TR.py 2 2 1
-start TR.py 3 1 2
+start TR.py 2 2 1 100
+start TR.py 3 1 2 100
