@@ -1,5 +1,5 @@
 import xmlrpclib
-from SimpleXMLRPCServer import SimpleXMLRPCServer
+from SimpleXMLRPCServer import SimpleXMLRPCServer, SimpleXMLRPCRequestHandler
 import threading
 import time
 import sys
@@ -114,7 +114,7 @@ def enviadorTR(id_tr):
     verificadorReenviador.start()
     
     #ejecuto el servidor de mensajes para la tr y el canal
-    serverTr = SimpleXMLRPCServer((host, puerto))
+    serverTr = SimpleXMLRPCServer((host, puerto), SimpleXMLRPCRequestHandler, False)
     print "Escuchando en el puerto...", puerto
     #registro las funciones que necesito
 

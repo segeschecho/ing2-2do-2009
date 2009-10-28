@@ -1,7 +1,7 @@
 import time
 import random
 import threading
-from SimpleXMLRPCServer import SimpleXMLRPCServer
+from SimpleXMLRPCServer import SimpleXMLRPCServer, SimpleXMLRPCRequestHandler
 from xmlrpclib import ServerProxy
 import Encriptador
 import sys
@@ -55,7 +55,7 @@ def enviarMensaje(mensaje, receptor):
 
 def main():
         # SERVER        
-        server = SimpleXMLRPCServer((host, puerto_canal))
+        server = SimpleXMLRPCServer((host, puerto_canal), SimpleXMLRPCRequestHandler, False)
         print "Escuchando en el puerto... ", puerto_canal
         server.register_function(enviarAEC, "enviarAEC")
         server.register_function(enviarATR, "enviarATR")
