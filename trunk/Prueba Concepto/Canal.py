@@ -4,6 +4,8 @@ import threading
 from SimpleXMLRPCServer import SimpleXMLRPCServer
 from xmlrpclib import ServerProxy
 import Encriptador
+import sys
+
 
 print "Soy el Canal"
 host = "localhost"
@@ -19,7 +21,7 @@ delay_max = 2 # antes era 15
 proxy_ec = ServerProxy("http://%s:%s/"%(host,puerto_ec))
 
 proxys_tr = {}
-for i in range(1, 10):
+for i in range(1, 6):
 	puerto_actual = puerto_tr + i
 	proxys_tr[i] = ServerProxy("http://%s:%s/"%(host, puerto_actual))
 
