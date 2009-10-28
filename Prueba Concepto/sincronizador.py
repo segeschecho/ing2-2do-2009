@@ -46,17 +46,17 @@ def enviarMensaje(id_mensaje, id_TR):
     humedad = random.randint(0, 100)
     datos = {'Temperatura' : temperatura, 'Humedad' : humedad}
     return guardar_mensaje(datos, id_mensaje, id_TR)
-	
+
 
 def recolectarDatos(veces, tiempo, id_TR):
     """
         Funcion que se encarga de enviar informacion de una TR
         cada cierto tiempo y cierta cantidad de veces
 
-	"""
+    """
     
     time.sleep(5.0)
-	#defino el puerto donde escucha el enviador de esta TR
+    #defino el puerto donde escucha el enviador de esta TR
     puertoEnviador = 6000 + id_TR
 
     #me conecto al enviador para pasarle los mensajes que recolecto de los sensores.
