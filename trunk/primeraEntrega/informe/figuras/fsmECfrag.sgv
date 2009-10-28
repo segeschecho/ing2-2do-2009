@@ -1,14 +1,15 @@
 digraph fsmEC {
 	rankdir=LR;
 	size="8,5"
-	node [shape=circle]; {node [label="[t<120]"] LR_2;}
+	node [shape=circle]; {node [label=""] LR_2;}
 	node [shape=none]; {node [label=""] start;}
 	node [shape = circle, label = ""];
 	start -> LR_0;
-	LR_0 -> LR_1 [ label = "Recepción fragmento k del mensaje i j \n {t; #frag <- 1}" ];
+	LR_0 -> LR_1 [ label = "Recepción fragmento k del mensaje i j" ];
+	LR_1 -> LR_0 [ label = "Descarte fragmento \n  [Fragmento repetido]" ];
 	LR_1 -> LR_2 [ label = "Guardado fragmento k del mensaje i j \n"];
-	LR_2 -> LR_0 [ label = "Descarte fragmentos mensaje i j \n [ t = 120 && #frag < #fragMensajeij]"];
-	LR_2 -> LR_0 [ label = "Guardado completo del mensaje  i j \n  [ t < 120 && #frag = #fragMensajeij]"];
-	LR_2 -> LR_2 [ label = "Recepción fragmento m del mensaje i j \n {#frag++}"];
-
+	LR_2 -> LR_3 [ label = "Juntar todos los fragmentos del mensaje i j \n [Llego el último fragmento del mensaje]"];
+	LR_2 -> LR_0 [ label = "El mensaje no esta completo aún"];
+	LR_3 -> LR_4 [ label = "Mandar el mensaje completo al próximo componente"];
+	LR_4 -> LR_0 [ label = "Borrar fragmentos del mensaje i j"];
 }

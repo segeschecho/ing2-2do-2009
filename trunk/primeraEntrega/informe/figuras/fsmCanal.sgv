@@ -8,8 +8,8 @@ digraph fsmCanal {
 	LR_0 -> LR_1 [ label = "Envío fragmento k del mensaje i j" ];
 	LR_1 -> LR_0 [ label = "Recepción fragmento k del mensaje i j" ];
 	LR_2 -> LR_0 [ label = "Pérdida fragmento k del mensaje i j" ];
-	LR_0 -> LR_3 [ label = "Envío ACK (frag k, mensaje i j)" ];
-	LR_0 -> LR_4 [ label = "Envío ACK (frag k, mensaje i j)" ];
-	LR_3 -> LR_0 [ label = "Recepción ACK (frag k, mensaje i j)" ];
-	LR_4 -> LR_0 [ label = "Pérdida ACK (frag k, mensaje i j)" ];
+	LR_0 -> LR_3 [ label = "Envío Respuesta (frag k, mensaje i j)" ];
+	LR_0 -> LR_4 [ label = "Envío Respuesta (frag k, mensaje i j)" ];
+	LR_3 -> LR_0 [ label = "Recepción Respuesta (frag k, mensaje i j)" ];
+	LR_4 -> LR_0 [ label = "Pérdida Respuesta (frag k, mensaje i j)" ];
 }
