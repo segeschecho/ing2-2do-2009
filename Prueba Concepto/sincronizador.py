@@ -1,5 +1,5 @@
 import signal, os
-import sys, time, json, random, Encriptador
+import sys, time, json, random
 from multiprocessing import Process #para  crear procesos a nivel del sistema operativo
 import xmlrpclib
 
@@ -20,8 +20,9 @@ def guardar_mensaje(dato, id_men, id_TR):
     informacion = datos_auditoria(id_men, 'DATOS',id_TR)
     informacion['Contenido'] = dato
     dato_json = json.dumps(informacion)
-    un_encriptador = Encriptador.Encriptador()
-    archivo.write(un_encriptador.encriptar(dato_json))
+    #un_encriptador = Encriptador.Encriptador()
+    archivo.write(dato_json)
+	#un_encriptador.encriptar(dato_json))
     archivo.close()
     return informacion
 

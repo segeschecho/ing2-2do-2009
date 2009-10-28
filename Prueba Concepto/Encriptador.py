@@ -1,7 +1,7 @@
 class Encriptador:
 
 	def encriptar(self, cadena):
-		return cadena
+		return {'Dato Encriptado': cadena}
 	
 	def desencriptar(self, cadena):
-		return cadena
+		return cadena['Dato Encriptado']
