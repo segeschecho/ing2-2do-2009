@@ -36,7 +36,7 @@ if __name__ == '__main__':
     
     
     #espero hasta que me digan que apague la TR
-    x = raw_input("los procesos estan corriendo, presione una tecla para terminar")
+    x = raw_input("los procesos estan corriendo, presione una tecla para terminar \n")
     recolector.terminate()
     enviador.terminate()
     print "la TR se apago"

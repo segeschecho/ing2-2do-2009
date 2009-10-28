@@ -3,6 +3,7 @@ import random
 import threading
 from SimpleXMLRPCServer import SimpleXMLRPCServer
 from xmlrpclib import ServerProxy
+import Encriptador
 
 print "Soy la Recepcion Segura de la EC"
 host = "localhost"
@@ -35,12 +36,23 @@ un_thread.setDaemon(True)
 un_thread.start()
 
 def recibirDeTR(mensaje):
-    print "Estoy recibiendo de TR"
-    mensaje_respuesta = respuesta_ack(mensaje)
-    proxy_canal.enviarATR(mensaje_respuesta)
-    guardarMensaje(mensaje)
+    enc = Encriptador.Encriptador()
+    
+    print "Estoy recibiendo de TR",
+    #desencripto el mensaje que llega para poder tratarlo
+    mensaje_desencriptado = enc.desencriptar(mensaje)
+    print mensaje_desencriptado['Id TR']
+    
+    #genero el ack
+    mensaje_respuesta = respuesta_ack(mensaje_desencriptado)
+    
+    #antes de enviar, encripto los datos, y agrego un campo con el id de la tr para que el canal lo direccione    
+    mensaje_encriptado = enc.encriptar(mensaje_respuesta)
+	
+    proxy_canal.enviarATR(mensaje_respuesta['Id TR'], mensaje_encriptado)
+    guardarMensaje(mensaje_desencriptado)
     #print "Este es el mensaje que me llega", mensaje, "y este es el id", mensaje['Id Mensaje']
-    tratarDeEnpaquetarYMandar(mensaje['Id Mensaje'], mensaje['Id TR'])
+    tratarDeEnpaquetarYMandar(mensaje_desencriptado['Id Mensaje'], mensaje_desencriptado['Id TR'])
     print "Termine de empaquetar"
     return 0
 

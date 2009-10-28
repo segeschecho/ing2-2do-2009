@@ -3,6 +3,7 @@ from SimpleXMLRPCServer import SimpleXMLRPCServer
 import threading
 import time
 import sys
+import Encriptador
 
 
 #creo el servidor para el enviador
@@ -12,7 +13,7 @@ serverCanal = xmlrpclib.ServerProxy("http://%s:%s/"%(hostCanal,puertoCanal))
 
 #estructura que guarda los datos en vuelo es un doble diccionario con ID_MSG y ID_PARTE
 datosEnVuelo = {}
-id_tr_global = 0
+
 
 def pruebaEnviadorTR(mensaje):
     while 1:
@@ -22,6 +23,7 @@ def verificarDatos():
     """
     funcion que se encarga de ver si hay que reenviar mensajes de los que no se recibio ack
     """
+    enc = Encriptador.Encriptador()
     timeOutReenvio = 20 #tiempo en segundos
     
     while 1:
@@ -33,13 +35,16 @@ def verificarDatos():
                     #modifico el tiempo de salida del mensaje con el tiempo actual
                     datosEnVuelo[i][j]['Timestamp'] = time.time()
                     #reenvio la parte del mensaje
-                    serverCanal.enviarAEC(datosEnVuelo[i][j])
+                    msj_enc = enc.encriptar(datosEnVuelo[i][j])
+                    serverCanal.enviarAEC(msj_enc)
         time.sleep(0.5)
+
 
 def enviarAEC(mensaje):
     """
     agrega el mensaje a los mensajes en vuelo y lo manda a la EC
     """
+    enc = Encriptador.Encriptador()
     
     #obtengo el id del mensaje y el id de la parte del mensaje
     idMsg = mensaje['Id Mensaje']
@@ -51,23 +56,34 @@ def enviarAEC(mensaje):
     else:
         datosEnVuelo[idMsg][idPar] =  mensaje
     
+    #encripto el mensaje antes de enviar
+    
     #lo envio a la estacion central
-    serverCanal.enviarAEC(datosEnVuelo[idMsg][idPar])
+    msj_enc = enc.encriptar(datosEnVuelo[idMsg][idPar])
+    serverCanal.enviarAEC(msj_enc)
     
     return 1
-    
+
 
 def recibirDeEC(mensaje):
     """
     funcion que recibe la TR de la estacion central y los procesa
     """
+    
+    print "Estoy recibiendo mensaje de la EC"
+    enc = Encriptador.Encriptador()
+    #desencripto el mensaje
+    msj_des = enc.desencriptar(mensaje)
+    
     #me fijo que el mensaje sea un respuesta y un ack y que sea para mi TR
-    if ( (mensaje['Tipo Mensaje'] in ['RESPUESTA']) and mensaje['Contenido']['Respuesta'] in ['ACK'] and mensaje['Id TR'] == id_tr_global ):
-        idMsg = mensaje['Contenido']['Id Mensaje']
-        idPar = mensaje['Contenido']['Id Parte']
+    if ( (msj_des['Tipo Mensaje'] in ['RESPUESTA']) and msj_des['Contenido']['Respuesta'] in ['ACK']):
+        print "recibo un ACK de la EC"
+        idMsg = msj_des['Contenido']['Id Mensaje']
+        idPar = msj_des['Contenido']['Id Parte']
         #me fijo si la parte del mensaje ackeado esta en mis datos en vuelo, entonces la borro.
         if (idMsg in datosEnVuelo) and (idPar in datosEnVuelo[idMsg]):
                 del datosEnVuelo[idMsg][idPar]
+    
     return 1
 
 
@@ -77,7 +93,6 @@ def enviadorTR(id_tr):
     host = "localhost"
     puerto = 6000 + id_tr
     
-    id_tr_global = id_tr 
     
     #defino el servidor donde escucha el canal
     serverCanal = xmlrpclib.ServerProxy("http://%s:%s/"%(hostCanal,puertoCanal))
@@ -92,6 +107,8 @@ def enviadorTR(id_tr):
     serverTr = SimpleXMLRPCServer((host, puerto))
     print "Escuchando en el puerto...", puerto
     #registro las funciones que necesito
+
     serverTr.register_function(enviarAEC, "enviarAEC")
     serverTr.register_function(recibirDeEC, "recibirDeEC")
+
     serverTr.serve_forever()
