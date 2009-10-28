@@ -14,12 +14,12 @@ tiempo_caida = 30
 proxy_canal = ServerProxy("http://%s:%s/"%(host,puerto_canal))
 
 mensajes_pendientes = {}
-for i in range(1, 10):
+for i in range(1, 6):
 	mensajes_pendientes[i] = {'Mensajes':[], 'Ultimo Id Enviado':100, 'Ultimo Timestamp Recibido': time.time(), 'Esta Caida':False}
 
 def verificarABMTR():
 	while 1:
-		for i in range(1, 10):
+		for i in range(1, 6):
 			diferencia_tiempo = time.time() - mensajes_pendientes[i]['Ultimo Timestamp Recibido']
 			if mensajes_pendientes[i]['Esta Caida'] :
 				if diferencia_tiempo < tiempo_caida : 
@@ -53,7 +53,6 @@ def recibirDeTR(mensaje):
     guardarMensaje(mensaje_desencriptado)
     #print "Este es el mensaje que me llega", mensaje, "y este es el id", mensaje['Id Mensaje']
     tratarDeEnpaquetarYMandar(mensaje_desencriptado['Id Mensaje'], mensaje_desencriptado['Id TR'])
-    print "Termine de empaquetar"
     return 0
 
 def respuesta_ack(mensaje):
@@ -81,7 +80,7 @@ def guardarMensaje(mensaje):
 		mensajes_pendientes[mensaje['Id TR']]['Mensajes'].append(mensaje)
 
 def tratarDeEnpaquetarYMandar(id_mensaje, id_tr_page):
-	print "Trato de empaquetar", "Con id_mensaje", id_mensaje, "Y id_tr_page", id_tr_page
+	print "Trato de empaquetar", "Con id_mensaje", id_mensaje, "Y id_tr", id_tr_page
 	if id_mensaje == mensajes_pendientes[id_tr_page]['Ultimo Id Enviado'] + 1:
 		mensajes = mensajes_pendientes[id_tr_page]['Mensajes']
 		partes = [msg for msg in mensajes if msg['Id Mensaje'] == id_mensaje]
