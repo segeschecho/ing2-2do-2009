@@ -5,6 +5,6 @@ digraph fsmEC {
 	node [shape = circle, label = ""];
 	start -> LR_0;
 	LR_0 -> LR_1 [ label = "Recepción fragmento k del mensaje i j" ];
-	LR_1 -> LR_0 [ label = "Envío ACK (frag k, mensaje i j)"];
+	LR_1 -> LR_0 [ label = "Envío Respuesta (frag k, mensaje i j)"];
 
 }

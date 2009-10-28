@@ -2,12 +2,12 @@ digraph fsmCanal {
 	rankdir=LR;
 	size="8,5"
 	node [shape=none]; {node [label=""] start;}
-	node [shape=circle]; {node [label="[t<60]"] LR_1;}
+	node [shape=circle]; {node [label="[t<ValorTimeout]"] LR_1;}
 	size="10"
 	node [shape = circle, label = " "];
 	start -> LR_0;
 	LR_0 -> LR_1 [ label = "Envío fragmento k del mensaje i j \n {t}" ];
-	LR_1 -> LR_0 [ label = "Recepción fragmento k del mensaje i j \n [t<60]"];
-	LR_1 -> LR_2 [ label = "No se recibió fragmento k del mensaje i j \n [t = 60s]" ];
+	LR_1 -> LR_0 [ label = "Recepción Respuesta del fragmento k del mensaje i j \n [t<ValorTimeout]"];
+	LR_1 -> LR_2 [ label = "No se recibió Respuesta del fragmento k del mensaje i j \n [t = ValorTimeout]" ];
 	LR_2 -> LR_1 [ label = "Envío fragmento k del mensaje i j \n {t}" ];
 }
