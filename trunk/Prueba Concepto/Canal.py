@@ -32,12 +32,12 @@ def enviarAEC(mensaje):
 	return 0
 
 def enviarATR(mensaje):
-	print 'Me llego una repuesta de la EC'
-	#un_thread = thread.Thread(target = enviarMensaje, args = (mensaje, proxys_tr[mensaje.IdTR].recibirDeEC))
-	#un_thread.setDaemon(True)
-	#un_thread.start()
-	return 0
-	
+    print 'Me llego una repuesta de la EC'
+    otro_thread = threading.Thread(target = enviarMensaje, args = (mensaje, proxys_tr[mensaje['Id TR']].recibirDeEC))
+    otro_thread.setDaemon(True)
+    otro_thread.start()
+    return 0
+    
 def enviarMensaje(mensaje, receptor):
 	print "Estoy enviando el mensaje"
 	probabilidad_perdida_actual = random.random()

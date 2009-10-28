@@ -12,6 +12,7 @@ serverCanal = xmlrpclib.ServerProxy("http://%s:%s/"%(hostCanal,puertoCanal))
 
 #estructura que guarda los datos en vuelo es un doble diccionario con ID_MSG y ID_PARTE
 datosEnVuelo = {}
+id_tr_global = 0
 
 def pruebaEnviadorTR(mensaje):
     while 1:
@@ -61,7 +62,7 @@ def recibirDeEC(mensaje):
     funcion que recibe la TR de la estacion central y los procesa
     """
     #me fijo que el mensaje sea un respuesta y un ack y que sea para mi TR
-    if ( (mensaje['Tipo Mensaje'] in ['RESPUESTA']) and mensaje['Contenido']['Respuesta'] in ['ACK'] and mensaje['Id TR'] == id_tr ):
+    if ( (mensaje['Tipo Mensaje'] in ['RESPUESTA']) and mensaje['Contenido']['Respuesta'] in ['ACK'] and mensaje['Id TR'] == id_tr_global ):
         idMsg = mensaje['Contenido']['Id Mensaje']
         idPar = mensaje['Contenido']['Id Parte']
         #me fijo si la parte del mensaje ackeado esta en mis datos en vuelo, entonces la borro.
@@ -75,6 +76,8 @@ def enviadorTR(id_tr):
     #defino el host y puerto donde va a escuchar para el sincronizador
     host = "localhost"
     puerto = 6000 + id_tr
+    
+    id_tr_global = id_tr 
     
     #defino el servidor donde escucha el canal
     serverCanal = xmlrpclib.ServerProxy("http://%s:%s/"%(hostCanal,puertoCanal))
