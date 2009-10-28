@@ -3,6 +3,7 @@ import random
 import threading
 from SimpleXMLRPCServer import SimpleXMLRPCServer
 from xmlrpclib import ServerProxy
+import Encriptador
 
 print "Soy el Canal"
 host = "localhost"
@@ -31,9 +32,9 @@ def enviarAEC(mensaje):
 	un_thread.start()
 	return 0
 
-def enviarATR(mensaje):
+def enviarATR(id_tr, mensaje):
     print 'Me llego una repuesta de la EC'
-    otro_thread = threading.Thread(target = enviarMensaje, args = (mensaje, proxys_tr[mensaje['Id TR']].recibirDeEC))
+    otro_thread = threading.Thread(target = enviarMensaje, args = (mensaje, proxys_tr[id_tr].recibirDeEC))
     otro_thread.setDaemon(True)
     otro_thread.start()
     return 0
