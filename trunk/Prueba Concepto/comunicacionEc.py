@@ -4,6 +4,7 @@ import threading
 import time
 import sys
 import Encriptador
+import Partidor
 
 
 #creo el servidor para el enviador
@@ -35,6 +36,7 @@ def verificarDatos():
                     #modifico el tiempo de salida del mensaje con el tiempo actual
                     datosEnVuelo[i][j]['Timestamp'] = time.time()
                     #reenvio la parte del mensaje
+                    print "Reenviando mensaje: %s parte: %s"%(i,j)
                     msj_enc = enc.encriptar(datosEnVuelo[i][j])
                     serverCanal.enviarAEC(msj_enc)
         time.sleep(0.5)
@@ -45,22 +47,29 @@ def enviarAEC(mensaje):
     agrega el mensaje a los mensajes en vuelo y lo manda a la EC
     """
     enc = Encriptador.Encriptador()
+    partidor = Partidor.Partidor()
     
     #obtengo el id del mensaje y el id de la parte del mensaje
     idMsg = mensaje['Id Mensaje']
-    idPar = mensaje['Id Parte']
     
-    #veo que el idmsg este definido en datos en vuelo, si no esta lo creo
-    if idMsg not in datosEnVuelo:
-        datosEnVuelo[idMsg] = {idPar: mensaje}
-    else:
-        datosEnVuelo[idMsg][idPar] =  mensaje
+    #agarro el mensaje y lo parto para que viajen por sms
+    mensajePartido = partidor.partir(mensaje)
+   
+    #encripto las partes  antes de enviar
+    for i in mensajePartido.keys():
+        idPar = mensajePartido[i]['Id Parte']
+        
+        #veo que el idmsg este definido en datos en vuelo, si no esta lo creo
+        if idMsg not in datosEnVuelo:
+            datosEnVuelo[idMsg] = {idPar : mensajePartido[i]}
+        else:
+            datosEnVuelo[idMsg][idPar] =  mensajePartido[i]
+            
+        msj_enc = enc.encriptar(mensajePartido[i])
     
-    #encripto el mensaje antes de enviar
-    
-    #lo envio a la estacion central
-    msj_enc = enc.encriptar(datosEnVuelo[idMsg][idPar])
-    serverCanal.enviarAEC(msj_enc)
+        #lo envio a la estacion central
+        serverCanal.enviarAEC(msj_enc)
+        print "Enviando mensaje: %s, parte: %s"%(str(idMsg), str(idPar))
     
     return 1
 
@@ -77,13 +86,14 @@ def recibirDeEC(mensaje):
     
     #me fijo que el mensaje sea un respuesta y un ack y que sea para mi TR
     if ( (msj_des['Tipo Mensaje'] in ['RESPUESTA']) and msj_des['Contenido']['Respuesta'] in ['ACK']):
-        print "recibo un ACK de la EC"
+        print "Recibo un ACK de la EC"
         idMsg = msj_des['Contenido']['Id Mensaje']
         idPar = msj_des['Contenido']['Id Parte']
         #me fijo si la parte del mensaje ackeado esta en mis datos en vuelo, entonces la borro.
+        
         if (idMsg in datosEnVuelo) and (idPar in datosEnVuelo[idMsg]):
                 del datosEnVuelo[idMsg][idPar]
-    
+                print 'Borro datos al llegar ACK'
     return 1
 
 

@@ -1,9 +1,7 @@
 :: Simulacion.bat
 :: Crea los procesos necesarios para
 :: la prueba de concepto
-@ECHO OFF
-del TR\*.tr
-del EC\*.tr
-ECHO.
-pause
-
+start Canal.py
+start RecepcionSegura.py
+start TR.py 2 2 1
+start TR.py 3 1 2

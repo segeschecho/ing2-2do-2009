@@ -22,17 +22,17 @@ proxy_ec = ServerProxy("http://%s:%s/"%(host,puerto_ec))
 
 proxys_tr = {}
 for i in range(1, 6):
-	puerto_actual = puerto_tr + i
-	proxys_tr[i] = ServerProxy("http://%s:%s/"%(host, puerto_actual))
+    puerto_actual = puerto_tr + i
+    proxys_tr[i] = ServerProxy("http://%s:%s/"%(host, puerto_actual))
 
 
 def enviarAEC(mensaje):
-	#proceso = Process(target = enviarMensaje, args = (mensaje))
-	#proceso.start()
-	un_thread = threading.Thread(target = enviarMensaje, args = (mensaje, proxy_ec.recibirDeTR))
-	un_thread.setDaemon(True)
-	un_thread.start()
-	return 0
+    #proceso = Process(target = enviarMensaje, args = (mensaje))
+    #proceso.start()
+    un_thread = threading.Thread(target = enviarMensaje, args = (mensaje, proxy_ec.recibirDeTR))
+    un_thread.setDaemon(True)
+    un_thread.start()
+    return 0
 
 def enviarATR(id_tr, mensaje):
     print 'Me llego una repuesta de la EC'
@@ -42,17 +42,18 @@ def enviarATR(id_tr, mensaje):
     return 0
     
 def enviarMensaje(mensaje, receptor):
-	print "Estoy enviando el mensaje"
-	probabilidad_perdida_actual = random.random()
-	if probabilidad_perdida_actual > probabilidad_perdida :
-		delay = random.uniform(delay_min, delay_max)
-		time.sleep(delay)
-		receptor(mensaje)
-	else :
-		print "Perdi el mensaje"
+    
+    probabilidad_perdida_actual = random.random()
+    if probabilidad_perdida_actual > probabilidad_perdida :
+        delay = random.uniform(delay_min, delay_max)
+        time.sleep(delay)
+        receptor(mensaje)
+        print "Estoy enviando el mensaje...OK"
+    else :
+        print "Estoy enviando el mensaje...FAIL"
 
 def main():
-        # SERVER		
+        # SERVER        
         server = SimpleXMLRPCServer((host, puerto_canal))
         print "Escuchando en el puerto... ", puerto_canal
         server.register_function(enviarAEC, "enviarAEC")
