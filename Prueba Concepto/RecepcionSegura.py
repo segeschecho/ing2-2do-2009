@@ -1,6 +1,5 @@
 import time
 import random
-import time
 import threading
 from SimpleXMLRPCServer import SimpleXMLRPCServer
 from xmlrpclib import ServerProxy
@@ -15,7 +14,7 @@ proxy_canal = ServerProxy("http://%s:%s/"%(host,puerto_canal))
 
 mensajes_pendientes = {}
 for i in range(1, 10):
-	mensajes_pendientes[i] = {'Mensajes':[], 'Ultimo Id Enviado':0, 'Ultimo Timestamp Recibido': time.time(), 'Esta Caida':False}
+	mensajes_pendientes[i] = {'Mensajes':[], 'Ultimo Id Enviado':100, 'Ultimo Timestamp Recibido': time.time(), 'Esta Caida':False}
 
 def verificarABMTR():
 	while 1:
@@ -36,13 +35,14 @@ un_thread.setDaemon(True)
 un_thread.start()
 
 def recibirDeTR(mensaje):
-	print "Estoy puteando ", mensaje
-	mensaje_respuesta = respuesta_ack(mensaje)
-	proxy_canal.enviarATR(mensaje_respuesta)
-	guardarMensaje(mensaje)
-	tratarDeEnpaquetarYMandar(mensaje['Id Mensaje'], mensaje['Id TR'])
-	print "Termine de empaquetar"
-	return 0
+    print "Estoy recibiendo de TR"
+    mensaje_respuesta = respuesta_ack(mensaje)
+    proxy_canal.enviarATR(mensaje_respuesta)
+    guardarMensaje(mensaje)
+    #print "Este es el mensaje que me llega", mensaje, "y este es el id", mensaje['Id Mensaje']
+    tratarDeEnpaquetarYMandar(mensaje['Id Mensaje'], mensaje['Id TR'])
+    print "Termine de empaquetar"
+    return 0
 
 def respuesta_ack(mensaje):
 	rta = {}
@@ -68,10 +68,10 @@ def guardarMensaje(mensaje):
 	if not el_mensaje_esta :
 		mensajes_pendientes[mensaje['Id TR']]['Mensajes'].append(mensaje)
 
-def tratarDeEnpaquetarYMandar(id_tr, id_mensaje):
-	print "Trato de empaquetar"
-	if id_mensaje == mensajes_pendientes[id_tr]['Ultimo Id Enviado'] + 1:
-		mensajes = mensajes_pendientes[id_tr]['Mensajes']
+def tratarDeEnpaquetarYMandar(id_mensaje, id_tr_page):
+	print "Trato de empaquetar", "Con id_mensaje", id_mensaje, "Y id_tr_page", id_tr_page
+	if id_mensaje == mensajes_pendientes[id_tr_page]['Ultimo Id Enviado'] + 1:
+		mensajes = mensajes_pendientes[id_tr_page]['Mensajes']
 		partes = [msg for msg in mensajes if msg['Id Mensaje'] == id_mensaje]
 		if len(partes) == 0:
 			print "Esto no deberia pasar"
@@ -87,13 +87,13 @@ def tratarDeEnpaquetarYMandar(id_tr, id_mensaje):
 				for key in parte.keys():
 					paquete['Contenido'][key] = parte[key]
 					
-			for un_mensaje in mensajes_pendientes[id_tr]['Mensajes']:
+			for un_mensaje in mensajes_pendientes[id_tr_page]['Mensajes']:
 				if un_mensaje['Id Mensaje'] == id_mensaje:
-					mensajes_pendientes[id_tr]['Mensajes'].remove(un_mensaje)
+					mensajes_pendientes[id_tr_page]['Mensajes'].remove(un_mensaje)
 					
-			mensajes_pendientes[id_tr]['Ultimo Id Enviado']	+= 1	
+			mensajes_pendientes[id_tr_page]['Ultimo Id Enviado']	+= 1	
 			
-			print "Me llego el mensaje completo", paquete
+			print "Me llego el mensaje completo y lo mande como paquete"
 			
 			
 

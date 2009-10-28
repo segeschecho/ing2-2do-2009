@@ -33,7 +33,7 @@ def datos_auditoria(id_men, tipo_mensaje, id_TR):
     informacion['Timestamp'] = time.time()
     informacion['Id Mensaje'] = id_men
     informacion['Id Parte'] = 1
-    informacion['Cantidad partes'] = 1
+    informacion['Cantidad Partes'] = 1
     informacion['Tipo Mensaje'] = tipo_mensaje
     return informacion
 
@@ -64,7 +64,7 @@ def recolectarDatos(veces, tiempo, id_TR):
     print "host enviador: ",hostEnviador
     print "puerto enviador: ",puertoEnviador
     
-    id_mensaje = 0
+    id_mensaje = 101
     for i in range(veces):
         res = enviarMensaje(id_mensaje, id_TR)
         print res
