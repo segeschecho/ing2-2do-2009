@@ -29,6 +29,7 @@ for i in range(1, 6):
 def enviarAEC(mensaje):
     #proceso = Process(target = enviarMensaje, args = (mensaje))
     #proceso.start()
+    print 'Me llego un mensaje de la TR'
     un_thread = threading.Thread(target = enviarMensaje, args = (mensaje, proxy_ec.recibirDeTR))
     un_thread.setDaemon(True)
     un_thread.start()

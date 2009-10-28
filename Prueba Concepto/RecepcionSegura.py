@@ -51,11 +51,28 @@ def recibirDeTR(mensaje):
     
     #antes de enviar, encripto los datos, y agrego un campo con el id de la tr para que el canal lo direccione    
     mensaje_encriptado = enc.encriptar(mensaje_respuesta)
-
     proxy_canal.enviarATR(mensaje_respuesta['Id TR'], mensaje_encriptado)
+    
+    id_tr_actual = mensaje_desencriptado['Id TR']
+    if mensajes_pendientes[id_tr_actual]['Esta Caida'] and mensaje_desencriptado['Id Mensaje'] == 101 :
+        if mensaje_desencriptado['Timestamp'] > max_timestamp_de_mensaje_TR(mensaje_desencriptado['Id TR']):
+            if max_timestamp_de_mensaje_TR(mensaje_desencriptado['Id TR']) != -1 :
+                mensajes_pendientes[id_tr_actual]['Ultimo Id Enviado'] = 100
+                del mensajes_pendientes[id_tr_actual]['Mensajes']
+                mensajes_pendientes[id_tr_actual]['Mensajes'] = []
+            
     guardarMensaje(mensaje_desencriptado)
     tratarDeEnpaquetarYMandar(mensaje_desencriptado['Id Mensaje'], mensaje_desencriptado['Id TR'])
+
     return 0
+
+def max_timestamp_de_mensaje_TR(id_tr):
+    max_timestamp = -1
+    for men in mensajes_pendientes[id_tr]['Mensajes'] :
+        if men['Timestamp'] > max_timestamp : 
+            max_timestamp = men['Timestamp']
+    return max_timestamp
+            
 
 def respuesta_ack(mensaje):
     rta = {}
@@ -71,48 +88,49 @@ def respuesta_ack(mensaje):
 def guardarMensaje(mensaje):
     el_mensaje_esta = False
     mensajes_pendientes[mensaje['Id TR']]['Ultimo Timestamp Recibido'] = time.time()
-    #if mensaje['Id Mensaje'] > mensajes_pendientes[mensaje['Id TR']]['Ultimo Id Enviado'] : 
-    for mensaje_viejo in mensajes_pendientes[mensaje['Id TR']]['Mensajes']:
-        if mensaje_viejo['Id Mensaje'] == mensaje['Id Mensaje']:
-            if mensaje_viejo['Id Parte'] == mensaje['Id Parte']:
-                el_mensaje_esta = True
-                break
+    if mensaje['Id Mensaje'] > mensajes_pendientes[mensaje['Id TR']]['Ultimo Id Enviado'] : 
+        for mensaje_viejo in mensajes_pendientes[mensaje['Id TR']]['Mensajes']:
+            if mensaje_viejo['Id Mensaje'] == mensaje['Id Mensaje']:
+                if mensaje_viejo['Id Parte'] == mensaje['Id Parte']:
+                    el_mensaje_esta = True
+                    break
     if not el_mensaje_esta :
         mensajes_pendientes[mensaje['Id TR']]['Mensajes'].append(mensaje)
 
 def tratarDeEnpaquetarYMandar(id_mensaje, id_tr_page):
     #print "Trato de empaquetar", "Con id_mensaje", id_mensaje, "Y id_tr", id_tr_page
-    #if id_mensaje == mensajes_pendientes[id_tr_page]['Ultimo Id Enviado'] + 1:
-    mensajes = mensajes_pendientes[id_tr_page]['Mensajes']
-    partes = [msg for msg in mensajes if msg['Id Mensaje'] == id_mensaje]
-    if len(partes) == 0:
-        print "Esto no deberia pasar"
-    if partes[0]['Cantidad Partes'] == len(partes):
-        paquete = {}
-        for key in partes[0].keys():
-            paquete[key] = partes[0][key]
+    if id_mensaje == mensajes_pendientes[id_tr_page]['Ultimo Id Enviado'] + 1:
+        mensajes = mensajes_pendientes[id_tr_page]['Mensajes']
+        partes = [msg for msg in mensajes if msg['Id Mensaje'] == id_mensaje]
+        if len(partes) == 0:
+            return
+        if partes[0]['Cantidad Partes'] == len(partes):
+            paquete = {}
+            for key in partes[0].keys():
+                paquete[key] = partes[0][key]
 
-        del paquete['Contenido']
-        paquete['Id Parte'] = 1
-        paquete['Contenido'] = {}
+            del paquete['Contenido']
+            paquete['Id Parte'] = 1
+            paquete['Contenido'] = {}
 
-        for parte in partes:
-            for key in parte['Contenido'].keys():
-                paquete['Contenido'][key] = parte['Contenido'][key]
-        
-        for un_mensaje in mensajes_pendientes[id_tr_page]['Mensajes']:
-            if un_mensaje['Id Mensaje'] == id_mensaje:
-                mensajes_pendientes[id_tr_page]['Mensajes'].remove(un_mensaje)
-                
-        mensajes_pendientes[id_tr_page]['Ultimo Id Enviado'] += 1
-        
-        #una vez que tengo el paquete completo, lo guardo en el archivo
-        archivo = open("EC\\Id TR - " + str(paquete['Id TR']) + " - Id Mensaje - "+ str(paquete['Id Mensaje']) + ".tr", "w")
-        dato_json = json.dumps(paquete)
-        archivo.write(dato_json)
-        archivo.close()
-       
-        print "Me llego el mensaje: %s de la TR: %s completo y lo mande como paquete"%(id_mensaje,id_tr_page)
+            for parte in partes:
+                for key in parte['Contenido'].keys():
+                    paquete['Contenido'][key] = parte['Contenido'][key]
+            
+            for un_mensaje in mensajes_pendientes[id_tr_page]['Mensajes']:
+                if un_mensaje['Id Mensaje'] == id_mensaje:
+                    mensajes_pendientes[id_tr_page]['Mensajes'].remove(un_mensaje)
+                    
+            mensajes_pendientes[id_tr_page]['Ultimo Id Enviado'] += 1
+            
+            #una vez que tengo el paquete completo, lo guardo en el archivo
+            archivo = open("EC\\Id TR - " + str(paquete['Id TR']) + " - Id Mensaje - "+ str(paquete['Id Mensaje']) + ".ec", "w")
+            dato_json = json.dumps(paquete)
+            archivo.write(dato_json)
+            archivo.close()
+           
+            print "Me llego el mensaje: %s de la TR: %s completo y lo mande como paquete"%(id_mensaje,id_tr_page)
+            tratarDeEnpaquetarYMandar(id_mensaje + 1, id_tr_page)
 
         
 def main():
