@@ -136,3 +136,35 @@ Cada uno de ellos intenta abarcar uno de los casos posibles en la comunicación e
 	\item Parametros : Cada TR envia sus mensajes cada 20 segundos y la RecepcionSegura asume que si no recibe un mensaje luego de 10 segundos de una TR, la misma se cayo. Se agrega a este caso de test tambien un delay entre que se levanta cada TR de 3 segundos.
 	\item Resultado : Este caso de test se corrio y fue verificado que se asuma que la TR se cayo pero luego de recibir el siguiente mensaje se toma como reactiva nuevamente.
 \end{itemize}
+
+\section{Procesamiento y modelos}
+
+En ésta sección vamos a mostrar una simulación de lo que respecta a la parte de procesamiento de datos por los modelos matemáticos.
+
+La idea como se mencionó anteriormente en la arquitectura es poder incorporar distintos modelos matemáticos sin necesidad de implementar cambios globales a nivel de sistema. Para ello lo que tratamos de simular fue un módulo que se encargara básicamente de trasformar los datos a procesar en estructuras que puedan ser utilizadas por cualquier modelo matemático respresentado por un conjunto de reglas.
+
+En éste caso se intentó armar un diccionario de modo tal que cada Terminal Remota( cuyo id corresponde a las claves del diccionario) provea un conjunto de mediciones (valores del diccionario) representada a su vez por otro diccionario en el cual las claves sean los datos sensados tales como temperatura, presión, etc y los valores sean las mediciones de dichos datos, es mdecir supungamos que tenemos una sola terminal remota que sensa presiones, entonces el diccionario representado viene a ser el siguiente:
+
+Clave : 1 (Terminal remota cuyo id es 1), Valor : (Clave : presion, Valor : lista de valores sensados)
+
+De éste modo implentando ésta estructura de datos común, las reglas pertenecientes a un modelo matemático aplicarán sobre ésta estructura de datos independientemente del modelo.
+
+Para poder probar la implementación lo que hacemos es correr los archivos de la siguiente manera:
+
+\begin{verbatim}
+python Modelos.py reglasX.py datosX.py(opcional)
+\end{verbatim}
+
+Lo que hace la sentencia anterior es cargar el módulo de procesamiento (Modelos.py), el conjunto de reglas a aplicar(reglas1.py, reglas2.py, etc) y finalmente los datos en forma de diccionario (Asumimos que ya vienen con la estructura que deseamos, que otro módulo (Parser) se encarga de llevar a cabo dicha tarea). 
+
+Igualmente como se pude ver en la sentencia, la inclusión de datos es opcional, ya que de no proveer dicho archivo se generará un diccionario con valores aleatorios de sensado.
+
+Hicimos éstas dos posibles formas de obtener los datos para que sea sencillo el probado de las pruebas. Si generamos nuestros propios datos podremos analizar los diferentes resultados generados por las reglas, pero si por el contrario queremos valores aleatorios, también se brinda dicha posibilidad.
+
+\subsection{Datos y casos de test}
+
+
+Para probar las implementaciones, nos generamos básicamente dos archivos de datos: datos1.py y datos2.py y también dos conjuntos de reglas: reglas1.py( Que utiliza máximos para calcular) y reglas2.py( que utiliza promedios para calcular)
+y lo que hicismos fue crear todas las posibles ejecuciones, es decir para cada regla cualquiera de los dos archivos de datos o ninguno. De éste modo obtuvimos 6 casos de test que se pueden ejecutar directamente con los archivos Test X.bat que se encuentran en la carpeta casos de test y dentro de ella en el directorio Test Procesamiento.
+
+Lo que se intentó llevar a cabo con éstas pruebas de test es el intercambio entre reglas de procesamiento de manera sencilla y no tanto así el resultado de los procesamientos por lo cual no explayaremos los resultados obtenidos y daremos principal interés a la correcta modificabilidad de las reglas.
