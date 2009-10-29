@@ -2,6 +2,35 @@
 
 En esta parte se desarrollará la arquitectura general del producto. Analiceremos estilos arquitectónicos, las tácticas correspondientes para poder contemplar los atributos de calidad y finalmente diferentes estructuras que nos conllevarán a realizar las vistas arquitectónicas apropiadas para lograr un buen entendimiento de las diferentes partes del sistema.
 
+\section{Módulos}
+
+\begin{figure}[!Hb]
+    \centering
+    \includegraphics[scale = 0.6]{Modulos.png}
+\end{figure}
+
+Aquí vamos a mostrar una vista de módulos que nos permitirá analizar básicamente la sección de procesamiento de datos mediante modelos matemáticos en la Estación Central. Vamos a tener una unidad de código encargada de dicho procesamiento de modelos, pero para los cuales van a ser necesarios una serie de módulos que contribuyan a dicho procesamiento.
+
+Entonces ésta vista estará compuesta por los siguientes módulos:
+
+\begin{itemize}
+\item Modulo procesamiento: Este módulo es básicamente un  manejador del proceso de obtención parseo y procesamiento de los datos por modelos matemáticos. La idea es que una vez obtenidos los datos los mismos se puedan configurar o adaptar de tal manera que la inclusión de distintos modelos matemáticos no afecte el sistema en general y la modificación sea sencilla.
+\item DB INPUT(DATA): Este módulo comprenderá la operatoria asociada a la obtención de los datos a procesar de la base de datos que guarda los mismos previos al procesamiento.
+\item DB OUPUT(RESULTADOS): Este módulo comprenderá la operatoria asociada al depósito de los datos una vez procesados a la base de datos que guarda los resultados obtenidos.
+\item Parser: El Parser básicamente como mencionamos anteriormente se encarga de configurar la información en datos de modo tal que el intercambio entre distintos modelos matemáticos sea fácilmente configurable
+\item Reglas: Finalmente éste modulo es el encargado de tener las reglas de los modelos matemáticos. El módulo de procesamiento hará uso de éste modulo para procesar los datos obtenidos y posteriormente guardar los reasultados.
+\end{itemize}
+
+La idea de utilizar ésta forma de procesar fue responder fácilmente al intercambio de modelos matemáticos. Al lograr bajo acoplamiento en los módulos y separando el módulo de reglas independientemente del resto de los módulos logramos que intercambiar este módulo de reglas no sea una tarea complicada y poder seguir usando el sistema rápidamente. 
+
+Como se mencionó anteriormente, las reglas estarán traducidas al lenguaje que estemos utilizando y además utilizarán estructuras de datos comunes a todas ellas para referirse a los diferentes datos. De éste modo éstas estructuras estarán fijadas y las reglas operarán sobre ellas sin necesidad de tener sus propias estructuras. Sólo constarán de definiciones de funciones y reglas aplicadas a los datos.
+
+En la prueba de concepto daremos una breve explicación adaptada a dicha prueba para mostrar cómo podría simularse éste módulo.
+
+
+\clearpage
+\newpage
+
 \section{Componentes y conectores}
 
 La primera de las estructuras que vamos a analizar es la asociada a entidades run-time. Para ello utilizaremos vistas de componentes y conectores que nos permitan identificar éstas entidades y poder instanciarlas como componentes o conectores. Esto nos dará una idea de como los diferentes componentes contribuyen a la ejecución de las funcionalidades solicitadas y como las tácticas aplicadas se corresponden al control de los diferentes atributos de calidad. Presentaremos tres vistas de acuerdo a los componentes que funcionan en cada uno de las tres grandes partes que componen nuestro sistema(Terminal Remota, Estación central y Sistema de Monitoreo) y también explicaremos la forma de comunicación y flujo de datos entre dichas partes, por lo cual también puede verse como una vista de Deployment combinada con componentes y conectores. Cada una de las tres vistas se encuentran al final de ésta sección por lo que es aconsejable analizarla en paralelo a medida que se lee la explicación del funcionamiento de las componentes internas.
@@ -270,41 +299,44 @@ Para especificar el protocolo con mas formalidad, utilizamos máquinas de estados
 	\item Y dos para la Estación Central: por un lado la fragmentación de mensajes y por otro el envio de la confirmación de recepción.
 \end{itemize}
 
-\begin{figure}[H]
+\begin{figure}[!Hb]
     \centering
     \includegraphics[scale = 0.45]{figuras/fsmCanal.png}
     \caption{FSM del Canal de comunicaciones (el medio físico, en este caso la red GSM)}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!Hb]
     \centering
     \includegraphics[scale = 0.3]{figuras/fsmTR.png}
     \caption{FSM de una Terminal Remota}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!Hb]
     \centering
     \includegraphics[scale = 0.4]{figuras/fsmEC.png}
     \caption{FSM que muestra el envio de respuesta de un mensaje}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!Hb]
     \centering
     \includegraphics[scale = 0.8]{figuras/fsmECfrag.png}
     \caption{FSM del Canal de comunicaciones (FSM que muestra el ensamblado de mansajes en la EC}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!Hb]
     \centering
     \includegraphics[scale = 0.6]{TR.png}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!Hb]
     \centering
     \includegraphics[scale = 0.6]{EC.png}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!Hb]
     \centering
     \includegraphics[scale = 0.6]{SisMon.png}
 \end{figure}
+
+\newpage
+
