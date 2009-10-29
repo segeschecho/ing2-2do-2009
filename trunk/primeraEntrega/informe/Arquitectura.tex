@@ -24,7 +24,7 @@ Las Terminales Remotas represantan los nodos o unidades que sensan y proveen inf
 
 \begin{itemize}
 
-\item \textbf{Procesador Estado:} Esta componente se encarga de la iteracción con la componente muy utilizada en el mercado. Dicha componente proveerá la información acerca del monitoreo de paneles solares y baterías. Una vez obtenida dicha información ésta componente la procesará y determinará las acciones a llevar a cabo, enviándo dichas ordenes al Switch Estado.
+\item \textbf{Procesador Estado:} Esta componente se encarga de la interacción con la componente muy utilizada en el mercado. Dicha componente proveerá la información acerca del monitoreo de paneles solares y baterías. Una vez obtenida dicha información ésta componente la procesará y determinará las acciones a llevar a cabo, enviándo dichas ordenes al Switch Estado.
 
 \item \textbf{Switch Estado:} A partir de las órdenes generadas por el Porcesador Estado, ésta componente se encargará de switchear la forma de obtención de energía por parte de la TR ordenando apagar las baterías y habilitar los paneles solares o viceverza. Finalemnte cada vez que se produce un cambio en la fuente de alimentación
 
@@ -122,9 +122,9 @@ La Estación Central representa el gran cerebro del sistema. Tiene a su cargo fun
 \subsubsection{Tácticas elegidas en la Estación Central}
 
 
-En las vistas de arquitectura intentamos mostrar los principales componentes así como las tácticas más fáciles de reflejar en un diagrama sin embargo en ésta sección no sólo comentaremos los motivos de elección de tales tácticas sino qe también denotaremos otras que en caso de incluirlas en las vistas dificultarían la comprension de las mismas.
+En las vistas de arquitectura intentamos mostrar los principales componentes y las tácticas más fáciles de reflejar en un diagrama. De todas formas, hay algunas tácticas que no se aprecian en estas vistas (no las incluimos porque en caso de hacerlo dificultarían la comprensión de las vistas). En ésta sección comentaremos estas tácticas y además ampliaremos sobre las otras tácticas utilizadas, incluyendo una justificación de porque las elegimos.
 
-Como señalamos anteriormente existirán varias componentes Recepción segura, asignadas cada una de ellas a un grupo de terminales remotas determinado (en principio podría ser por zona) de manera estática. Con ésto lo que intentamos reflejar es un balanceo de carga estático para no generar un único cuello de botella, de modo tal de no saturar una única componente, lo que hace que la llegada de datos sea más performante debido a que cada una de ellas recibirá y procesará un subconjunto de los datos recibidos. A su vez cada una de éstas componentes tendrá asociado un único divisor de mensajes. Por su parte y ya que logramos performance en la llegada de los datos, éstas componentes no pueden fallar, ya que de hacerlo no estaríammos recibiendo datos de todas las terminales remotas con lo cual atenta a la completitud de la información, es por ellos que existe redundancia activa en éstas dos componentes.
+Como señalamos anteriormente existirán varias componentes Recepción segura, asignadas cada una de ellas a un grupo de terminales remotas determinado (en principio podría ser por zona) de manera estática. Con ésto lo que intentamos reflejar es un balanceo de carga estático para no generar un único cuello de botella, de modo tal de no saturar una única componente, lo que hace que la llegada de datos sea más performante debido a que cada una de ellas recibirá y procesará un subconjunto de los datos recibidos. A su vez cada una de estas componentes tendrá asociado un único divisor de mensajes. Por su parte y ya que logramos performance en la llegada de los datos, éstas componentes no pueden fallar, ya que de hacerlo no estaríammos recibiendo datos de todas las terminales remotas con lo cual atenta a la completitud de la información, es por ellos que existe redundancia activa en éstas dos componentes.
 
 Es importante también notar que todo tipo de comunicación entre partes es segura, ya sea Sistema de Monitoreo-Estación Central o mismo la de la Estación Central  con las terminales remotas. La componente Recepción segura, no sólo se encargará del protocolo de comunicación con las terminales remotas sino que verificará la autenticidad de los datos por algun modo de codificación y ya que cada terminal remota tendrá un código unívocamente identificatorio se podrá determinar si un mensaje proviene de ella o algún intruso intervino en el medio. 
 
@@ -141,9 +141,9 @@ La interfaz con el sistema eólico en la Estación Central permite que los datos l
 
 Al separar las interfaces con los sistemas externos como usuarios, operarios, otras empresas, etc, en el sistema de monitoreo con el procesamiento de los datos, la información almacenada, etc en la Estación Central probablemente sea más facil cuestiones relacionadas con la facilidad en los cambios.
 
-Una vez aclaradas éstas cuestiones adicionales al diagrama podemos destacar que utilizamos redundancia activa en todas aquellas componentes que consideramos que su caída es crítica para nuestro sistema y atenta fuertemente a la disponibilidad del mismo. Si embargo consideramos redundanci pasiba en componentes tales como las interfaces con biggest satellit o el triangulador ya que consideramos que como no siempre están en uso exclusivo tenemos un margen de tiempo para corregirlo en caso de fallas. 
+Una vez aclaradas éstas cuestiones adicionales al diagrama podemos destacar que utilizamos redundancia activa en todas aquellas componentes que consideramos que su caída es crítica para nuestro sistema y atenta fuertemente a la disponibilidad del mismo. Sin embargo consideramos redundancia pasiva en componentes tales como las interfaces con Biggest Satellite o el triangulador ya que consideramos que como no siempre están en uso exclusivo tenemos un margen de tiempo para corregirlo en caso de fallas. 
 
-
+Finalmente, para asegurar la disponibilidad de mediciones de cada TR (un punto fundamental del sistema), implementamos la táctica de heartbeat, para poder determinar si una TR está caída. El motivo es muy simple, las TRs ya envían mensajes periódicamente: los datos que envian cada 1 minuto a la estación central (más alguna eventual retransmisión de mensajes). Entonces, lo único que necesitabamos era chequear si hace un cierto tiempo que no se reciben mensajes de cierta TR; con lo cual, utilizar heartbeat tiene un costo casi nulo en este caso, y nos permite detectar una caída rápidamente (esto es fundamental ya que hay que tomar acciones apropiadas inmediatamente).
 
 
 
@@ -210,7 +210,6 @@ Por 'ultimo, las componentes que son bastante mas tolerables a fallas, utilizan 
 
 Estas decisiones ayudan como ya se dijo a los atributos de disponibilidad del sistema. Pero adem'as de esto, las comunicaciones hacia los clientes externos, los usu'arios y hasta la comunucaci'on con la Estaci'on Central requieren ser seguras, para evitar que intrusos puedan interferir en los datos que se env'ian en todo momento. Es por esta raz'on que los conectores, hacia el exterior del Sistema de Monitoreo son seguros e implementan algún protocolo que garantice la integridad y la confidencialidad de los mismos. Con esto se cubren los atributos de calidad relacionados con la seguridad de los datos que envía y recibe el sistema a usu'arios y clientes.
 
-
 \subsection{Comunicación entre la Estación Central y el Sistema de Monitoreo}
 
 Estas dos partes del sistema, están conectadas mediante varios conectores como se puede observar en los diagramas de arquitectura de cada una. Una de las principales características que se puede observar en esta conexión, es el hecho de que los conectores utilizados para el transporte de los datos, son seguros. Esto se debe a que la parte del Sistema de Monitoreo puede estar físicamente separada de la Estaci'on Central, y por este motivo se requerido este tipo de comunicaci'on segura, para evitar que alguien pueda alterar la informaci'on que viaja de una parte a la otra.
@@ -240,7 +239,60 @@ A continuaci'on se describir'an los conectores entre estas dos partes, nombrando
 
 \end{itemize}
 
+\subsection{Comunicación entre la Estación Central y las Terminales Remotas}
+La comunicación entre la Estación Central y las Terminales Remotas es una parte crítica del sistema, ya que es en este conector que se transmiten todas las mediciones que realizan las TRs y se envian a la Estació Central para su procesamiento.
 
+Físicamente, los datos viajan en SMS, Short Text Message mediante la red GSM. Esta comunicación tiene que ser seguro y confiable: se tiene que preservar la integridad y la confidencialidad de la información que se transmite, y tenemos que tener seguridad de que los datos no se pierden durante la transmisión. Como la tecnología GSM no nos provee ni seguridad ni confiabilidad, tuvimos que diseñar un protocolo que si lo haga.
+
+\subsubsection{Seguridad en las comunicaciones}
+La forma que se nos ocurrió de transmitir la información de manera segura es utlizar dos mecanismos de seguridad:
+\begin{itemize}
+	\item Cifrar la información mediante un algoritmo criptográfico (puede ser simétrico o asimétrico) para mantener la confidencialidad de la información
+	\item Aplicar al mensaje una función de hash (como SHA1 o MD5) al enviar el mensaje, y verificar que el hash sea correcto cuando se recibe el mensaje. De esta forma, aseguramos la integridad de la información.
+\end{itemize}
+
+\subsubsection{Confiabilidad en las comunicaciones}
+La comunicación debe ser confiable, es decir debo obtener una confirmación de la recepción. En nuestro protcolo, cada vez que una Termina Remota envía un mensaje a la Estación Central, ésta le envía una respuesta (ACK) a la terminal que emitió el mensaje, como confirmación de la recepción. Además, cada vez que envía un mensaje, la Terminal Remota espera la confirmación por parte de la EC. Si dentro de un lapso definido no recibe esta confirmación, asume que el mensaje se perdió y lo reenvia.
+
+\subsubsection{Ensamblado de mensajes}
+Las TR realizan mediciones de muchos datos distintos, que envían a la EC. Puede ocurrir que una trasmisión de mediciones sea lo suficientemente grande como para no entrar en un mensaje SMS (que como su nombre lo indica, están previstos para mensajes cortos). Es por eso que nuestro protocolo tiene que poder soportar, que una misma transmisión lógica de datos, puede ser enviada en distintos SMS.
+
+En cada Terminal Remota, el módulo de la comunicación con la EC se encarga de fragmentar un mensaje si es necesario y enviar cada parte a la estación Central. La respuesta que mencionamos antes, es por fragmento de mensaje, no por mensaje completo.
+
+En la EC, se realiza el proceso inverso: en el módulo de Recepción Segura se reciben los fragmentos de los mensajes y se reensamblan. Este módulo pasa el mensaje una vez que está completo al siguiente módulo, para su posterior procesamiento. Los mensajes son transmitidos la siguiente módulo en orden: aún cuando el mensaje 2 de la TR 1 haya llegado completo, no se lo pasará al siguiente componente hasta que esté completo el mensaje 1 de la TR 1.
+
+\subsubsection{Protocolo}
+
+Para especificar el protocolo con mas formalidad, utilizamos máquinas de estados finitos (FSMs). Son 4:
+\begin{itemize}
+	\item Una máquina que representa el canal de comunicaciones, por donde circulan los mensajes. Con esta FSM reprentamos las posbilidad de que los mensajes de pierdan.
+	\item Una máquina que representa una Terminal Remota (la parte de envío y reenvío de mensajes).
+	\item Y dos para la Estación Central: por un lado la fragmentación de mensajes y por otro el envio de la confirmación de recepción.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.45]{figuras/fsmCanal.png}
+    \caption{FSM del Canal de comunicaciones (el medio físico, en este caso la red GSM)}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.3]{figuras/fsmTR.png}
+    \caption{FSM de una Terminal Remota}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.4]{figuras/fsmEC.png}
+    \caption{FSM que muestra el envio de respuesta de un mensaje}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.8]{figuras/fsmECfrag.png}
+    \caption{FSM del Canal de comunicaciones (FSM que muestra el ensamblado de mansajes en la EC}
+\end{figure}
 
 \begin{figure}[H]
     \centering
