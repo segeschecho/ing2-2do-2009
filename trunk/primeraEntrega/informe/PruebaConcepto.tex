@@ -1,141 +1,68 @@
 \chapter{Prueba de Concepto}
 
-\section{XXXX Datos de la prueba de concepto}
+\section{Implementación de la prueba de concepto}
 
-Completar con lo que fue la prueba de conecpto...
-lo que son los rpc y el canal y bla bla bla
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+\subsection{Descripción del funcionamiento}
+
+Para realizar la prueba de concepto referida al protocolo de comunicación entre la Estación Central y las TRs, se tuvieron que implementar ciertos componentes descriptos en la arquitectura del sistema, tanto de la Estación Central como en la TR. Además de esto se implementó un canal de comunicaciones, que simula la red $GSM$ por donde los mensajes viajarán, por este motivo el mismo también simula la pérdida y el retraso de mensajes por congestión, que es lo que habitualmente ocurriría en la red $GSM$ real. 
+
+El lenguaje re programación elegido para realizar la prueba de concepto fue $Python$, ya que es un lenguaje muy completo y permite realizar aplicaciones de manera rápida y fácil. Como los componentes implementados son entidades de runtime diferentes, la comunicación entre estos se realizó mediante $RPC$ (Remote Procedure Call), donde cada uno de los procesos exportan funciones que se utilizan para intercambiar información y realizar todas las actividades necesarias para la prueba de concepto.
+
+Como se mencionó anteriormente, se implementaron diferentes componentes de la arquitectura del sistema. Estos son los encargados del envío y recepción de los mensajes, que implementan además el protocolo de comunicación confiable y seguro. Para que el protocolo sea seguro, se agregó una capa de encriptación/desencriptación antes de enviar/recibir los mensajes, con eso se asegura que la información de los mensajes no sea corrompida en el camino. Para que el protocolo sea confiable se implementó un mecanismo en el cual, los mensajes enviados desde una TR y que llegan exitosamente a la Estación Central, son confirmados, mediante el envío de un mensaje de tipo ACK.
+
+De la Estación central, se implementó el componente $Recepcion$ $Segura$, donde se realiza el tratado de los mensajes que llegan. Los mensajes pueden ser fragmentados, ya que puede pasar que por la red $GSM$ no puedan ser enviados de forma completa. Por este motivo en dicho componente se implementó la lógica necesaria para el tratamiento de las partes que forman un mensaje, y cuando se tienen todas estas partes, se forma el mensaje original y completo. Es por esto que es necesario tener un registro de los mensajes que van llegando y saber a que mensaje pertenece cada parte que arriba. Cada mensaje completo tiene un identificador y un timestamp que indica a que hora se envió, cuando el mensaje es fragmentado, existe además un identificador que indica a que parte pertenece cada fragmento. Esta es la información que utiliza $Recepcion$ $Segura$ para ir procesando la información que le llega. También en este componente se encuentra el sector de desencriptado de mensajes, ya que como el protocolo además de ser confiable, es seguro, cada fragmento que llega esta encriptado y es necesario desencriptarlo para poder tratarlo.
+
+De la Terminal Remota, se implementó el $Sincronizador$ y $Comunicacion$ $EC$. El $Sincronizador$ para esta prueba de concepto genera datos al azar, que re presentan valores de los sensores de temperatura y humedad, y genera el mensaje con estos valores y con la información del mensaje que llamaremos encabezado. El mismo contiene un $ID$ de la TR, un $Timestamp$, un $ID$ del mensaje, un $ID$ de la parte (que en este lugar siempre es uno), la $Cantidad$ $de$ $Partes$ en las que está fragmentado el mensaje (que en esta parte es uno), el $Tipo$ $de$ $Mensaje$ que puede ser $DATOS$ o $CONTROL$ y el $Contenido$ del mensaje, donde se guardan los valores que se recibieron de los sensores.
+
+Cuando un mensaje le llega a la componente $Comunicacion$ $EC$ desde el $Sincronizador$, ésta verifica que el mensaje completo pueda ser enviado al $Canal$, si no lo fragmenta. Este proceso lo que hace básicamente, es obtener cada valor dentro del contenido del mensaje y generar nuevos mensajes, que tienen el mismo encabezado que el original, pero con los valores de $ID$ de parte y $Cantidad$ $de$ $Partes$ modificados según sea necesario. Una vez realizado esto, se procede a encriptar cada fragmento y enviarlo por el $Canal$ hacia la Estación Central. Cabe aclarar que estos fragmentos al momento de ser enviados, son considerados como datos en vuelo, y para ellos se espera un mensaje con $Tipo$ $de$ $Mensaje$ igual a $CONTROL$ cuyo $Contenido$ tenga un ACK que confirme la llegada de forma correcta a la Estación Central, momento en el cual, es considerado como fragmento entregado satisfactoriamente y es eliminado de los datos en vuelo.
+
+Con respecto al $Canal$, este solo actúa de intermediador entre $Comunicacion$ $EC$ y $Recepcion$ $Segura$, exportando funciones para enviar al información hacia una TR o hacia la Estación Central. Una característica que se comentó al principio es que el $Canal$ además de reenviar mensajes de un lado a otro, contiene una lógica que permite simular la demora y la perdida de los mensajes que llega. Para ello se definieron una serie de constantes y se consideró que sobre el canal existe una probabilidad de 0.05 de perder el mensaje, y el delay en él varia desde 0.05 segundos a 2 segundos.
+
+\subsection{Archivos fuentes utilizados}
+
+Aquí se mostrarán los archivos fuente utilizados para realizar los tests, y se explicarán que parámetros utilizan para poder correrlos en una pc.
+
+\begin{itemize}
+\item Canal.py: Simula el canal de comunicación que se usa para enviar los mensajes entre la TR y la Estación Central, Aquí se implementa el retraso y perdida de mensajes. No requiere ningún parámetro adicional.
+
+\item RecepcionSegura.py (tiempo caída): Implementa la funcionalidad de componente de la arquitectura del sistema llamado del mismo nombre y explicado anteriormente. Requiere un parámetro adicional, que indica el tiempo en segundos en el cual se considera que una TR deja de funcionar desde el último mensaje recibido.
+
+\item TR.py (tiempo envio, cantidad de mensajes a enviar, ID de la TR, tiempo de vida de la TR): Este código en $Python$ genera una instancia de $Comunicacion$ $EC$ (comunicacionEc.py) y una de $Sinconizador$ (sincronizador.py), ambas son entidades de runtime distintas, y por este motivo TR.py hace que ejecución de estos procesos sea mas automática. Requiere 4 parámetros: El primero indica cuál será el intervalo de envío de los mensajes en segundos (en la realidad será de 60 segundos); El segundo indica la cantidad de mensajes que va a enviar la TR, esto se hizo para poder realizar pruebas y los tests; El tercero indica el $ID$ que tendrá la TR; El cuarto y último indica el tiempo de vida en segundos que tendrá la TR. Esto se hizo también para realizar los tests de integridad.
+\end{itemize}
 
 \section{Test de Integridad}
 
-Para esta prueba de concepto se generaron tres test de integridad en forma de archivos batch.
+Para ésta prueba de concepto se generaron tres test de integridad en forma de archivos batch. Los mismos simulan la interacción del componente $Comunicacion$ $EC$ de la Estación Central con diferentes TRs en diferentes situaciones. En cada test se puede apreciar el correcto funcionamiento del protocolo de comunicación descripto. Para realizar los test se dispone de un $canal$ ($Canal.py$), que simula la perdida y retraso de mensajes de forma aleatoria, También se dispone de un componente de la Estación Central ($RecepcionSegura.py$) que recibe los mensajes de las TRs por el canal, los ordena y los empaqueta (si estan completos), del lado de las TRs se implementaron 2 componentes ($sincronizador.py$, y $comunicacionEC.py$) que realizan las tareas descriptas en la sección de la arquitectura, cabe aclarar que estos dos componentes son creados por $TR.py$, y son entidades de runtime diferentes.
 
-Cada uno de estos test corresponde a un archivo .bat que va ejecutando las distintas parte de la comunicacion como la RecepciónSegura, la TR, y el Canal.
-
-Cada uno de ellos intenta abarcar uno de los casos posibles en la comunicación entre las TR y la EC. 
+Cada uno de estos test corresponde a un archivo $.bat$ que encapsula cada test y va ejecutando las distintas partes necesarias para realizar la comunicación y realizar los test. Cada uno de ellos intenta abarcar uno de los casos posibles en la comunicación entre las TR y la EC.
 
 \subsection{Test 01}
 
 \begin{itemize}
-	\item Descripcion: En este caso se levantan cinco TRs de las cuales todas funcionan bien menos una que luego de 45 segundos se cae y 50 segundos más tarde se vuelve a levantar.
-	\item Parametros : Cada TR envia sus mensajes cada 20 segundos y la RecepcionSegura asume que si no recibe un mensaje luego de 40 segundos de una TR, la misma se cayo.
-	\item Resultado : Este caso de test se corrio, y fue verificado que se detecto la caida y la vuelta en marcha de la TR. Asi tambien como se tomaron todos los mensajes correctamente.
+	\item Archivo: Test 01.bat
+	\item Descripción: En este caso se simulan cinco TRs de las cuales todas funcionan bien menos una, que luego de 45 segundos se cae (es decir, deja de funcionar) y 50 segundos más tarde se vuelve a levantar.
+	\item Parámetros : Cada TR envia sus mensajes cada 20 segundos y la RecepcionSegura asume que si no recibe un mensaje luego de 40 segundos de una TR, la misma se cayo. La TR que deja de funcionar esta identificada con el ID 1 y envía 4 mensajes antes de dejar de funcionar, mientras que las demás TRs (que están identificadas con id's de 2 a 5) envían 9 mensajes en total.
+	\item Resultado: Este caso de test se ejecutó, y fue verificado que se detecto la caída y la vuelta en marcha de la TR con ID 1. También se verificó que se hayan procesado todos los mensajes correctamente.
 \end{itemize}
 
 \subsection{Test 02}
 
 \begin{itemize}
-	\item Descripcion: Este es un test que simula el comportamiento normal, tanto de las TR como de la EC. En este caso todas las TR permanecen levantas.
-	\item Parametros : Cada TR envia sus mensajes cada 20 segundos y la RecepcionSegura asume que si no recibe un mensaje luego de 40 segundos de una TR, la misma se cayo.
-	\item Resultado : Este caso de test se corrio y fue verificado que no se haya caido ninguna TR y que todos los mensajes llegaron correctamente.
+	\item Archivo: Test 02.bat
+	\item Descripción: Este es un test que simula el comportamiento normal, tanto de las TR como de la EC. En este caso todas las TR permanecen activas sin problemas durante todo el test.
+	\item Parámetros : Cada TR envía 15 mensajes en total cada 20 segundos y la RecepcionSegura asume que si no recibe un mensaje luego de 40 segundos del último mensaje recibido de una TR, la misma se dejó de funcionar.
+	\item Resultado: Este caso de test se ejecutó y fue verificado que no haya dejado de funcionar ninguna TR y que todos los mensajes que llegaron se procesaron correctamente.
 \end{itemize}
 
 \subsection{Test 03}
 
 \begin{itemize}
-	\item Descripcion: Este es un test que intenta simular la posibilidad de que el tiempo de llegada de los mensajes desde la TR hacia la EC sea muy alto y asi se asuma que la TR esta caida, pero luego de un tiempo recibe otro mensaje.
-	\item Parametros : Cada TR envia sus mensajes cada 20 segundos y la RecepcionSegura asume que si no recibe un mensaje luego de 10 segundos de una TR, la misma se cayo. Se agrega a este caso de test tambien un delay entre que se levanta cada TR de 3 segundos.
-	\item Resultado : Este caso de test se corrio y fue verificado que se asuma que la TR se cayo pero luego de recibir el siguiente mensaje se toma como reactiva nuevamente.
+	\item Archivo: Test 03.bat
+	\item Descripción: Este es un test que intenta simular la posibilidad de que el tiempo de llegada de los mensajes desde la TR hacia la EC sea muy alto (simulando una red congestionada por ejemplo) y asi se asuma que la TR esta caída (cuando en realidad esto no es cierto), pero luego de un tiempo se recibe otro mensaje que continua con la comunicación.
+	\item Parámetros : Cada TR envía 15 mensajes cada 20 segundos y la RecepcionSegura asume que si no recibe un mensaje luego de pasados 10 segundos del último mensaje recibido de una TR, la misma dejó de funcionar. Se agrega a este caso de test también, un delay de 3 segundos a cada TR antes de iniciarlas.
+	\item Resultado: Este caso de test se ejecutó y se verificó que la recepción segura se de cuenta de la caída de una TR y que luego cuando lleguen los siguientes mensajes, se detecte que la TR sigue funcionando y se tome como activa nuevamente.
 \end{itemize}
+
 
 \section{Procesamiento y modelos}
 
