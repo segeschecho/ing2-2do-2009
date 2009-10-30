@@ -18,10 +18,10 @@ echo Levanto La RecepcionSegura de la EC
 start ..\RecepcionSegura.py 40
 :: Las TR's tienen 4 parametros : intervalo, cantidad , Id TR, tiempo vida
 echo Levanto las 5 TR
-start ..\TR.py 20 15 1 80000
-start ..\TR.py 20 15 2 80000
-start ..\TR.py 20 15 3 80000
-start ..\TR.py 20 15 4 80000
-start ..\TR.py 20 15 5 80000
+start ..\TR.py 20 1500 1 80000
+start ..\TR.py 20 1500 2 80000
+start ..\TR.py 20 1500 3 80000
+start ..\TR.py 20 1500 4 80000
+start ..\TR.py 20 1500 5 80000
 pause
 echo on
