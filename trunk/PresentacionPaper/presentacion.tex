@@ -1,6 +1,6 @@
 \documentclass{beamer}
 
-%\usetheme{Boadilla}
+\usetheme{Warsaw}
 \usepackage[spanish,activeacute]{babel}
 \usepackage[latin1]{inputenc}
 
@@ -19,32 +19,32 @@
 {
   \frametitle{Introducción}
   \begin{itemize}
-  \item [El paper] No Silver Bullet. Essence and Accidents in Software Engineering. IEEE Computer, Abril de 1987.
-  \item [Somos] Gonzalo Castillo, Victoria Elizalde, Sergio Gonzalez y Martín Page
-  \item [Bio] Fred Brooks es Cientí­fico de la Computación e Ingeniero de Sofware. Recibió el Turing Award en 1999 y es conocido por haber escrito el libro The Mythical Man-Month, además de No silver bullet.
+  \item \textcolor{blue}{El paper} No Silver Bullet. Essence and Accidents in Software Engineering. IEEE Computer, Abril de 1987.
+  \item \textcolor{blue}{Quienes Somos?} Gonzalo Castillo, Victoria Elizalde, Sergio Gonzalez y Martín Page
+  \item \textcolor{blue}{Y Brooks?} Fred Brooks es Cientí­fico de la Computación e Ingeniero de Sofware. Recibió el Turing Award en 1999 y es conocido por haber escrito el libro The Mythical Man-Month, además de No silver bullet.
   \end{itemize}
 }
 \frame
 {
   \frametitle{La metáfora}
   \begin{itemize}
-  \item <1->Brooks compara un proyecto de software con un hombre lobo: algo inocente se transforma en un monstruo
-  \item <2-> Necesidad de una "bala de plata", algo que haga bajar costos y aumente productividad, confiabilidad y simplicidad
-  \item <3-> Mayor dificultad del sofware: la especificación, diseño y testing de la parte conceptual
+  \item<1-> Brooks compara un proyecto de software con un hombre lobo: algo inocente se transforma en un monstruo.
+  \item<2-> Necesidad de una "bala de plata", algo que haga bajar costos y aumente productividad, confiabilidad y simplicidad.
+  \item<3-> Mayor dificultad del sofware: la especificación, diseño y testing de la estructura conceptual.
   \end{itemize}
 }
 \frame
 {
   \frametitle{Las dificultades}
   \begin{itemize}
-  \item<1-> Dificultades Esenciales: Inherentes a la naturaleza misma del software
+  \item<1-> \emph{Dificultades Esenciales}: Inherentes a la naturaleza misma del software.
   	\begin{itemize}
-  \item<2-> Complejidad
-  \item<3-> Conformidad
-  \item<4-> Modificabilidad    
-  \item<5-> Invisibilidad
+  \item<2-> \textbf{Complejidad}: Intrínseca del software(escalabilidad, numeración de estados, comunicación).
+  \item<3-> \textbf{Conformidad}: El software debe cumplir con limitaciones arbitrarias impuestas por personas y reglas de negocio.
+  \item<4-> \textbf{Modificabilidad}: El software siempre va a estar sujeto a cambios.    
+  \item<5-> \textbf{Invisibilidad}:El software es invisible e individualizable en el espacio. El software se intuye, pero no se ve.
   \end{itemize}
-  \item<6-> Dificultades accidentales: Dificultades no inherentes al sotware sino a su producción
+  \item<6-> \emph{Dificultades accidentales}: Dificultades no inherentes al sotware sino a su producción(Ej.Tipo de lenguaje de programación).
   \end{itemize}
 }
 
@@ -52,18 +52,47 @@
 {
   \frametitle{Avances que resolvieron dificultades accidentales}
   \begin{itemize}
-  \item<1-> Lenguajes de Alto Nivel
-  \item<2-> Time-Sharing
-  \item<3-> Ambientes de desarrollo unificado
+  \item<1-> \textcolor{red}{Lenguajes de Alto Nivel}: Abstracciones conceptuales. Esconden complejidad accidental del programa compilado.
+  \item<2-> \textcolor{red}{Time-Sharing}: La posibilidad de compartir el tiempo de ejecución entre procesos combate el accidente de
+  los programas batch.
+  \item<3-> \textcolor{red}{Ambientes de desarrollo unificado}: Combaten el accidente de tener aplicaciones que resuelven en forma
+  individual las problemáticas comunes (bibliotecas integradas, formatos de archivos unificados, tuberías y filtros).
   \end{itemize}
 }
+
+\frame
+{
+  \frametitle{Esperanzas y potenciales balas de plata}
+  \begin{itemize}
+  \item<1-> \textbf{POO}: LA jerarquización y abstracción(TADs) ataca tener enormes expresiones sintácticas.
+  \item<2-> \textbf{Sistemas Expertos}: Conjunto de reglas de base y motor de inferencia para facilitar el desarrollo a principiantes.
+  \item<3-> \textbf{Programación Automática}: A partir de especificaciones generar código. Inviable y poco generalizable.
+  \item<4-> \textbf{Programación Visual}: Inviable por la invisibilidad del software.
+  \item<5-> \textbf{Verificación de Programas}: Antes de la etapa de contrucción, lo cual reduce el proceso de testing. Muy importante la validación.
+  \item<6-> \textbf{Entornos y herramientas}: Facilitan el trabajo de los desarrolladores(Ej. reducen errores sintácticos).
+  \end{itemize}
+}
+
+\frame
+{
+  \frametitle{Ataques a dificultades escenciales}
+  \begin{itemize}
+  \item<+-| alert@+>\textbf{Comprar vs Contruir}: Si la construcción de software es tan difícil, entonces compremoslo!!.
+  \item<+-| alert@+> \textbf{Prototipos y refinación de requerimientos}: El cliente no sabe lo que quiere. Es muy importante el feedback.
+  \item<+-| alert@+> \textbf{Desarrollo iterativo incremental}: Es imposible contruir el producto en su totalidad de manera inmediata.
+  \item<+-| alert@+>\textbf{Buenos diseñadores}: Buen diseñador = buen diseño. Fomentar el crecimiento de buenos diseñadores.
+  \end{itemize}
+}
+
 \frame
 {
   \frametitle{Conclusiones}
+  Brooks fue un adelantado a su época, hace 20 años atrás tuvo visiones que incluso hoy en día tienen gran relevancia en el desarrollo del software.
   \begin{itemize}
-  \item<1-> Bla bla
-  \item<2-> Saraza
-  \item<3-> Mas guitarra     
+  \item<1-> \emph{Validación usando prototipos.}
+  \item<2-> \emph{Procesos iterativos incrementales(PU, Scrum).}
+  \item<3-> \emph{Importancia de los buenos diseños.}
+  \item<4-> Faltan cosas, llenar.    
   \end{itemize}
 }
 \end{document}
