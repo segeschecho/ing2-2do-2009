@@ -1,0 +1,19 @@
+Sprint backlog
+
+US03
+	- Dis e imp.
+US12
+	- Dis e imp.
+Us04
+	- Dis
+US08		
+	- Dis
+US11	
+	- Dis
+
+
+Storyes ya resueltas
+
+------------------------------
+US06
+	Ya funca
