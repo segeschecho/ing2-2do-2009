@@ -1,0 +1,106 @@
+ %%	SECCION documentclass																									 %%	
+%%---------------------------------------------------------------------------%%
+\documentclass[a4paper]{report}
+
+%%---------------------------------------------------------------------------%%
+%%	SECCION usepackage																											 %%	
+%%---------------------------------------------------------------------------%%
+\usepackage{amsmath, amsthm}
+\usepackage[spanish,activeacute]{babel}
+\usepackage{caratula}
+\usepackage{a4wide}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{graphicx} % Para el logo magico!
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[latin1]{inputenc}
+%\usepackage [T1]{fontenc}
+\usepackage[dvipsnames,usenames]{color}
+\usepackage{amsfonts}
+\usepackage{ulem}
+%\usepackage{highlight}
+\usepackage{fancybox}
+%\usepackage{marvosym}
+\usepackage{color}
+
+%%---------------------------------------------------------------------------%%
+%%	SECCION opciones																												 %%	
+%%---------------------------------------------------------------------------%%
+\parskip    = 11 pt
+\headheight	= 13.1pt
+\pagestyle	{fancy}
+\definecolor{orange}{rgb}{1,0.5,0}
+
+\addtolength{\headwidth}{1.0in}
+
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\textwidth}{1.0in}
+\addtolength{\topmargin}{-0.5in}
+\addtolength{\textheight}{0.7in}
+
+%%---------------------------------------------------------------------------%%
+%%	SECCION document	 %%	
+%%---------------------------------------------------------------------------%%
+\begin{document}
+\renewcommand{\chaptername}{Parte }
+
+%%---- Caratula -------------------------------------------------------------%%
+\materia{Ingeniería del Software II (2do cuatrimestre de 2009)}
+\titulo{Trabajo Práctico I - Segunda Entrega}
+
+\integrante{Castillo, Gonzalo}{164/06}{gonzalocastillo\_086@hotmail.com}
+\integrante{Elizalde, Victoria}{452/06}{kivielizalde@gmail.com}
+\integrante{Gonzalez, Sergio}{481/06}{gonzalezsergio2003@yahoo.com.ar}
+\integrante{Page Saal, Martín}{315/06}{martinpage2001@yahoo.com.ar}
+\resumen{
+En el siguiente documento, se arribará un sprint de Scrum intentando también de algun modo, adaptar la arquitectura a los nuevos requerimientos solicitados, para poder seguir cumpliendo los objetivos del proyecto.}
+
+% TOC, usa estilos locos
+\maketitle
+\pagestyle{empty}
+{
+\fancypagestyle{plain}
+    {
+    \fancyhead{}
+    \fancyfoot{}
+    \renewcommand{\headrulewidth}{0.0pt}
+    } % clear header and footer of plain page because of ToC
+\tableofcontents
+}
+
+\newpage
+% arreglos los estilos para el resto del documento, y
+% reseteo los numeros de pagina para que queden bien
+\pagenumbering{arabic}
+\fancypagestyle{plain} {
+    \fancyhead[LO]{Castillo, Elizalde, Gonzalez, Page Saal}
+    \fancyhead[C]{}
+    \fancyhead[RO]{P\'agina \thepage\ de 53}
+    \fancyfoot{}
+    \renewcommand{\headrulewidth}{0.4pt}
+}
+\pagestyle{plain}
+
+\newpage
+\input{Introduccion}
+\clearpage
+
+\newpage
+\input{Proposito}
+\clearpage
+
+
+\newpage
+\input{Planificacion}
+\clearpage
+
+\newpage
+\input{Bibliografia}
+\clearpage
+
+\newpage
+\input{Conclusion}
+\clearpage
+\label{LastPage}
+\end{document}
