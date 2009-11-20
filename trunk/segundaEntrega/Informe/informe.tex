@@ -23,6 +23,7 @@
 \usepackage{fancybox}
 %\usepackage{marvosym}
 \usepackage{color}
+\usepackage{lastpage}
 
 %%---------------------------------------------------------------------------%%
 %%	SECCION opciones																												 %%	
@@ -76,7 +77,7 @@ En el siguiente documento, se arribará un sprint de Scrum intentando también de 
 \fancypagestyle{plain} {
     \fancyhead[LO]{Castillo, Elizalde, Gonzalez, Page Saal}
     \fancyhead[C]{}
-    \fancyhead[RO]{P\'agina \thepage\ de 53}
+    \fancyhead[RO]{P\'agina \thepage\ de \pageref{LastPage}}
     \fancyfoot{}
     \renewcommand{\headrulewidth}{0.4pt}
 }
@@ -93,6 +94,14 @@ En el siguiente documento, se arribará un sprint de Scrum intentando también de 
 
 \newpage
 \input{Planificacion}
+\clearpage
+
+\newpage
+\input{Arquitectura}
+\clearpage
+
+\newpage
+\input{ImpedimentList}
 \clearpage
 
 \newpage
