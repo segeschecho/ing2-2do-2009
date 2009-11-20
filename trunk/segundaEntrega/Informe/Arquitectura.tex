@@ -7,9 +7,10 @@ Para solucionar el problema de las regiones y los gobiernos provinciales, se pen
 \begin{itemize}
 \item Dentro de una región, pueden existir varias provincias, por ende varios gobiernos provinciales.
 
-\item Cada región, tiene solo una $Estacion$ $Central$ que toma y procesa los datos de la misma.
+\item Cada provincia, tiene una $Estacion$ $Central$ que toma y procesa los datos de la misma.
 
-\item Los modelos pertenecientes a los gobiernos provinciales, que quieran procesar los datos de su área de interés, deben correrse en la $Estacion$ $Central$ de su región.
+\item Los modelos pertenecientes a los gobiernos provinciales, podrán procesar los datos de las Tr's dentro de su región pero deberán suscribirse a estaciones centrales de otras regiones en caso de necesitar datos que son sensadas por estas últimas.
+\item Finalmente cualquier estación central podrá comunicarse con otra para solicitar resultados parciales de acuerdo a su conveniencia.
 \end{itemize}
 
 \begin{figure}[h]
@@ -17,6 +18,6 @@ Para solucionar el problema de las regiones y los gobiernos provinciales, se pen
 \includegraphics[scale=0.4]{regionProvincia.png}
 \end{figure}
 
-De ésta forma, se tiene un mejor control de los datos y los modelos de las diferentes provincias, ademas de centralizar las operaciones de una misma región.
+De ésta forma, se tiene un mejor control de los datos y los modelos de las diferentes provincias, ademas de distribuir la ejecución de una misma región.
 
 La comunicación entre $Estaciones$ $Centrales$ pude realizarse por diferentes medios de comunicación, ya sea por gsm o por internet por ejemplo y eso estará descripto en la descripción de funcionalidad del componente responsable de esa comunicación. Esta comunicación se realizará mediante mensajes de control que permitan a una Estación central, pedir resultados parciales de un modelo, o pedir información de ciertos sensores a otras Estaciones Centrales regionales.
