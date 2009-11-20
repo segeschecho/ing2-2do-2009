@@ -45,7 +45,7 @@ En esta sección se detallarán los User Stories relacionados con los nuevos reque
 \hline
 \textbf{Como:} & Empresa regional\\
 \textbf{Quiero:} & Trabajar en colaboración con otras regiones.\\
-\textbf{Para:} & Poder solicitar datos  o resultados parciales procesados por los modelos de las mismas.\\
+\textbf{Para:} & Poder solicitar resultados parciales procesados por los modelos de las mismas.\\
 \hline
 \end{tabular}
 
@@ -169,4 +169,166 @@ En esta sección se detallarán los User Stories relacionados con los nuevos reque
 %\textbf{Quiero:}
 %\textbf{Para:}
 
+\section{Sprint Backlog}
+
+En esta sección vamos a considerar aquellos User Stories que se corresponden con lo que debe incluír el sprint de acuerdo al Product Increment solicitado en ésta entrega. De acuerdo a nuestros criterios no sólo consideraremos aquellos User Stories a implementar sino que también incluiremos aquellos relacionados con los puntos de diseño de objetos y secuencias ya que consideramos que es el punto previo a la implementación y por dicha razón corresponden ser incluídos.
+
+Además dividiremos en tareas cada uno de los User Stories y estimaremos cada una de ellas para poder entonces sí armar el Sprint Backlog y comenzar con la implementación y el seguimiento dentro del sprint.
+
+\subsection{User Stories consideradas}
+
+Para éste sprint se esperan implementadas en el product increment las tareas asociadas a:
+
+\begin{itemize}
+\item Nueva forma de comunicación de datos sensados desde las TR's hacia los modelos.
+\item Colaboración entre modelos.
+\end{itemize}
+
+Además se espera entregar un diseño de objetos relacionado con la ejecución de modelos matemáticos tomando en cuenta la ejecución distribuida de reglas con varios algoritmos.
+
+Es por ello que se llevarán a cabo los siguientes User Stories:
+
+\subsubsection{US03 - Trabajar en colaboraci'on con otras regiones (modelos)}
+
+Esta US hace referencia básicamente a la forma en que el sistema se debe adaptar a comenzar a trabajar no sólo con su datos, sino también en colaboración con otros resultados parciales provenientes de otras regiones en particular. Debemos poder reflejar en nuestra arquitectura, alguna forma de integrar ésta funcionalidad manteniendo el funcionamiento solicitado hasta el momento. Las tareas a llevar a cabo son las siguientes:
+			
+\begin{itemize} 
+\item \textbf{T1. Impacto en la arquitectura:} Ver como ésta colaboración impactará en la arquitectura ya provista.			
+\item \textbf{T2. Definir protocolos de colaboración:} Definir nuevas componentes que se encaguen de la colaboración.
+\item \textbf{T3. Implementar los protocolos de colaboración:} Llevar a cabo la implementación de lo definido. 		
+\item \textbf{T4. Testear los protocolos de colaboración:} Test de unidad  de lo implementado.
+\end{itemize}			
+
+\subsubsection{US12 - Suscripci'on de modelos a Trs}			
+
+Esta US se corresponde con la mayor parte a implementar. La idea es poder ver como van a interactuar los distintos modelos, con sus TR's y con las ajenas, las interfaces necesarias, los nuevos protocolos, la unificación de los datos y los métodos de suscripción. 
+
+\begin{itemize}
+\item \textbf{T5. Definir impacto en la arquitectura:} Analizar si nos servirá para ver si un cambio tan relevante como éste es soportado o no en la arquitectura provista.			
+\item \textbf{T6. Definir metodología de suscrpción e interfaces:} Plasmar las resoluciones tomadas.			
+\item \textbf{T7. Implementar suscripción:}	Implementar la mayor parte del sprint.		
+\item \textbf{T8. Testear:}	El test debe ser exhaustivo, es importante que la implementación sea lo más fiel posible.		
+\end{itemize}
+
+\subsubsection{US10 - Configuraci'on sencilla de colaboraci'on entre modelos}			
+
+Esta US intenta reflejar de alguna forma una manera fácil de configurar la forma de colaboración entre modelos. Para ellos dicha colaboración (US03) debe poder ser bastante abstracta de modo tal que la adaptabilidad no tarde más de unas pocas horas.
+
+
+\begin{itemize}
+\item \textbf{T9. Definir impacto en la arquitectura:} Analizar si se debe modificar en mucho la arquitectura provista.			
+\item \textbf{T10. Definir forma de configuración:} Establecer un buen modelo de configuración			
+\item \textbf{T11. Implementar configuración de modelos:} Implementar lo definido.			
+\item \textbf{T12. Testear}: Contruir casos de test con varias configuraciones y analizar la modificabilidad.			
+\end{itemize}
+
+\subsubsection{US08 - Particionar conjunto de reglas}			
+
+Esta US se corresponde con la idea de particionar el conjunto de reglas y poder ejecutarlas en paralelo manteniedo consistencia, de manera distribuida.
+
+\begin{itemize}
+\item \textbf{T13. Definir forma de particionar reglas:} Ver una forma útil de hacerlo.			
+\item \textbf{T14. Definir forma de unificar particiones y colaboración distribuida:} Ver como manejar la concurrencia en el procesamiento.		
+\item \textbf{T15. Diseño clases y objetos:} Diseñar fielmente lo definido.			
+\item \textbf{T16. Diseño de secuencias:} Plasmar algunos posibles escenarios de ejecución.			
+\end{itemize}
+
+\subsubsection{US11 - Varios algoritmos de evaluación de reglas}			
+
+Esta US se corresponde con la posible y libre existencia de varios algoritmos de evaluación de reglas.
+
+\begin{itemize}
+\item \textbf{T17. Definir forma de utilización de diferentes algoritmos:}	Decidir la mejor forma de llevar a cabo lo solicitado.		
+\item \textbf{T18. Diseño clases y objetos:}	Diseñar la forma de combinar algoritmos.		
+\item \textbf{T19. Diseño de secuencias:} Dar algunos posibles escenarios con varios algoritmos.			
+\end{itemize}
+
+\section{Estimaciones iniciales}
+
+Para llevar a cabo las estimaciones usamos una versión adaptada de los Use Case Points. La idea básicamente es que los integrantes del grupo le fuimos dando posibles puntos a cada una de las tareas considerando ya los posibles ajustes correspondientes. Una vez hecho ésto se discutieron las diferencias hasta llegar a un concenso de los puntos asignados a cada una de las tareas. Finalmente consideramos "a ojo" (por sugerencia del docente) que cada punto se correspondía con aproximadamente 2hs/hombre, obteniendo como resultados lo que se detalla en la siguiente tabla.
+
+
+\begin{tabular}{||l | c| r||}
+\hline
+\hline
+Tarea & Puntos & Esfuerzo \\
+\hline
+ T1  & 1 & 2\\
+\hline
+ T2  & 2 & 4\\
+\hline 
+ T3  & 3 & 6\\
+\hline
+ T4  & 2 & 4\\
+\hline
+ T5  & 4 & 8\\
+\hline
+ T6  & 8 & 16\\
+\hline
+ T7  & 10 & 20\\
+\hline
+ T8  & 6 & 12\\
+\hline
+ T9  & 3 & 6\\
+\hline
+ T10  & 3 & 6\\
+\hline
+ T11  & 5 & 10\\
+\hline
+ T12  & 4 & 8\\
+\hline
+ T13  & 3 & 6\\
+ \hline
+ T14  & 5 & 10\\
+ \hline
+ T15  & 5 & 10\\
+ \hline
+ T16  & 4 & 8\\
+ \hline
+ T17  & 3 & 6\\
+ \hline
+ T18  & 4 & 8\\
+ \hline
+ T19  & 3 & 6\\
+\hline
+\hline
+\end{tabular}
+\newline
+
+Finalmente el peso total de los User Stories a partir de sus tareas es el siguiente:
+
+\begin{tabular}{||l | c| r||}
+\hline
+\hline
+US & Puntos & Esfuerzo \\
+\hline
+ US03  & 8 & 16\\
+\hline
+ US12 & 28 & 56\\
+\hline 
+ US10 & 15 & 30\\
+\hline
+ US08  & 17 & 34\\
+\hline
+ US11 & 10 & 20\\
+\hline
+\hline
+\end{tabular}
+\newline
+
+\section{Tareas adicionales dentro del Sprint}
+
+Si bien no van a ser consideradas en el Sprint Backlog hay una serie de tareas que también deben ser consideradas en ésta parte del proyecto. Es decir meta-tareas asociadas al sprint que harán que dentro de la duración del sprint deban incluirse.
+
+\begin{itemize}
+\item Análisis y discución del enunciado y nuevos requerimientos.
+\item Especificaciones de la modificación, en caso de ser necesario, de la arquitectura untilizando diagramas.
+\item Armado de Product Backlog.
+\item Armado del Sprint Backlog.
+\item Estimaciones iniciales.
+\item Casos de Aceptación.
+\item Impediment List.
+\item Documentación del Seguimiento utilizando Burndown Charts.
+\item Comparación en la utilización de RUP y SCRUM.
+\end{itemize}
 
