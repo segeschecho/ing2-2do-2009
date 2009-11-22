@@ -18,30 +18,30 @@ Para solucionar el problema de las regiones y los gobiernos provinciales, se pen
 \includegraphics[scale=0.4]{regionProvincia.png}
 \end{figure}
 
-De ésta forma, se tiene un mejor control de los datos y los modelos de las diferentes provincias, ademas de distribuir la ejecución de una misma región.
+De ésta forma, se tiene un mejor control de los datos y los modelos de las diferentes provincias, además de distribuir la ejecución de una misma región.
 
 La comunicación entre $Estaciones$ $Centrales$ pude realizarse por diferentes medios de comunicación, ya sea por gsm o por internet por ejemplo y eso estará descripto en la descripción de funcionalidad del componente responsable de esa comunicación. Esta comunicación se realizará mediante mensajes de control que permitan a una Estación central, pedir resultados parciales de un modelo, o pedir información de ciertos sensores a otras Estaciones Centrales regionales.
 
 \section{Estructura}
 
-Para poder cumplir con estos requerimientos, como se dijo se deberán agregar estaciones centrales de forma distribuida a lo largo de todo el pais.
-Pero con la restricción de que exista a lo sumo una por provincia. Sumado a esto cada una de estas EC provinciales (ECP) tendran un sistema de
-monitoreo (SMP) muy parecido al original sólo que tendrá las componentes fundamentales, las que son pertinentes al manejo provincial.
+Para poder cumplir con estos requerimientos, como se dijo se deberán agregar estaciones centrales de forma distribuida a lo largo de todo el país.
+Pero con la restricción de que exista a lo sumo una por provincia. Sumado a esto cada una de estas EC provinciales (ECP), tendrán un sistema de
+monitoreo (SMP) muy parecido al original, sólo que tendrá las componentes fundamentales, las que son pertinentes al manejo provincial.
 
-Esto no cambia, sin embargo, que exista una estacion central con todas las funcionalidades originales y tambien su sistema de monitoreo correspondiente.
+Esto no cambia, sin embargo, que exista una estación central con todas las funcionalidades originales y también su sistema de monitoreo correspondiente.
 
-Otro gran cambio que se realiza en cuanto a la forma de obtención de datos de una TR es que la EC o ECP que necesite los datos de dicha TR trandra que
+Otro gran cambio que se realiza en cuanto a la forma de obtención de datos de una TR es que la EC o ECP que necesite los datos de dicha TR tendrá que
 suscribirse y estas cada vez que tengan un nuevo dato lo enviarán a todos los suscriptos (publish/subscribe).
-Este mecanismo tiene el limite del control provincial, las ECP sólo se podran suscribir a las TR que esten en la región de la provincia. Si llegaran a necesitar
-un dato de una TR en la misma región pero en otra provincia, deberan suscribirse a los datos de dicha TR a través de la ECP que los controle.
+Este mecanismo tiene el limite del control provincial, las ECP sólo se podrán suscribir a las TR que estén en la región de la provincia. Si llegaran a necesitar
+un dato de una TR en la misma región pero en otra provincia, deberán suscribirse a los datos de dicha TR a través de la ECP que los controle.
 
 El mecanismo de suscripción y publicación de datos en una TR y en una EC o ECP serán polimorficos, logrando de esta forma transparencia a la hora de notificar
 y/o suscribirse a los datos.
 
 Otro detalle importante en cuanto a la suscripción de estos datos, se podrán hacer pidiendo un subconjunto de los sensores que posea la TR correspondiente.
-Esta a su vez sabra responder que tipo de sensores tiene presentes.
+Esta a su vez sabrá responder que tipo de sensores tiene presentes.
 
-El último cambio que se realiza es que no sólo se podra una ECP suscribir a otra para pedir datos de alguna TR en su provincia con ciertos sensores, si no 
-que tamiben se podrá suscribir a datos parcial o totalmente calculados por un modelo en la EC o ECP.
+El último cambio que se realiza es que no sólo se podrá una ECP suscribir a otra para pedir datos de alguna TR en su provincia con ciertos sensores, si no 
+que también se podrá suscribir a datos parcial o totalmente calculados por un modelo en la EC o ECP.
 
 
