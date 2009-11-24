@@ -2,39 +2,28 @@
 <diagram>
 <source><![CDATA[#![Procesar datos]
 ext:External[pe]
-unEjecutor:Ejecutador Modelo
-unaBDPA: BDP Access
-unaBDRPA: BDRP Access
-unArm:Armador Paquete
 unAlg:Algoritmo 1
-unasReglas: Conjunto Reglas
-unaFab:Fabrica Calculadores
 unCalc: Calculador
-otroCalc: Calculador
+/res:Almacenador
+subreglas1: Conjunto Reglas
+unIterador:Iterador
+unaRegla:Regla
+otraRegla:Regla
+unaMas:Regla
 
-ext:unEjecutor.ejecutarModelo(unasReglas,unaBDPA,unaBDRPA,unArm)
-unEjecutor:datosP=unaBDPA.datos(time)
-unEjecutor:datosR=unaBDRPA.datos(time)
-unEjecutor:paquete=unArm.armar(datosP,datosR)
-unEjecutor:devolver resultados=unAlg.aplicar(paquete,unasReglas)
-unAlg:subreglas=unasReglas.select:[:regla|algo]
-unAlg:unCalc=unaFab.calculador()
-unAlg:subreglas2=unasReglas.select:[:regla|otracos]
-unAlg:otroCalc=unaFab.calculador()
-[c asynchronous message]
-unAlg:>unCalc.calcular(subreglas1,paquete)
-[/c]
-[c asynchronous message]
-unAlg:>otroCalc.calcular(subreglas2,paquete)
-[/c]
-unAlg:unAlg.Hacer Algo Util()
-unCalc:unAlg.devolver resultado(res1)
-unCalc:stop
-unAlg:unaFab.stop(unCalc)
-otroCalc:unAlg.devolver resultado(res2)
-otroCalc:stop
-unAlg:unaFab.stop(otroCalc)
-unAlg:unAlg.join(res1,res2)]]></source>
+
+unAlg:devolver resultado(res)=unCalc.calcular(subreglas1,paquete)
+unCalc:unIterador=subreglas1.Iterador()
+unCalc:res.new()
+unCalc:unaRegla=unIterador.next()
+unCalc:res1=unaRegla.ejecutar(paquete)
+unCalc:otraRegla=unIterador.next()
+unCalc:res.agregar(res1)
+unCalc:res2=otraRegla.ejecutar(paquete)
+unCalc:res.agregar(res2)
+unCalc:unaMas=unIterador.next()
+unCalc:res3=unaMas.ejecutar(paquete)
+unCalc:res.agregar(res3)]]></source>
 <configuration>
 <property name="actorWidth" value="25"/>
 <property name="arrowSize" value="6"/>
