@@ -174,46 +174,56 @@ A continuación detallaremos y documentaremos las expectativas de los clientes co
 
 \begin{itemize}
 
-\item
-\begin{tabular}{l p{12cm}}
+\item{US01 - E01}\\
+\begin{tabular}{|l p{12cm}|}
+\hline
 \textbf{El:} & Estado Provincial.\\
-\textbf{Puede:} & Ser propietario de la parametrización, ejecución y resultados de sus modelos.\\
-\textbf{Y obtener:} & El control de toda la información que se le brinda.\\
+\textbf{Puede:} & Ser propietario de la parametrización, ejecución y resultados de sus modelos. Si alguien quiere consultar resultados (ya se parciales o totales) de mis modelos, o mediciones hechas por TRs en mi zona de influencia, debe hacerlo a traves de la EC provincial correspondiente. De esta forma, yo puedo controlar el acceso a la información: me interesa poder controlar quien, cuando accede a la información y en particular a que parte de ella. \\
+\textbf{Y obtener:} & El control de toda la información que se le brinda a otros, ya cierta información que se vende a empresas.\\
+\hline
 \end{tabular}
 
-\item
-\begin{tabular}{l p{12cm}}
-\textbf{El:} & Estado Provincial.\\
-\textbf{Puede:} & Monitorear las TRs dentro de su area de influencia.\\
-\textbf{Y obtener:} & El estado de cada una y su modo de funcionamiento.\\
+\item{US01 - E01}\\
+\begin{tabular}{|l p{12cm}|}
+\hline
+\textbf{Un:} & Empleado Provincial.\\
+\textbf{Puede:} & Ver las TRs en un mapa en tiempo real donde indique el estado de cada una: normal, retrasada, caida, triangulada, o reemplazada por BS.\\
+\textbf{Y obtener:} & El estado de cada una y su modo de funcionamiento, tiempo real, para poder analizar si hace falta tomar alguna acción. Por ejemplo, algunas TRs pueden romperse y hace falta mandar un tecnico al sitio para que las repare.\\
+\hline
 \end{tabular}
 
-\item
-\begin{tabular}{l p{12cm}}
-\textbf{El:} & Estado Provincial.\\
-\textbf{Puede:} & Configurar de forma sencilla sus modelos, requiriendo la colaboración de otros modelos regionales.\\
+\item{US010 - E03}\\
+\begin{tabular}{|l p{12cm}|}
+\hline
+\textbf{Un:} & Empleado Provincial.\\
+\textbf{Puede:} & Configurar de forma sencilla sus modelos, que eventualmente pueden requrir la colaboración de otros modelos regionales. Esto tiene que poder hacerse a traves de una interfaz de usuario, sin que requiera ningun esfuerzo de programación. Ademas tiene que poder configurarse con mucha precisión que datos voy a obtener: ya sean resultados totales o parciales de cierto/s modelo/s.\\
 \textbf{Y obtener:} & La infomación necesaria para el correcto funcionamiento de los mismos.\\
+\hline
 \end{tabular}
 
-\item
-\begin{tabular}{l p{12cm}}
-\textbf{El:} & ????????????????????????????????????????????????????????????????????????.\\
-\textbf{Puede:} & Puede agregar nuevos algoritmos de evaluación de reglas.\\
-\textbf{Y obtener:} & Una mayor garantía de los resultados a obtener.\\
+\item{US011 - E03}\\
+\begin{tabular}{|l p{12cm}|}
+\hline
+\textbf{El:} & Usuario del sistema.\\
+\textbf{Puede:} & Puede agregar nuevos algoritmos de evaluación de reglas, sin que ello implique tener que programar nada. Debe hacerse a traves de algun tipo de interfaz con el usuario (grafica, web, etc).\\
+\textbf{Y obtener:} & Los resultados que necesita, de forma rapida y simple.\\
+\hline
 \end{tabular}
 
-\item
-\begin{tabular}{l p{12cm}}
+\item{US012 - E05}
+\begin{tabular}{|l p{12cm}|}
+\hline
 \textbf{El:} & Estado Provincial.\\
-\textbf{Puede:} & Suscribirme a TRs de su interes.\\
-\textbf{Y obtener:} & Los datos necesarios para correr los modelos correctamente.\\
+\textbf{Puede:} & Suscribirme a TRs de su interes, obteniendo exactamente (ni mas ni menos que) los datos requeridos. El usuario debe poder definir que variables (sensores) desea conocer y de las TRs en que zona (puede estar delimitada a nivel provincia o con coorednadas geograficas para mas precisión).\\
+\textbf{Y obtener:} & Los datos necesarios para ejecutar los modelos correctamente.\\
+\hline
 \end{tabular}
 
 \end{itemize}
 
 \section{Sprint Backlog}
 
-En esta sección vamos a considerar aquellos User Stories que se corresponden con lo que debe incluír el sprint de acuerdo al Product Increment solicitado en ésta entrega. De acuerdo a nuestros criterios no sólo consideraremos aquellos User Stories a implementar sino que también incluiremos aquellos relacionados con los puntos de diseño de objetos y secuencias ya que consideramos que es el punto previo a la implementación y por dicha razón corresponden ser incluídos.
+En esta sección vamos a considerar aquellos User Stories que se corresponden con lo que debe incluir el sprint de acuerdo al Product Increment solicitado en ésta entrega. De acuerdo a nuestros criterios no sólo consideraremos aquellos User Stories a implementar sino que también incluiremos aquellos relacionados con los puntos de diseño de objetos y secuencias ya que consideramos que es el punto previo a la implementación y por dicha razón corresponden ser incluídos.
 
 Además dividiremos en tareas cada uno de los User Stories y estimaremos cada una de ellas para poder entonces sí armar el Sprint Backlog y comenzar con la implementación y el seguimiento dentro del sprint.
 
