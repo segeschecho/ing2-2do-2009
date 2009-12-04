@@ -158,7 +158,8 @@
           <y:Geometry height="30.0" width="103.0" x="302.0" y="441.0"/>
           <y:Fill color="#00CCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="77.365234375" x="12.8173828125" y="5.6494140625">Procesador N</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.701171875" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="75.373046875" x="13.8134765625" y="5.6494140625">Procesador 2
+</y:NodeLabel>
           <y:Shape type="hexagon"/>
         </y:ShapeNode>
       </data>
