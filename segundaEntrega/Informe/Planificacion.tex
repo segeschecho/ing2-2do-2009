@@ -1,5 +1,10 @@
 \chapter{Planificación}	
 
+En éste capítulo se llevará a cabo la planificación de proyecto en general. Se denotarán epics, para dar una vision global de las funcionalidades a implementar, los User Stories correspondientes asociados a los requerimientos solicitados, y finalmente el Sprint Backlog, con el subconjunto de los requerimientos a implementar en el sprint. Es importante comunicar que seguiremos cada uno de los puntos del enunciado, es decir la lista de User Stories, aquellos que entren en el sprint junto a sus estimaciones y criterios de aceptación, y el burndown chart.
+
+Lo que sí no se llevará a cabo son los bussines values para los User Stories. Si bien ésto es importante en un proyecto real de Scrum en el que es determinante priorizar aquellos User Stories que tengan mayor retorno de inversión, para el trabajo práctico se puede asumir, dado que deberían ser llevados a cabo por los clientes, que de algún modo están priorizados por la parte que tenemos que implementar dentro del sprint. Además el enunciado no solicitaba los mismos, pero igualmente es bueno aclarar por qué no fueron tenidos en cuenta.
+
+Lo que si se llevó a cabo adicionalmente al enunciado fue una lista de impedimentos. Nos pareció adecuado incluirla y mostrar como se fueron resolviendo.
 
 \section{Epics}
 
@@ -169,58 +174,6 @@ En esta sección se detallarán los User Stories relacionados con los nuevos reque
 %\textbf{Quiero:}
 %\textbf{Para:}
 
-\section{Casos de aceptación}
-A continuación detallaremos y documentaremos las expectativas de los clientes con respecto a la funcionalidad del sistema. Con esto tratamos de dar información adicional a los stories descriptos anteriormente, para tener una idea de cuando uno de estos esta terminado a la hora de desarrollarlos.
-
-\begin{itemize}
-
-\item{US01 - E01}\\
-\begin{tabular}{|l p{12cm}|}
-\hline
-\textbf{El:} & Estado Provincial.\\
-\textbf{Puede:} & Ser propietario de la parametrización, ejecución y resultados de sus modelos. Si alguien quiere consultar resultados (ya se parciales o totales) de mis modelos, o mediciones hechas por TRs en mi zona de influencia, debe hacerlo a traves de la EC provincial correspondiente. De esta forma, yo puedo controlar el acceso a la información: me interesa poder controlar quien, cuando accede a la información y en particular a que parte de ella. \\
-\textbf{Y obtener:} & El control de toda la información que se le brinda a otros, ya cierta información que se vende a empresas.\\
-\hline
-\end{tabular}
-
-\item{US01 - E01}\\
-\begin{tabular}{|l p{12cm}|}
-\hline
-\textbf{Un:} & Empleado Provincial.\\
-\textbf{Puede:} & Ver las TRs en un mapa en tiempo real donde indique el estado de cada una: normal, retrasada, caida, triangulada, o reemplazada por BS.\\
-\textbf{Y obtener:} & El estado de cada una y su modo de funcionamiento, tiempo real, para poder analizar si hace falta tomar alguna acción. Por ejemplo, algunas TRs pueden romperse y hace falta mandar un tecnico al sitio para que las repare.\\
-\hline
-\end{tabular}
-
-\item{US010 - E03}\\
-\begin{tabular}{|l p{12cm}|}
-\hline
-\textbf{Un:} & Empleado Provincial.\\
-\textbf{Puede:} & Configurar de forma sencilla sus modelos, que eventualmente pueden requrir la colaboración de otros modelos regionales. Esto tiene que poder hacerse a traves de una interfaz de usuario, sin que requiera ningun esfuerzo de programación. Ademas tiene que poder configurarse con mucha precisión que datos voy a obtener: ya sean resultados totales o parciales de cierto/s modelo/s.\\
-\textbf{Y obtener:} & La infomación necesaria para el correcto funcionamiento de los mismos.\\
-\hline
-\end{tabular}
-
-\item{US011 - E03}\\
-\begin{tabular}{|l p{12cm}|}
-\hline
-\textbf{El:} & Usuario del sistema.\\
-\textbf{Puede:} & Puede agregar nuevos algoritmos de evaluación de reglas, sin que ello implique tener que programar nada. Debe hacerse a traves de algun tipo de interfaz con el usuario (grafica, web, etc).\\
-\textbf{Y obtener:} & Los resultados que necesita, de forma rapida y simple.\\
-\hline
-\end{tabular}
-
-\item{US012 - E05}
-\begin{tabular}{|l p{12cm}|}
-\hline
-\textbf{El:} & Estado Provincial.\\
-\textbf{Puede:} & Suscribirme a TRs de su interes, obteniendo exactamente (ni mas ni menos que) los datos requeridos. El usuario debe poder definir que variables (sensores) desea conocer y de las TRs en que zona (puede estar delimitada a nivel provincia o con coorednadas geograficas para mas precisión).\\
-\textbf{Y obtener:} & Los datos necesarios para ejecutar los modelos correctamente.\\
-\hline
-\end{tabular}
-
-\end{itemize}
-
 \section{Sprint Backlog}
 
 En esta sección vamos a considerar aquellos User Stories que se corresponden con lo que debe incluir el sprint de acuerdo al Product Increment solicitado en ésta entrega. De acuerdo a nuestros criterios no sólo consideraremos aquellos User Stories a implementar sino que también incluiremos aquellos relacionados con los puntos de diseño de objetos y secuencias ya que consideramos que es el punto previo a la implementación y por dicha razón corresponden ser incluídos.
@@ -294,6 +247,65 @@ Esta US se corresponde con la posible y libre existencia de varios algoritmos de
 \item \textbf{T18. Diseño clases y objetos:}	Diseñar la forma de combinar algoritmos.		
 \item \textbf{T19. Diseño de secuencias:} Dar algunos posibles escenarios con varios algoritmos.			
 \end{itemize}
+
+
+\section{Casos de aceptación}
+A continuación detallaremos y documentaremos las expectativas de los clientes con respecto a la funcionalidad del sistema. Con esto tratamos de dar información adicional a los stories descriptos anteriormente, para tener una idea de cuando uno de estos esta terminado a la hora de desarrollarlos.
+
+\begin{itemize}
+
+
+\item{US03}\\
+\begin{tabular}{|l p{12cm}|}
+\hline
+\textbf{Un:} & Usuario Provincial.\\
+\textbf{Puede:} & Trabajar no sólo con sus datos sino con los de otras regiones. Para ellos es necesario que existan nuevas componentes que se hagan cargo de la unificación de las diferentes fuentes de datos.(Resultados parciales o totales, datos propios, datos de otras terminales remotas).\\
+\textbf{Y obtener:} & Los datos que considere necesarios para el procesamiento de sus modelos.\\
+\hline
+\end{tabular}
+
+
+\item{US012}
+\begin{tabular}{|l p{12cm}|}
+\hline
+\textbf{El:} & Estado Provincial.\\
+\textbf{Puede:} & Suscribirme a TRs de su interes, obteniendo exactamente (ni mas ni menos que) los datos requeridos. El usuario debe poder definir que variables (sensores) desea conocer y de las TRs en que zona (puede estar delimitada a nivel provincia o con coorednadas geograficas para mas precisión).\\
+\textbf{Y obtener:} & Los datos necesarios para ejecutar los modelos correctamente.\\
+\hline
+\end{tabular}
+
+
+\item{US010}\\
+\begin{tabular}{|l p{12cm}|}
+\hline
+\textbf{Un:} & Empleado Provincial.\\
+\textbf{Puede:} & Configurar de forma sencilla sus modelos, que eventualmente pueden requrir la colaboración de otros modelos regionales. Esto tiene que poder hacerse a traves de una interfaz de usuario, sin que requiera ningun esfuerzo de programación. Ademas tiene que poder configurarse con mucha precisión que datos voy a obtener: ya sean resultados totales o parciales de cierto/s modelo/s.\\
+\textbf{Y obtener:} & La infomación necesaria para el correcto funcionamiento de los mismos.\\
+\hline
+\end{tabular}
+
+\item{US08}\\
+\begin{tabular}{|l p{12cm}|}
+\hline
+\textbf{El:} & Usuario del sistema(Remitido a cada provincia).\\
+\textbf{Puede:} & Particionar el conjunto de reglas para ser ejecutadas de manera distribuida y de éste modo garantizar una correcta ejecución de partes independientes que en conjunto nno podrían ser soportadas por el hardware actual. Para ésto se necesita alguna forma dinámica de particionar las reglas con sus respectivos sets de datos. El usuario podrá configurar éstas particiones a su gusto mediante los algoritmos que utilice para procesar los datos.\\
+\textbf{Y obtener:} & Los resultados que necesita, soportando el procesamiento de los datos por el sistema.\\
+
+
+\item{US011}\\
+\begin{tabular}{|l p{12cm}|}
+\hline
+\textbf{El:} & Usuario del sistema(Remitido a cada provincia).\\
+\textbf{Puede:} & Puede agregar nuevos algoritmos de evaluación de reglas, sin que ello implique tener que programar nada. Debe hacerse a traves de algun tipo de interfaz con el usuario (grafica, web, etc). La idea aquí es utilizar algún tipo de abstracción, de modo tal que el intercambio de algoritmos de evaluación no requiera tocar el código fuente, sino que sea intercambiable como un simple parámetro a algún módulo de procesamiento de los datos.\\
+\textbf{Y obtener:} & Los resultados que necesita, de forma rapida y simple, permitiendo el intercambio de algoritmos para evaluar los modelos a sus necesidades particulares.\\
+\hline
+\end{tabular}
+
+
+\end{itemize}
+
+
+
 
 \section{Estimaciones iniciales}
 
