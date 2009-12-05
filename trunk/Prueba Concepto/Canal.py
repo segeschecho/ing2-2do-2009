@@ -10,7 +10,7 @@ import sys
 print "Soy el Canal"
 host = "localhost"
 puerto_canal = 5555
-puerto_ec = 5557
+puerto_ec = 7000
 puerto_tr = 6000
 
 probabilidad_perdida = 0.05
@@ -18,7 +18,10 @@ delay_min = 0.05
 delay_max = 2 # antes era 15 
 
 # CLIENTE
-proxy_ec = ServerProxy("http://%s:%s/"%(host,puerto_ec))
+proxys_ec = {}
+for i in range(1,6):
+    puerto_actual_ec = puerto_ec + i
+    proxys_ec[i] = ServerProxy("http://%s:%s/"%(host, puerto_actual_ec))
 
 proxys_tr = {}
 for i in range(1, 6):
@@ -26,17 +29,17 @@ for i in range(1, 6):
     proxys_tr[i] = ServerProxy("http://%s:%s/"%(host, puerto_actual))
 
 
-def enviarAEC(mensaje):
+def enviarAEC(idEC, mensaje):
     #proceso = Process(target = enviarMensaje, args = (mensaje))
     #proceso.start()
-    print 'Me llego un mensaje de la TR'
-    un_thread = threading.Thread(target = enviarMensaje, args = (mensaje, proxy_ec.recibirDeTR))
+    print 'Me llego un mensaje de la TR a la EC', idEC
+    un_thread = threading.Thread(target = enviarMensaje, args = (mensaje, proxys_ec[id_ec].recibirDeTR, True))
     un_thread.setDaemon(True)
     un_thread.start()
     return 0
 
 def enviarATR(id_tr, mensaje):
-    print 'Me llego una repuesta de la EC'
+    print 'Me llego una repuesta de la EC a la TR', id_tr
     otro_thread = threading.Thread(target = enviarMensaje, args = (mensaje, proxys_tr[id_tr].recibirDeEC))
     otro_thread.setDaemon(True)
     otro_thread.start()
@@ -48,6 +51,7 @@ def enviarMensaje(mensaje, receptor):
     if probabilidad_perdida_actual > probabilidad_perdida :
         delay = random.uniform(delay_min, delay_max)
         time.sleep(delay)
+        print "Estoy por enviar el mensaje", mensaje
         receptor(mensaje)
         print "Estoy enviando el mensaje...OK"
     else :
