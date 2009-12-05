@@ -15,20 +15,20 @@ echo ****************************************************
 ::start RecepcionSegura.py
 echo Levanto El Canal
 start ..\Canal.py
-echo Levanto La RecepcionSegura de la EC
-:: La RecepcionSegura tiene un parametro : tiempo para detectar caida
-start ..\RecepcionSegura.py 40
 :: Las TR's tienen 4 parametros : intervalo, cantidad , Id TR, tiempo vida
-echo Levanto las 5 TR
-start ..\TR.py 20 4 1 45
+echo Levanto las TRs
+start ..\TR.py 20 4 1 80000 
 start ..\TR.py 20 9 2 80000
-start ..\TR.py 20 9 3 80000
-start ..\TR.py 20 9 4 80000
-start ..\TR.py 20 9 5 80000
-Pause.py 45
-echo Se cae TR 1
-Pause.py 50
-echo Se levanta TR 1
-start ..\TR.py 20 3 1 80000
+:: start ..\TR.py 20 9 3 80000
+:: start ..\TR.py 20 9 4 80000
+:: start ..\TR.py 20 9 5 80000
+echo Levanto La RecepcionSegura de la EC
+:: La RecepcionSegura tiene un parametro : tiempo para detectar caida, id ec, dicc de idTR a array de sensores
+start ..\RecepcionSegura.py 40 1 {\"1\":[\"Temperatura\"],\"2\":[\"Presion\"]}
+:: Pause.py 45
+:: echo Se cae TR 1
+:: Pause.py 50
+:: echo Se levanta TR 1
+:: start ..\TR.py 20 3 1 80000
 pause
 echo on

@@ -3,6 +3,7 @@ import time
 from multiprocessing import Process
 from sincronizador import recolectarDatos #def recolectarDatos(veces, tiempo, id_TR):
 from comunicacionEc import enviadorTR #def enviadorTR(id_tr):
+from Publicador import inicializarPublicador
 
 #TR.py simula una tr, con una parte que se encarga de simular el sensado de los datos de los sensores
 #y otra parte que se encarga del envio de los datos hacia la EC
@@ -24,6 +25,9 @@ if __name__ == '__main__':
     id_tr = int(sys.argv[3])
     vida = int(sys.argv[4])
    
+    #genero un proceso que representa el Publicador
+    publicador = Process(target = inicializarPublicador, args = (id_tr,))
+    
     #genero un proceso que representa al  recolectorTR
     #enviador = Process(target = recolectarDatos, args = (veces, tiempo, i+1))
     recolector = Process(target = recolectarDatos, args = (veces, tiempo, id_tr))
@@ -31,10 +35,12 @@ if __name__ == '__main__':
     #genero un proceso que representa al enviador de la tr
     enviador = Process(target = enviadorTR, args = (id_tr,))
     
-    #corro los 2 procesos
+    #corro los 3 procesos
+    publicador.start()
     enviador.start()
     #time.sleep(3.0)
     recolector.start()
+    
     
     
     #espero hasta que me digan que apague la TR

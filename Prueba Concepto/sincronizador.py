@@ -68,6 +68,6 @@ def recolectarDatos(veces, tiempo, id_TR):
     id_mensaje = 101
     for i in range(veces):
         res = enviarMensaje(id_mensaje, id_TR)
-        proxy.enviarAEC(res)
+        proxy.publicar(res)
         time.sleep(tiempo)
         id_mensaje = id_mensaje + 1

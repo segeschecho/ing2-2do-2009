@@ -7,17 +7,34 @@ from xmlrpclib import ServerProxy
 import Encriptador
 import json
 
-print "Soy la Recepcion Segura de la EC"
+tiempo_caida = int(sys.argv[1])
+idEC = int(sys.argv[2])
+publicadores = json.loads(sys.argv[3])
+
+print "Los publicadores son eran", publicadores  
+for id in publicadores.keys():
+    sensores_unicode = publicadores[id]
+    sensores_str = []
+    for sensor_unicode in sensores_unicode:
+        sensores_str.append(str(sensor_unicode))
+    del publicadores[id]
+    publicadores[str(id)] = sensores_str
+
+print "Los publicadores son", publicadores    
+#print sys.argv[3]
+print "Soy la Recepcion Segura de la EC con id =", idEC
 host = "localhost"
 puerto_canal = 5555
-puerto_ec = 5557
-tiempo_caida = int(sys.argv[1])
+puerto_ec = 7000 + idEC
+
+
 # deberia ser 120
 proxy_canal = ServerProxy("http://%s:%s/"%(host,puerto_canal))
 
 mensajes_pendientes = {}
 for i in range(1, 6):
     mensajes_pendientes[i] = {'Mensajes':[], 'Ultimo Id Enviado':100, 'Ultimo Timestamp Recibido': time.time(), 'Esta Caida':False}
+
 
 def verificarABMTR():
     while 1:
@@ -78,6 +95,7 @@ def max_timestamp_de_mensaje_TR(id_tr):
 def respuesta_ack(mensaje):
     rta = {}
     rta['Id TR'] = mensaje['Id TR']
+    rta['Id EC'] = idEC
     rta['Timestamp'] = time.time()
     rta['Id Mensaje'] = 1
     rta['Id Parte'] = 1
@@ -125,7 +143,7 @@ def tratarDeEnpaquetarYMandar(id_mensaje, id_tr_page):
             mensajes_pendientes[id_tr_page]['Ultimo Id Enviado'] += 1
             
             #una vez que tengo el paquete completo, lo guardo en el archivo
-            archivo = open("EC\\Id TR - " + str(paquete['Id TR']) + " - Id Mensaje - "+ str(paquete['Id Mensaje']) + ".ec", "w")
+            archivo = open("EC\\Id EC - " + str(IdEC) + " - Id TR - " + str(paquete['Id TR']) + " - Id Mensaje - "+ str(paquete['Id Mensaje']) + ".ec", "w")
             dato_json = json.dumps(paquete)
             archivo.write(dato_json)
             archivo.close()
@@ -133,15 +151,34 @@ def tratarDeEnpaquetarYMandar(id_mensaje, id_tr_page):
             print "Me llego el mensaje: %s de la TR: %s completo y lo mande como paquete"%(id_mensaje,id_tr_page)
             tratarDeEnpaquetarYMandar(id_mensaje + 1, id_tr_page)
 
+def suscribirme():
+    print "Me voy a suscribir a", len(publicadores.keys()), "TRs"
+    for id_TR_str in publicadores:
+        id_TR = int(id_TR_str)
+        sensores = publicadores[id_TR_str]
+        print "me voy a suscribir a la TR", id_TR, "con los sensores:", sensores
+        msj = {}
+        msj['Id TR'] = id_TR
+        msj['Id EC'] = idEC
+        msj['Timestamp'] = time.time()
+        msj['Id Mensaje'] = 1
+        msj['Id Parte'] = 1
+        msj['Cantidad Partes'] = 1
+        msj['Tipo Mensaje'] = 'SUSCRIPCION'
+        msj['Contenido'] = {'Id EC' : idEC, 'Sensores': sensores}
+        
+        enc = Encriptador.Encriptador()
+        mensaje_encriptado = enc.encriptar(msj)
+        proxy_canal.enviarATR(msj['Id TR'], mensaje_encriptado)
         
 def main():
     # SERVER        
     server = SimpleXMLRPCServer((host, puerto_ec), SimpleXMLRPCRequestHandler, False)
     print "Escuchando en el puerto... ", puerto_ec
     server.register_function(recibirDeTR, "recibirDeTR")
-    server.serve_forever()
+    suscribirme()
+    server.serve_forever()    
 
 if __name__ == '__main__':
     main()
 
-    
