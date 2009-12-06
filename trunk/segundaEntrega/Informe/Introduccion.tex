@@ -8,3 +8,26 @@ Agregaremos unos pocos términos nuevos que se utilizaran a lo largo de este docu
 	\item ECP : Estación Central Provincial
 	\item SMP : Sistema de Monitoreo Provincial
 \end{itemize}
+
+\section{Introducción}
+
+En esta segunda parte del proyecto, nos encontramos con una serie de requerimientos, que son nuevos y que se agregan a los que se tenían en la primera parte. Además de esto, se continúa con el crecimiento del proyecto con una metodología diferente a la que se venía utilizando, esta metodología es scrum, y como funciona de manera iterativa e incremental, además de funcionar diferente a UP, se tuvo que adaptar a esta nueva forma de pensar el problema, e ir avanzando en el proyecto.
+
+Así es de esta forma, en lo que sigue de este informe, se verán todas estas nuevas características, expuestas en las diferentes secciones. Para adaptarnos a los nuevos requerimientos, en la fase de planificación, identificamos las funcionalidades mas importantes que tiene que tener el sistema y las agrupamos en epics. Vale aclarar que estas nuevas funcionalidades impulsaron un cambio en la arquitectura que se expuso anteriormente en la primera entrega, pero estos cambios no fueron tan graves. También se realizó el product backlog, y el sprint backlog con los user stories que se tienen que incluir según lo pedido, con sus respectivas estimaciones, teniendo en cuenta la duración del sprint que es de 2 semanas. Las etapas que se pusieron en práctica son las siguientes:
+
+\begin{itemize}
+
+\item Planeamiento: En esta etapa se identificaron los nuevos requerimientos que se agregaron al sistema y se pusieron los epics relacionados. También se realizó el sprint backlog con los user stories que se corresponden con los nuevos requerimientos y los epics. Estos user stories son los que se espera que tenga el sistema al final cuando se termine.
+
+\item Realización del sprint backlog: Aqui se tomaron los user stories que deben entrar para esta entrega, cada uno de estos fue estimado, estimando primeramente las tareas en las que fueron descompuestos cada uno, llegando a un consenso y luego en base a esto se asignaron esfuerzos a cada uno.
+
+\item Casos de aceptación: Algo que no estaba pedido en el enunciado explícitamente, pero que nos pareció correcto poner para agregar mas información en relación a la finalización de cada user storie.
+
+
+\end{itemize}
+
+Luego de esto, se explican con detalle los cambios realizados a la arquitectura, donde surge el concepto de estación central provincial (ECP), estaciones que estarán en cada provincia, teniendo como función principal, el procesamiento de los datos que le brindan las TRs de la zona, además de la colaboración con otras estaciones centrales, brindándoles información de su área como ser información de TRs, como resultados de los modelos.
+
+Además de lo mencionado anteriormente, se tuvo que realizar el diseño de la sección relacionada con la ejecución de los modelos matemáticos, que en este caso, tiene que realizarse de forma distribuida. Para esto se hizo un diseño, donde se detalla el funcionamiento que tendrá esta funcionalidad en el sistema. Dicho diseño, es un diagrama de clases, y para describir el funcionamiento de la colaboración de los objetos, se realizó un diagrama de objetos y diversos diagramas de secuencia (de colaboración). De esta forma queda bien explicado el funcionamiento de la ejecución en forma distribuida de las reglas de un modelo, como se pide en el enunciado del trabajo.
+
+Por último, se realizó una comparación entre el proceso de scrum y el proceso UP de desarrollo de sofware, donde incluimos opiniones al respecto.
