@@ -5,6 +5,7 @@ import time
 import sys
 import Encriptador
 import Partidor
+import copy
 
 
 #creo el servidor para el enviador
@@ -56,14 +57,14 @@ def publicar(mensaje):
     
     los_suscriptores = serverPublicador.suscriptos()
     
-    print "Estoy publicado en mensaje", mensaje
+    #print "Estoy publicado en mensaje", mensaje
     print "Existen", len(los_suscriptores.keys())," ECs suscriptas" 
     print "Los suscriptos son",los_suscriptores.keys()
     for un_suscriptor_str in los_suscriptores.keys():
         print "A"
         un_suscriptor = int(un_suscriptor_str)
-        mensaje_nuevo = mensaje.copy()
-        
+        mensaje_nuevo = copy.deepcopy(mensaje)
+        print "mensaje copiado:",mensaje_nuevo
         for un_sensor in mensaje_nuevo['Contenido'].keys():
             if not un_sensor in los_suscriptores[un_suscriptor_str]:
                 del mensaje_nuevo['Contenido'][un_sensor]
@@ -91,6 +92,7 @@ def publicar(mensaje):
             print "Voy a enviar el mensaje :", msj_enc
             serverCanal.enviarAEC(un_suscriptor, msj_enc)
             print "Enviando a la EC : %s el mensaje_nuevo: %s, parte: %s"%(str(idEC),str(idMsg), str(idPar))
+        mensaje_nuevo = {}
         print "D"
     return 1
 

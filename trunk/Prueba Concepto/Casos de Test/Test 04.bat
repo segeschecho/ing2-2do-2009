@@ -18,8 +18,8 @@ start ..\Canal.py
 :: Las TR's tienen 4 parametros : intervalo, cantidad , Id TR, tiempo vida
 echo Levanto las TRs
 start ..\TR.py 20 3 1 80000 
-start ..\TR.py 20 9 2 80000
-start ..\TR.py 20 9 3 80000
+start ..\TR.py 20 2 2 80000
+start ..\TR.py 20 3 3 80000
 :: start ..\TR.py 20 9 4 80000
 :: start ..\TR.py 20 9 5 80000
 
