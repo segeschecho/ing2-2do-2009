@@ -143,7 +143,7 @@ def tratarDeEnpaquetarYMandar(id_mensaje, id_tr_page):
             mensajes_pendientes[id_tr_page]['Ultimo Id Enviado'] += 1
             
             #una vez que tengo el paquete completo, lo guardo en el archivo
-            archivo = open("EC\\Id EC - " + str(IdEC) + " - Id TR - " + str(paquete['Id TR']) + " - Id Mensaje - "+ str(paquete['Id Mensaje']) + ".ec", "w")
+            archivo = open("EC\\Id EC - " + str(idEC) + " - Id TR - " + str(paquete['Id TR']) + " - Id Mensaje - "+ str(paquete['Id Mensaje']) + ".ec", "w")
             dato_json = json.dumps(paquete)
             archivo.write(dato_json)
             archivo.close()
