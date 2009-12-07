@@ -63,6 +63,7 @@ def publicar(mensaje):
         print "A"
         un_suscriptor = int(un_suscriptor_str)
         mensaje_nuevo = mensaje.copy()
+        
         for un_sensor in mensaje_nuevo['Contenido'].keys():
             if not un_sensor in los_suscriptores[un_suscriptor_str]:
                 del mensaje_nuevo['Contenido'][un_sensor]
@@ -74,6 +75,7 @@ def publicar(mensaje):
         mensajePartido = partidor.partir(mensaje_nuevo)
         print "C"
         #encripto las partes  antes de enviar
+        print "lo qe tiene mensaje partido", mensajePartido
         for i in mensajePartido.keys():
             idPar = mensajePartido[i]['Id Parte']
             
