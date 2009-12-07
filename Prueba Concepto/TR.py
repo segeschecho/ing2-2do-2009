@@ -26,7 +26,7 @@ if __name__ == '__main__':
     vida = int(sys.argv[4])
    
     #genero un proceso que representa el Publicador
-    publicador = Process(target = inicializarPublicador, args = (id_tr,))
+    publicador = Process(target = inicializarPublicador, args = (id_tr, "TR", "EC"))
     
     #genero un proceso que representa al  recolectorTR
     #enviador = Process(target = recolectarDatos, args = (veces, tiempo, i+1))
