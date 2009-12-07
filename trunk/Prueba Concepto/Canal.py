@@ -19,12 +19,12 @@ delay_max = 2 # antes era 15
 
 # CLIENTE
 proxys_ec = {}
-for i in range(1,6):
+for i in range(1,15):
     puerto_actual_ec = puerto_ec + i
     proxys_ec[i] = ServerProxy("http://%s:%s/"%(host, puerto_actual_ec))
 
 proxys_tr = {}
-for i in range(1, 6):
+for i in range(1, 15):
     puerto_actual = puerto_tr + i
     proxys_tr[i] = ServerProxy("http://%s:%s/"%(host, puerto_actual))
 

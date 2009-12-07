@@ -7,32 +7,6 @@ from xmlrpclib import ServerProxy
 import Encriptador
 import json
 
-tiempo_caida = int(sys.argv[1])
-idEC = int(sys.argv[2])
-publicadores = json.loads(sys.argv[3])
-
-for id in publicadores.keys():
-    sensores_unicode = publicadores[id]
-    sensores_str = []
-    for sensor_unicode in sensores_unicode:
-        sensores_str.append(str(sensor_unicode))
-    del publicadores[id]
-    publicadores[str(id)] = sensores_str
-
-print "Soy la Recepcion Segura de la EC con id =", idEC
-host = "localhost"
-puerto_canal = 5555
-puerto_ec = 7000 + idEC
-
-
-# deberia ser 120
-proxy_canal = ServerProxy("http://%s:%s/"%(host,puerto_canal))
-
-mensajes_pendientes = {}
-for id in publicadores.keys():
-    i = int(id)
-    mensajes_pendientes[i] = {'Mensajes':[], 'Ultimo Id Enviado':None, 'Ultimo Timestamp Recibido': time.time(), 'Esta Caida':False}
-
 
 def verificarABMTR():
     while 1:
@@ -49,9 +23,7 @@ def verificarABMTR():
                     print "Se cayo TR", i
         time.sleep(5)        
 
-un_thread = threading.Thread(target = verificarABMTR, args = ())
-un_thread.setDaemon(True)
-un_thread.start()
+
 
 def recibirDeTR(mensaje):
     enc = Encriptador.Encriptador()
@@ -174,14 +146,50 @@ def suscribirme():
         mensaje_encriptado = enc.encriptar(msj)
         proxy_canal.enviarATR(msj['Id TR'], mensaje_encriptado, False)
         
-def main():
+def inicializar(tiempo_caida_nvo, idEC_nvo, publicadores_nvo):
     # SERVER        
+    global mensajes_pendientes
+    global tiempo_caida
+    global idEC
+    global publicadores
+    global proxy_canal
+    
+    tiempo_caida = int(tiempo_caida_nvo)
+    idEC = int(idEC_nvo)
+    publicadores = publicadores_nvo
+    
+    host = "localhost"
+    puerto_canal = 5555
+    puerto_ec = 7000 + idEC
+    
+    for id in publicadores.keys():
+        sensores_unicode = publicadores[id]
+        sensores_str = []
+        for sensor_unicode in sensores_unicode:
+            sensores_str.append(str(sensor_unicode))
+        del publicadores[id]
+        publicadores[str(id)] = sensores_str
+    
+    print "Soy la Recepcion Segura de la EC con id =", idEC
+    
+    proxy_canal = ServerProxy("http://%s:%s/"%(host,puerto_canal))
+    
+    mensajes_pendientes = {}
+    for id in publicadores.keys():
+        i = int(id)
+        mensajes_pendientes[i] = {'Mensajes':[], 'Ultimo Id Enviado':None, 'Ultimo Timestamp Recibido': time.time(), 'Esta Caida':False}
+
     server = SimpleXMLRPCServer((host, puerto_ec), SimpleXMLRPCRequestHandler, False)
     print "Escuchando en el puerto... ", puerto_ec
     server.register_function(recibirDeTR, "recibirDeTR")
     suscribirme()
+    
+    un_thread = threading.Thread(target = verificarABMTR, args = ())
+    un_thread.setDaemon(True)
+    un_thread.start()
+    
     server.serve_forever()    
 
-if __name__ == '__main__':
-    main()
+#if __name__ == '__main__':
+#    main()
 

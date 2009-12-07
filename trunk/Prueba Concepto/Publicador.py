@@ -11,17 +11,18 @@ host = 'localhost'
 def suscribir(un_suscriptor, conjunto_sensores) :
     print "Estoy suscribiendo a", un_suscriptor, "para estos sensores:",conjunto_sensores
     bd[str(un_suscriptor)] = conjunto_sensores
-    archivo = open("BDESTADO\\Suscriptos - TR" +str(id_TR)  + ".tr", "w")
+    archivo = open(nombreArchivo(), "w")
     dato_json = json.dumps(bd)
     archivo.write(dato_json)
     archivo.close()
            
     return 1   
 def suscriptos():
-    if not os.path.exists("BDESTADO\\Suscriptos - TR" +str(id_TR)  + ".tr"):
+    
+    if not os.path.exists(nombreArchivo()):
         return {}
 
-    archivo = open("BDESTADO\\Suscriptos - TR" +str(id_TR)  + ".tr", "r")
+    archivo = open(nombreArchivo(), "r")
         
     raid = archivo.read()
     archivo.close()
@@ -41,10 +42,17 @@ def suscriptos():
     print "Existen", len(bd), "suscriptos"
     return copy.deepcopy(bd)
 
-def inicializarRPC(id_tr):
-    puerto = puerto_general + id_tr
-    id_TR = id_tr
-    global id_TR
+def nombreArchivo():
+    return "BDESTADO\\Suscriptos - Publicador " + publicador + " - receptor  " +receptor+ " - ID publicador "+ str(id_publicador)  + ".pu"
+
+def inicializarRPC(id, publicador_par, receptor_par):
+    puerto = puerto_general + int(id)
+    id_publicador = id
+    publicador = publicador_par
+    receptor = receptor_par
+    global id_publicador
+    global publicador
+    global receptor
     serverPublicador = SimpleXMLRPCServer((host, puerto), SimpleXMLRPCRequestHandler, False)
     print "Levanto el publicador...",puerto
     
@@ -57,5 +65,5 @@ def inicializarRPC(id_tr):
 
 
         
-def inicializarPublicador(id_tr):
-    inicializarRPC(id_tr) 
+def inicializarPublicador(id_tr, publicador, receptor):
+    inicializarRPC(id_tr, publicador, receptor) 
