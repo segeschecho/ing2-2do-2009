@@ -61,22 +61,21 @@ def publicar(mensaje):
     print "Existen", len(los_suscriptores.keys())," ECs suscriptas" 
     print "Los suscriptos son",los_suscriptores.keys()
     for un_suscriptor_str in los_suscriptores.keys():
-        print "A"
         un_suscriptor = int(un_suscriptor_str)
         mensaje_nuevo = copy.deepcopy(mensaje)
-        print "mensaje copiado:",mensaje_nuevo
+        
         for un_sensor in mensaje_nuevo['Contenido'].keys():
             if not un_sensor in los_suscriptores[un_suscriptor_str]:
                 del mensaje_nuevo['Contenido'][un_sensor]
-        print "B"        
+        
         #obtengo el id del mensaje y el id de la parte del mensaje
         idMsg = mensaje_nuevo['Id Mensaje']
         idEC = un_suscriptor
         #agarro el mensaje_nuevo y lo parto para que viajen por sms
         mensajePartido = partidor.partir(mensaje_nuevo)
-        print "C"
+        
         #encripto las partes  antes de enviar
-        print "lo qe tiene mensaje partido", mensajePartido
+        
         for i in mensajePartido.keys():
             idPar = mensajePartido[i]['Id Parte']
             
@@ -89,11 +88,9 @@ def publicar(mensaje):
             msj_enc = enc.encriptar(mensajePartido[i])
         
             #lo envio a la estacion central
-            print "Voy a enviar el mensaje :", msj_enc
             serverCanal.enviarAEC(un_suscriptor, msj_enc)
             print "Enviando a la EC : %s el mensaje_nuevo: %s, parte: %s"%(str(idEC),str(idMsg), str(idPar))
         mensaje_nuevo = {}
-        print "D"
     return 1
 
 

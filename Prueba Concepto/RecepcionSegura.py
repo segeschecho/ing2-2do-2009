@@ -11,7 +11,6 @@ tiempo_caida = int(sys.argv[1])
 idEC = int(sys.argv[2])
 publicadores = json.loads(sys.argv[3])
 
-print "Los publicadores son eran", publicadores  
 for id in publicadores.keys():
     sensores_unicode = publicadores[id]
     sensores_str = []
@@ -20,8 +19,6 @@ for id in publicadores.keys():
     del publicadores[id]
     publicadores[str(id)] = sensores_str
 
-print "Los publicadores son", publicadores    
-#print sys.argv[3]
 print "Soy la Recepcion Segura de la EC con id =", idEC
 host = "localhost"
 puerto_canal = 5555
@@ -175,7 +172,7 @@ def suscribirme():
         
         enc = Encriptador.Encriptador()
         mensaje_encriptado = enc.encriptar(msj)
-        proxy_canal.enviarATR(msj['Id TR'], mensaje_encriptado)
+        proxy_canal.enviarATR(msj['Id TR'], mensaje_encriptado, False)
         
 def main():
     # SERVER        

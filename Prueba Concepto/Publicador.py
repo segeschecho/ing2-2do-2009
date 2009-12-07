@@ -4,6 +4,7 @@ import time
 import sys
 import json
 import copy
+import os
 bd = {}       
 puerto_general = 9000  # hay que sumarle el id de la tr
 host = 'localhost'
@@ -17,9 +18,17 @@ def suscribir(un_suscriptor, conjunto_sensores) :
            
     return 1   
 def suscriptos():
+    if not os.path.exists("BDESTADO\\Suscriptos - TR" +str(id_TR)  + ".tr"):
+        return {}
+
     archivo = open("BDESTADO\\Suscriptos - TR" +str(id_TR)  + ".tr", "r")
+        
     raid = archivo.read()
-    publicadores = json.loads(raid)  
+    archivo.close()
+    publicadores = json.loads(raid)
+    if publicadores == "":
+        publicadores = {}
+        
     for id in publicadores.keys():
         sensores_unicode = publicadores[id]
         sensores_str = []
