@@ -34,7 +34,7 @@ proxy_canal = ServerProxy("http://%s:%s/"%(host,puerto_canal))
 mensajes_pendientes = {}
 for id in publicadores.keys():
     i = int(id)
-    mensajes_pendientes[i] = {'Mensajes':[], 'Ultimo Id Enviado':100, 'Ultimo Timestamp Recibido': time.time(), 'Esta Caida':False}
+    mensajes_pendientes[i] = {'Mensajes':[], 'Ultimo Id Enviado':None, 'Ultimo Timestamp Recibido': time.time(), 'Esta Caida':False}
 
 
 def verificarABMTR():
@@ -109,6 +109,10 @@ def respuesta_ack(mensaje):
 def guardarMensaje(mensaje):
     el_mensaje_esta = False
     mensajes_pendientes[mensaje['Id TR']]['Ultimo Timestamp Recibido'] = time.time()
+    
+    if mensajes_pendientes[mensaje['Id TR']]['Ultimo Id Enviado'] == None:
+       mensajes_pendientes[mensaje['Id TR']]['Ultimo Id Enviado'] = mensaje['Id Mensaje'] - 1
+    
     if mensaje['Id Mensaje'] > mensajes_pendientes[mensaje['Id TR']]['Ultimo Id Enviado'] : 
         for mensaje_viejo in mensajes_pendientes[mensaje['Id TR']]['Mensajes']:
             if mensaje_viejo['Id Mensaje'] == mensaje['Id Mensaje']:
