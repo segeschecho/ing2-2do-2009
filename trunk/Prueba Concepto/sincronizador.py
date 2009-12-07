@@ -44,7 +44,8 @@ def enviarMensaje(id_mensaje, id_TR):
     """
     temperatura = random.random()
     humedad = random.randint(0, 100)
-    datos = {'Temperatura' : temperatura, 'Humedad' : humedad}
+    presion = random.randint(0, 100)
+    datos = {'Temperatura' : temperatura, 'Humedad' : humedad, 'Presion' : presion}
     return guardar_mensaje(datos, id_mensaje, id_TR)
 
 

@@ -32,13 +32,15 @@ puerto_ec = 7000 + idEC
 proxy_canal = ServerProxy("http://%s:%s/"%(host,puerto_canal))
 
 mensajes_pendientes = {}
-for i in range(1, 6):
+for id in publicadores.keys():
+    i = int(id)
     mensajes_pendientes[i] = {'Mensajes':[], 'Ultimo Id Enviado':100, 'Ultimo Timestamp Recibido': time.time(), 'Esta Caida':False}
 
 
 def verificarABMTR():
     while 1:
-        for i in range(1, 6):
+        for id in publicadores.keys():
+            i = int(id)
             diferencia_tiempo = time.time() - mensajes_pendientes[i]['Ultimo Timestamp Recibido']
             if mensajes_pendientes[i]['Esta Caida'] :
                 if diferencia_tiempo < tiempo_caida : 
