@@ -13,8 +13,8 @@ puertoCanal = 5555
 puertoPublicadorFalso = 9000
 hostPublicador = "localhost"
 
-serverCanal = xmlrpclib.ServerProxy("http://%s:%s/"%(hostCanal,puertoCanal))
-serverPublicador = xmlrpclib.ServerProxy("http://%s:%s/"%(hostCanal, puertoPublicadorFalso))
+# serverCanal = xmlrpclib.ServerProxy("http://%s:%s/"%(hostCanal,puertoCanal))
+# serverPublicador = xmlrpclib.ServerProxy("http://%s:%s/"%(hostCanal, puertoPublicadorFalso))
 
 #estructura que guarda los datos en vuelo es un doble diccionario con ID_MSG y ID_PARTE
 datosEnVuelo = {}
@@ -78,10 +78,10 @@ def publicar(mensaje):
             idPar = mensajePartido[i]['Id Parte']
             
             #veo que el idmsg este definido en datos en vuelo, si no esta lo creo
-            if (idEc, idMsg) not in datosEnVuelo:
-                datosEnVuelo[(idEc, idMsg)] = {idPar : mensajePartido[i]}
+            if (idEC, idMsg) not in datosEnVuelo:
+                datosEnVuelo[(idEC, idMsg)] = {idPar : mensajePartido[i]}
             else:
-                datosEnVuelo[(idEc, idMsg)][idPar] =  mensajePartido[i]
+                datosEnVuelo[(idEC, idMsg)][idPar] =  mensajePartido[i]
                 
             msj_enc = enc.encriptar(mensajePartido[i])
         
@@ -102,7 +102,6 @@ def recibirDeEC(mensaje):
     enc = Encriptador.Encriptador()
     #desencripto el mensaje
     msj_des = enc.desencriptar(mensaje)
-    
     #me fijo que el mensaje sea un respuesta y un ack y que sea para mi TR
     if ( (msj_des['Tipo Mensaje'] in ['RESPUESTA']) and msj_des['Contenido']['Respuesta'] in ['ACK']):
         print "Recibo un ACK de la EC"
@@ -117,7 +116,9 @@ def recibirDeEC(mensaje):
     
     if(msj_des['Tipo Mensaje'] in ['SUSCRIPCION']):
         print "Llego un mensaje de tipo suscripcion"
-        serverPublicador.suscribir(msj_des['Contenido']['Id EC'], msj_des['Contenido']['Sensores'])
+        print 'lo anterior a suscribir', msj_des['Contenido']['Id EC']
+        print 'lo anterior a suscribir 2',msj_des['Contenido']['Sensores']
+        serverPublicador.suscribir(msj_des['Contenido']['Id EC'],msj_des['Contenido']['Sensores'])
     return 1
 
 
@@ -132,7 +133,8 @@ def enviadorTR(id_tr):
     #defino el servidor donde escucha el canal
     serverCanal = xmlrpclib.ServerProxy("http://%s:%s/"%(hostCanal,puertoCanal))
     serverPublicador = xmlrpclib.ServerProxy("http://%s:%s/"%(hostPublicador,puerto_publicador))
-    
+    global serverCanal
+    global serverPublicador
     #creo un thread para la funcion que verifica si hay que reenviar los mensajes
     verificadorReenviador = threading.Thread(target = verificarDatos)
     verificadorReenviador.setDaemon(True)

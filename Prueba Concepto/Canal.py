@@ -33,7 +33,7 @@ def enviarAEC(idEC, mensaje):
     #proceso = Process(target = enviarMensaje, args = (mensaje))
     #proceso.start()
     print 'Me llego un mensaje de la TR a la EC', idEC
-    un_thread = threading.Thread(target = enviarMensaje, args = (mensaje, proxys_ec[id_ec].recibirDeTR, True))
+    un_thread = threading.Thread(target = enviarMensaje, args = (mensaje, proxys_ec[idEC].recibirDeTR))
     un_thread.setDaemon(True)
     un_thread.start()
     return 0

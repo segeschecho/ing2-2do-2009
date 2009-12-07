@@ -10,7 +10,7 @@ host = 'localhost'
 def suscribir(un_suscriptor, conjunto_sensores) :
     print "Estoy suscribiendo a", un_suscriptor, "para estos sensores:",conjunto_sensores
     bd[str(un_suscriptor)] = conjunto_sensores
-       
+    return 1   
 def suscriptos():
     print "Existen", len(bd), "suscriptos"
     return bd.copy()
