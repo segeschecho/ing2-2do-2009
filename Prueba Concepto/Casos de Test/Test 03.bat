@@ -3,6 +3,8 @@
 @echo off
 del TR\*.tr
 del EC\*.ec
+del BDESTADO\*.tr
+del BDESTADO\*.pu
 echo **************************************************** 
 echo Caso de Test 03
 echo Descripcion :
@@ -20,7 +22,7 @@ echo Levanto El Canal
 start ..\Canal.py
 echo Levanto La RecepcionSegura de la EC
 :: La RecepcionSegura tiene un parametro : tiempo para detectar caida
-start ..\RecepcionSegura.py 10
+start ..\EC.py 10 11 "{\"1\":[\"Temperatura\"],\"2\":[\"Presion\"]}" "{}"
 :: Las TR's tienen 4 parametros : intervalo, cantidad , Id TR, tiempo vida
 echo Levanto las 5 TR
 start ..\TR.py 20 15 1 80000

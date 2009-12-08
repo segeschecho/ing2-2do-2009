@@ -21,10 +21,6 @@ hostPublicador = "localhost"
 datosEnVuelo = {}
 
 
-def pruebaEnviadorTR(mensaje):
-    while 1:
-        pass
-
 def verificarDatos():
     """
     funcion que se encarga de ver si hay que reenviar mensajes de los que no se recibio ack
@@ -117,8 +113,6 @@ def recibirDeEC(mensaje):
     
     if(msj_des['Tipo Mensaje'] in ['SUSCRIPCION']):
         print "Llego un mensaje de tipo suscripcion"
-        print 'lo anterior a suscribir', msj_des['Contenido']['Id EC']
-        print 'lo anterior a suscribir 2',msj_des['Contenido']['Sensores']
         serverPublicador.suscribir(msj_des['Contenido']['Id EC'],msj_des['Contenido']['Sensores'])
     return 1
 

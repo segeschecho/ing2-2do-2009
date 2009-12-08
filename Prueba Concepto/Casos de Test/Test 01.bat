@@ -3,6 +3,8 @@
 @echo off
 del TR\*.tr
 del EC\*.ec
+del BDESTADO\*.tr
+del BDESTADO\*.pu
 echo **************************************************** 
 echo Caso de Test 01
 echo Descripcion :
@@ -24,7 +26,7 @@ start ..\TR.py 20 9 2 80000
 :: start ..\TR.py 20 9 5 80000
 echo Levanto La RecepcionSegura de la EC
 :: La RecepcionSegura tiene un parametro : tiempo para detectar caida, id ec, dicc de idTR a array de sensores
-start ..\RecepcionSegura.py 40 1 {\"1\":[\"Temperatura\"],\"2\":[\"Presion\"]}
+start ..\EC.py 40 11 {\"1\":[\"Temperatura\"],\"2\":[\"Presion\"]} "{}"
 :: Pause.py 45
 :: echo Se cae TR 1
 :: Pause.py 50

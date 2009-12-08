@@ -137,7 +137,7 @@ def tratarDeEnpaquetarYMandar(id_mensaje, id_tr_page):
             tratarDeEnpaquetarYMandar(id_mensaje + 1, id_tr_page)
 
 def guardarMensajeRecibidoDeEC(mensaje):
-    archivo = open("EC\\OTRO Id EC - " + str(idEC) + " - Id TR - " + str(mensaje['Id TR']) + " - Id Mensaje - "+ str(mensaje['Id Mensaje']) + ".ec", "w")
+    archivo = open("EC\\ECVecina Id EC - " + str(idEC) + " - Id TR - " + str(mensaje['Id TR']) + " - Id Mensaje - "+ str(mensaje['Id Mensaje']) + ".ec", "w")
     dato_json = json.dumps(mensaje)
     archivo.write(dato_json)
     archivo.close()
@@ -163,9 +163,7 @@ def publicarDatoDeTR(mensaje):
                 mensaje_nuevo_encriptado = enc.encriptar(mensaje_nuevo)
                 print "Estoy enviando a la EC", una_ec, "un mensaje"
                 proxy_canal.enviarAEC(int(una_ec), mensaje_nuevo_encriptado, False)
-            #toma viky
-            
-    
+
     
 def suscribirme():
     suscribimeATrs()
@@ -194,11 +192,11 @@ def suscribimeATrs():
 def suscribimeAEcs():
     print "Me voy a suscribir a", len(publicadores_a_ec.keys()), " Ecs"
     for id_EC_str in publicadores_a_ec:
-        id_EC = int(id_EC_str)
+        id_EC_destino = int(id_EC_str)
         trs_y_sensores = publicadores_a_ec[id_EC_str]
-        print "me voy a suscribir a la EC", id_EC, "con los trs y sensores:", trs_y_sensores
+        print "me voy a suscribir a la EC", id_EC_destino, "con los trs y sensores:", trs_y_sensores
         msj = {}
-        msj['Id TR'] = id_EC
+        msj['Id TR'] = id_EC_destino
         msj['Id EC'] = idEC
         msj['Timestamp'] = time.time()
         msj['Id Mensaje'] = 1
@@ -209,15 +207,15 @@ def suscribimeAEcs():
         
         enc = Encriptador.Encriptador()
         mensaje_encriptado = enc.encriptar(msj)
-        proxy_canal.enviarAEC(id_EC, mensaje_encriptado, False)
+        proxy_canal.enviarAEC(id_EC_destino, mensaje_encriptado, False)
       
 def suscribirOtraEC(msj):
-    print "Voy a suscribir a una ec", msj['Contenido']['Id EC'],
+    print "Suscribiendo la EC vecina: ", msj['Contenido']['Id EC'],
     serverPublicador.suscribir(msj['Contenido']['Id EC'], msj['Contenido']['TRs Y Sensores'])
     print "Ahora hay ", len(serverPublicador.suscriptos()), "ECs suscriptas"
     
 def inicializar(tiempo_caida_nvo, idEC_nvo, publicadores_a_tr_par, publicadores_a_ec_par):
-    # SERVER        
+    # SERVER
     global mensajes_pendientes
     global tiempo_caida
     global idEC
@@ -236,30 +234,32 @@ def inicializar(tiempo_caida_nvo, idEC_nvo, publicadores_a_tr_par, publicadores_
     puerto_ec = 7000 + idEC
     puerto_publicador = 9000 + idEC
     
-    # for id in publicadores.keys():
-        # sensores_unicode = publicadores[id]
-        # sensores_str = []
-        # for sensor_unicode in sensores_unicode:
-            # sensores_str.append(str(sensor_unicode))
-        # del publicadores[id]
-        # publicadores[str(id)] = sensores_str
+    print "Soy la Recepcion Segura de la EC con id = ", idEC
     
-    print "Soy la Recepcion Segura de la EC con id =", idEC
-    
+    #creo el descriptor para comunicarme con el canal
     proxy_canal = ServerProxy("http://%s:%s/"%(host,puerto_canal))
+    #creo el descriptor para el servidor que escucha suscripciones de otras ecs
     serverPublicador = xmlrpclib.ServerProxy("http://%s:%s/"%(host,puerto_publicador))
     
-    
+    #creo la estructura para mantener los mensajes pendientes de las trs
     mensajes_pendientes = {}
     for id in publicadores_a_tr.keys():
         i = int(id)
         mensajes_pendientes[i] = {'Mensajes':[], 'Ultimo Id Enviado':None, 'Ultimo Timestamp Recibido': time.time(), 'Esta Caida':False}
 
+    #creo el descriptor para el servidor que escucha los mensajes que vienen por
+    #medio del canal, de las trs.
     server = SimpleXMLRPCServer((host, puerto_ec), SimpleXMLRPCRequestHandler, False)
+    
     print "Escuchando en el puerto... ", puerto_ec
+    
+    #registro las funciones para recibir info de las trs
     server.register_function(recibirDeTR, "recibirDeTR")
+    
+    #me suscribo a las ecs y a las trs que me pasaron por parametros
     suscribirme()
     
+    #thread que se encarga de ver si se caen o levantan las trs
     un_thread = threading.Thread(target = verificarABMTR, args = ())
     un_thread.setDaemon(True)
     un_thread.start()
