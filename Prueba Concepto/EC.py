@@ -10,7 +10,7 @@ from Publicador import inicializarPublicador
 #TR.py simula una tr, con una parte que se encarga de simular el sensado de los datos de los sensores
 #y otra parte que se encarga del envio de los datos hacia la EC
 
-
+    
 if __name__ == '__main__':
     #parte que genera una TR y hace que envie informacion.
     #obtengo los parametros que me pasan para que todo ande bien
@@ -23,14 +23,14 @@ if __name__ == '__main__':
             
     tiempo = int(sys.argv[1])
     id_ec = int(sys.argv[2])
-    dicc = json.loads(sys.argv[3])
-   
+    dicc_susc_a_tr = json.loads(sys.argv[3])
+    dicc_susc_a_ec = json.loads(sys.argv[4])
     #genero un proceso que representa el recepcionSegura
     publicador = Process(target = inicializarPublicador, args = (id_ec, "EC", "EC"))
     
     #genero un proceso que representa al  recolectorTR
     #enviador = Process(target = recolectarDatos, args = (veces, tiempo, i+1))
-    recepcion_segura = Process(target = inicializar, args = (tiempo, id_ec, dicc))
+    recepcion_segura = Process(target = inicializar, args = (tiempo, id_ec, dicc_susc_a_tr, dicc_susc_a_ec))
         
     #corro los 3 procesos
     publicador.start()

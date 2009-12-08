@@ -30,13 +30,13 @@ def suscriptos():
     if publicadores == "":
         publicadores = {}
         
-    for id in publicadores.keys():
-        sensores_unicode = publicadores[id]
-        sensores_str = []
-        for sensor_unicode in sensores_unicode:
-            sensores_str.append(str(sensor_unicode))
-        del publicadores[id]
-        publicadores[str(id)] = sensores_str
+    # for id in publicadores.keys():
+        # sensores_unicode = publicadores[id]
+        # sensores_str = []
+        # for sensor_unicode in sensores_unicode:
+            # sensores_str.append(str(sensor_unicode))
+        # del publicadores[id]
+        # publicadores[str(id)] = sensores_str
     
     bd = copy.deepcopy(publicadores)
     print "Existen", len(bd), "suscriptos"

@@ -2,6 +2,8 @@ import time
 import random
 import threading
 import sys
+import copy
+import xmlrpclib
 from SimpleXMLRPCServer import SimpleXMLRPCServer, SimpleXMLRPCRequestHandler
 from xmlrpclib import ServerProxy
 import Encriptador
@@ -10,7 +12,7 @@ import json
 
 def verificarABMTR():
     while 1:
-        for id in publicadores.keys():
+        for id in publicadores_a_tr.keys():
             i = int(id)
             diferencia_tiempo = time.time() - mensajes_pendientes[i]['Ultimo Timestamp Recibido']
             if mensajes_pendientes[i]['Esta Caida'] :
@@ -31,10 +33,18 @@ def recibirDeTR(mensaje):
     print "Estoy recibiendo de TR",
     #desencripto el mensaje que llega para poder tratarlo
     mensaje_desencriptado = enc.desencriptar(mensaje)
+    
     print mensaje_desencriptado['Id TR'],
     print " mensaje: ", mensaje_desencriptado['Id Mensaje'],
     print " parte: ",mensaje_desencriptado['Id Parte']
     
+    if mensaje_desencriptado['Tipo Mensaje'] in ['SUSCRIPCION']:
+        suscribirOtraEC(mensaje_desencriptado)
+        return 0
+    if mensaje_desencriptado['Tipo Mensaje'] in ['DATOS DESDE EC']:
+        guardarMensajeRecibidoDeEC(mensaje_desencriptado)
+        return 0
+        
     #genero el ack
     mensaje_respuesta = respuesta_ack(mensaje_desencriptado)
     
@@ -122,15 +132,50 @@ def tratarDeEnpaquetarYMandar(id_mensaje, id_tr_page):
             dato_json = json.dumps(paquete)
             archivo.write(dato_json)
             archivo.close()
-           
+            publicarDatoDeTR(paquete)
             print "Me llego el mensaje: %s de la TR: %s completo y lo mande como paquete"%(id_mensaje,id_tr_page)
             tratarDeEnpaquetarYMandar(id_mensaje + 1, id_tr_page)
 
+def guardarMensajeRecibidoDeEC(mensaje):
+    archivo = open("EC\\OTRO Id EC - " + str(idEC) + " - Id TR - " + str(mensaje['Id TR']) + " - Id Mensaje - "+ str(mensaje['Id Mensaje']) + ".ec", "w")
+    dato_json = json.dumps(mensaje)
+    archivo.write(dato_json)
+    archivo.close()
+    
+def publicarDatoDeTR(mensaje):
+    enc = Encriptador.Encriptador()
+    
+    los_suscriptos = serverPublicador.suscriptos()
+    print "Estoy publicando un mensaje, hay", len(los_suscriptos.keys()), "suscriptos"
+    for una_ec in los_suscriptos.keys():
+        print "La EC", una_ec, "Se suscribio a", len(los_suscriptos[una_ec].keys()), "TRS"
+        for una_tr in los_suscriptos[una_ec].keys():
+            if int(mensaje['Id TR']) == int(una_tr):
+                sensores = los_suscriptos[una_ec][una_tr] # arreglo de sensores
+                mensaje_nuevo = copy.deepcopy(mensaje)
+        
+                for un_sensor in mensaje_nuevo['Contenido'].keys():
+                    if not un_sensor in sensores:
+                        del mensaje_nuevo['Contenido'][un_sensor]
+                
+                mensaje_nuevo['Cantidad Partes'] = 1
+                mensaje_nuevo['Tipo Mensaje'] = 'DATOS DESDE EC'
+                mensaje_nuevo_encriptado = enc.encriptar(mensaje_nuevo)
+                print "Estoy enviando a la EC", una_ec, "un mensaje"
+                proxy_canal.enviarAEC(int(una_ec), mensaje_nuevo_encriptado, False)
+            #toma viky
+            
+    
+    
 def suscribirme():
-    print "Me voy a suscribir a", len(publicadores.keys()), "TRs"
-    for id_TR_str in publicadores:
+    suscribimeATrs()
+    suscribimeAEcs()
+    
+def suscribimeATrs():
+    print "Me voy a suscribir a", len(publicadores_a_tr.keys()), " TRs"
+    for id_TR_str in publicadores_a_tr:
         id_TR = int(id_TR_str)
-        sensores = publicadores[id_TR_str]
+        sensores = publicadores_a_tr[id_TR_str]
         print "me voy a suscribir a la TR", id_TR, "con los sensores:", sensores
         msj = {}
         msj['Id TR'] = id_TR
@@ -145,37 +190,68 @@ def suscribirme():
         enc = Encriptador.Encriptador()
         mensaje_encriptado = enc.encriptar(msj)
         proxy_canal.enviarATR(msj['Id TR'], mensaje_encriptado, False)
+
+def suscribimeAEcs():
+    print "Me voy a suscribir a", len(publicadores_a_ec.keys()), " Ecs"
+    for id_EC_str in publicadores_a_ec:
+        id_EC = int(id_EC_str)
+        trs_y_sensores = publicadores_a_ec[id_EC_str]
+        print "me voy a suscribir a la EC", id_EC, "con los trs y sensores:", trs_y_sensores
+        msj = {}
+        msj['Id TR'] = id_EC
+        msj['Id EC'] = idEC
+        msj['Timestamp'] = time.time()
+        msj['Id Mensaje'] = 1
+        msj['Id Parte'] = 1
+        msj['Cantidad Partes'] = 1
+        msj['Tipo Mensaje'] = 'SUSCRIPCION'
+        msj['Contenido'] = {'Id EC' : idEC, 'TRs Y Sensores': trs_y_sensores}
         
-def inicializar(tiempo_caida_nvo, idEC_nvo, publicadores_nvo):
+        enc = Encriptador.Encriptador()
+        mensaje_encriptado = enc.encriptar(msj)
+        proxy_canal.enviarAEC(id_EC, mensaje_encriptado, False)
+      
+def suscribirOtraEC(msj):
+    print "Voy a suscribir a una ec", msj['Contenido']['Id EC'],
+    serverPublicador.suscribir(msj['Contenido']['Id EC'], msj['Contenido']['TRs Y Sensores'])
+    print "Ahora hay ", len(serverPublicador.suscriptos()), "ECs suscriptas"
+    
+def inicializar(tiempo_caida_nvo, idEC_nvo, publicadores_a_tr_par, publicadores_a_ec_par):
     # SERVER        
     global mensajes_pendientes
     global tiempo_caida
     global idEC
-    global publicadores
+    global publicadores_a_tr
+    global publicadores_a_ec
     global proxy_canal
+    global serverPublicador
     
     tiempo_caida = int(tiempo_caida_nvo)
     idEC = int(idEC_nvo)
-    publicadores = publicadores_nvo
+    publicadores_a_tr = publicadores_a_tr_par
+    publicadores_a_ec = publicadores_a_ec_par
     
     host = "localhost"
     puerto_canal = 5555
     puerto_ec = 7000 + idEC
+    puerto_publicador = 9000 + idEC
     
-    for id in publicadores.keys():
-        sensores_unicode = publicadores[id]
-        sensores_str = []
-        for sensor_unicode in sensores_unicode:
-            sensores_str.append(str(sensor_unicode))
-        del publicadores[id]
-        publicadores[str(id)] = sensores_str
+    # for id in publicadores.keys():
+        # sensores_unicode = publicadores[id]
+        # sensores_str = []
+        # for sensor_unicode in sensores_unicode:
+            # sensores_str.append(str(sensor_unicode))
+        # del publicadores[id]
+        # publicadores[str(id)] = sensores_str
     
     print "Soy la Recepcion Segura de la EC con id =", idEC
     
     proxy_canal = ServerProxy("http://%s:%s/"%(host,puerto_canal))
+    serverPublicador = xmlrpclib.ServerProxy("http://%s:%s/"%(host,puerto_publicador))
+    
     
     mensajes_pendientes = {}
-    for id in publicadores.keys():
+    for id in publicadores_a_tr.keys():
         i = int(id)
         mensajes_pendientes[i] = {'Mensajes':[], 'Ultimo Id Enviado':None, 'Ultimo Timestamp Recibido': time.time(), 'Esta Caida':False}
 
@@ -192,4 +268,5 @@ def inicializar(tiempo_caida_nvo, idEC_nvo, publicadores_nvo):
 
 #if __name__ == '__main__':
 #    main()
+
 
