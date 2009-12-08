@@ -4,6 +4,7 @@
 del TR\*.tr
 del EC\*.ec
 del BDESTADO\*.tr
+del BDESTADO\*.pu
 echo **************************************************** 
 echo Caso de Test 01
 echo Descripcion :
@@ -28,11 +29,11 @@ Pause.py 10
 
 echo Levanto La RecepcionSegura de la EC
 :: La RecepcionSegura tiene un parametro : tiempo para detectar caida, id ec, dicc de idTR a array de sensores
-start ..\RecepcionSegura.py 40 1 "{\"1\":[\"Temperatura\"],\"2\":[\"Presion\"]}"
+start ..\EC.py 40 11 "{\"1\":[\"Temperatura\"],\"2\":[\"Presion\"]}" "{}"
 
 echo Levanto La RecepcionSegura de la EC
 :: La RecepcionSegura tiene un parametro : tiempo para detectar caida, id ec, dicc de idTR a array de sensores
-start ..\RecepcionSegura.py 40 2 "{\"1\":[\"Temperatura\"], \"2\":[\"Humedad\"], \"3\":[\"Presion\", \"Temperatura\"]}"
+start ..\EC.py 40 12 "{\"1\":[\"Temperatura\"], \"2\":[\"Humedad\"], \"3\":[\"Presion\", \"Temperatura\"]}" "{}"
 
 #Pause.py 45
 #echo Se cae TR 1

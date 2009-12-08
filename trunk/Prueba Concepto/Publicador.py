@@ -9,7 +9,7 @@ bd = {}
 puerto_general = 9000  # hay que sumarle el id de la tr
 host = 'localhost'
 def suscribir(un_suscriptor, conjunto_sensores) :
-    print "Estoy suscribiendo a", un_suscriptor, "para estos sensores:",conjunto_sensores
+    print "Estoy suscribiendo a EC", un_suscriptor, "para estos sensores:",conjunto_sensores
     bd[str(un_suscriptor)] = conjunto_sensores
     archivo = open(nombreArchivo(), "w")
     dato_json = json.dumps(bd)

@@ -6,10 +6,6 @@ import xmlrpclib
 hostEnviador = "localhost"
 puertoEnviador = 6000 #hay que sumarle el ID_TR
 
-def pruebaRecolectarDatos(veces, tiempo, id_TR):
-    while 1:
-        pass
-
 
 def guardar_mensaje(dato, id_men, id_TR):
     """
@@ -62,9 +58,6 @@ def recolectarDatos(veces, tiempo, id_TR):
 
     #me conecto al enviador para pasarle los mensajes que recolecto de los sensores.
     proxy = xmlrpclib.ServerProxy("http://%s:%s/"%(hostEnviador,puertoEnviador))
-    
-    print "host enviador: ",hostEnviador
-    print "puerto enviador: ",puertoEnviador
     
     id_mensaje = 101
     for i in range(veces):

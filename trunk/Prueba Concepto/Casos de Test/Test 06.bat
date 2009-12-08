@@ -3,6 +3,7 @@
 @echo off
 del TR\*.tr
 del EC\*.ec
+del BDESTADO\*.tr
 del BDESTADO\*.pu
 echo **************************************************** 
 echo Caso de Test 01

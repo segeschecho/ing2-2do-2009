@@ -7,10 +7,7 @@ from RecepcionSegura import inicializar
 from comunicacionEc import enviadorTR #def enviadorTR(id_tr):
 from Publicador import inicializarPublicador
 
-#TR.py simula una tr, con una parte que se encarga de simular el sensado de los datos de los sensores
-#y otra parte que se encarga del envio de los datos hacia la EC
-
-    
+   
 if __name__ == '__main__':
     #parte que genera una TR y hace que envie informacion.
     #obtengo los parametros que me pasan para que todo ande bien
