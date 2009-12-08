@@ -1,0 +1,67 @@
+\section{Colaboración entre modelos}
+
+En ésta sección vamos a mostrar una simulación de lo que respecta a la parte de la colaboración entre modelos.
+
+La idea de como pensamos mostrar la simulación es sencilla. Van a existir diferentes ECs, que procesarán datos de alguna manera. Por ejemplo para la implementación calcularemos el promedio de los números pares del 1 al 100. Para ello es necesario calcular una suma y luego una división. A la suma la llamaremos resultado parcial, y a la división el resultado total, ya que constituirá el promedio buscado.
+
+Entonces, sólo a modo de simplificación todas las ECs calcularán el promedio de lo mismo. Además todas las EC se van a poder suscribir a los resultados parciales o totales de otra EC siempre y cuando la misma exista. 
+
+Una vez lograda la suscripción cuando una EC calcule algún resultado, ya sea total o parcial, verificará a que suscriptos se lo debe enviar. 
+
+Veamos esto en un ejemplo sencillo. Tenemos a la EC 1, luego la EC 2 se suscribe a los resultados parciales de la EC1 y la EC 3 a los resultados parciales y totales de la EC1. Entonces cuando se procese la suma, la EC 1 enviará el resultado a ambas EC, ya que las mismas se suscribieron a resultados parciales. Cuando por el contrario calcule finalmente el promedio, solo enviará dicho dato a la EC 3 por ser la única suscripta a resultados totales. 
+Finalmente si no tiene suscriptos no enviará los resultados a nadie.
+Una vez que a la EC2, o la EC3, recibe los resultados de la EC 1, los almacenará, para usarlos en caso de que necesitase.
+
+Implementamos lo anteriormente mencionado, respetando lo comentado en la arquitectura. Para ello tenemos cuatro documentos, localizados en el directorio Prueba De Concepto en ColModelos:
+
+\begin{itemize}
+\item \textbf{Publicador.py: }Este documento lleva la operatoria de suscripción, es decir cuando una EC se quiere suscribir a otra. Provee métodos como suscribir y suscriptos que le devuelve a una EC sus suscriptos.  
+\item \textbf{Procesamiento.py: }Lleva a cabo el procesamiento, en este caso el promedio mencionado anteriormente. Cuando procesa la suma o el promedio, avisa para que se envíen los resultados.
+\item \textbf{ItercambioResultados.py: } Lleva la operatoria de envío de llegada de resultados.
+\item \textbf{EC.py: }Ejecuta una EC con un publicador, un procesador y un intercambiador de resultados.
+\end{itemize}
+
+Para ejecutar los casos de test correremos archivos(.bat) que serán del siguiente estilo.
+
+\begin{verbatim}
+echo Levanto las ECs.
+:: Las ECs tienen dos parametros : id ec, dicc de otra id ec en a array de tipos de resultdos
+
+start ..\EC.py  1 "{}" 
+--> Creo la EC 1 y me voy a suscribir a nada porque no existe ninguna.
+
+start ..\EC.py  2 "{\"1\":[\"TOTAL\"]} 
+--> Creo la EC 2 que se suscribe a resultados totales de la EC1.
+
+start ..\EC.py  3 "{\"1\":[\"TOTAL\"],\"2\":[\"PARCIAL\"]}" 
+--> EC 3: Resultados totales de EC 1 	y parciales de EC 2.
+																														
+start ..\EC.py  4 "{\"3\":[\"PARCIAL\"],\"1\":[\"PARCIAL\", \"TOTAL\"]}"
+--> EC 4: Resultados parciales de EC 3 y todos de la EC 1.  
+
+pause
+echo on
+\end{verbatim}
+
+Los resultados guardados se pueden ver en la carpeta Resultados en el directorio desde donde se ejecutan los test. Cada documento aquí dentro esta identificado por el id de la EC que recibe el resultado, la EC que se lo envía, el número de mensaje, y finalmete el tipo del resultado.
+
+Notar que se identificó también por número de mensaje, ésto es porque el procesador de cada EC calcula varias veces los promedios simulando el procesamiento a lo largo del tiempo, entonces cada vez que se calcula, se envían los resultados.
+En nuestro caso definimos que calculará 5 veces el promedio con una diferencia de tres segundo entre cada cálculo.
+Esto nos servirá para analizar los casos de test.
+
+También se encuentra el directorio BD que tiene documentos con los suscriptos y el tipo de suscripción para cada una de las EC que tengan suscriptos.
+
+Notar que se cumple con el requerimiento de configuración sencilla de colaboración con otros modelos, al poder pasar como parámetro las ECs de las cuales quiero recibir resultados y el tipo de los mismos.
+
+\subsection{Datos y casos de test}
+
+
+Para ésta sección llevamos a cabo 4 casos de test que se encuentran en la carpeta test en el directorio ColModelos. Los mismos denotarán cuatro posibles escenarios:
+
+\begin{itemize}
+\item \textbf{Test01.bat: }Esta es la operatoria normal, cuatro EC se levantan y se suscribena los resultados de las ECs que le interesan.}  
+\item \textbf{Test02.bat: } Aquí tres ECs se levantan, y luego de 10 segundos una cuarta se levanta  y se suscribe también. La idea es mostrar la suscripción dinámica, y que la EC 1 envía resultados de su primer procesamiento a las ECs que tiene suscriptas en ese momento, y luego cuando se suscribe la cuarta también comienza a enviar a ella. Por lo cual a la EC 4 le deberían llegar procesamientos posteriores al primer envío de la EC 1
+\item \textbf{Test03.bat: } Este es un test triangular, es decir, nadie se suscribe a nada, por lo cual no deberían mandarse ningún tipo de resultados entre las ECs.
+\item \textbf{Test04.bat: } Finalmente éste test es similar al 2. Se levanta la EC 1 y luego de 10 segundos se levantan las ECs 2 y 3 suscribiendose.
+\end{itemize}
+
