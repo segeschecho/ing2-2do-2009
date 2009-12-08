@@ -53,12 +53,15 @@ def recibirDeTR(mensaje):
     proxy_canal.enviarATR(mensaje_respuesta['Id TR'], mensaje_encriptado)
     
     id_tr_actual = mensaje_desencriptado['Id TR']
-    if mensajes_pendientes[id_tr_actual]['Esta Caida'] and mensaje_desencriptado['Id Mensaje'] == 101 :
+    
+   
+    if mensajes_pendientes[id_tr_actual]['Esta Caida'] and mensaje_desencriptado['Id Mensaje'] == 101 :       
         if mensaje_desencriptado['Timestamp'] > max_timestamp_de_mensaje_TR(mensaje_desencriptado['Id TR']):
-            if max_timestamp_de_mensaje_TR(mensaje_desencriptado['Id TR']) != -1 :
+            if max_timestamp_de_mensaje_TR(mensaje_desencriptado['Id TR']) != -1 or  mensajes_pendientes[id_tr_actual]['Ultimo Id Enviado'] > 101:
                 mensajes_pendientes[id_tr_actual]['Ultimo Id Enviado'] = 100
                 del mensajes_pendientes[id_tr_actual]['Mensajes']
                 mensajes_pendientes[id_tr_actual]['Mensajes'] = []
+                print "borro mensajes pendientes"
             
     guardarMensaje(mensaje_desencriptado)
     tratarDeEnpaquetarYMandar(mensaje_desencriptado['Id Mensaje'], mensaje_desencriptado['Id TR'])
