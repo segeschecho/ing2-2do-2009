@@ -44,13 +44,13 @@ def nombreArchivo():
 def inicializarRPC(idEc, publicadorEc, receptorEc):
     puerto = puertoGeneral + int(idEc)
     
-    idPublicador = idEc
-    publicador = publicadorEc
-    receptor = receptorEc
-    
     global idPublicador
     global publicador
     global receptor
+    
+    idPublicador = idEc
+    publicador = publicadorEc
+    receptor = receptorEc
     
     serverPublicador = SimpleXMLRPCServer((host, puerto), SimpleXMLRPCRequestHandler, False)
     
