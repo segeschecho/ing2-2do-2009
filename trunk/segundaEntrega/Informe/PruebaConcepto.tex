@@ -1,0 +1,82 @@
+\chapter{Prueba de Concepto}
+
+\section{Implementación de la prueba de concepto}
+
+En esta sección se comentarán los detalles relacionados con la implementación de la prueba de concepto para esta nueva entrega del trabajo, en la cual como ya vimos, se tuvo que incorporar nuevas funcionalidades a las que ya se tenían. Éstas están relacionadas en su núcleo, con el tema de la comunicación ahora, entre Estaciones Centrales y entre Estación Central - TR, según se describe en la especificación de la arquitectura en este mismo documento.
+
+Se continuó el desarrollo utilizando el lenguaje de programación $Python$, que nos permite realizar implementaciones rápidas, de alto nivel y con un gran nivel de funcionalidades. De las implementaciones ya realizadas para la anterior entrega, se tuvieron que modificar, y agregar nuevos componentes, que permitieron cubrir las expectativas de funcionalidad para esta entrega. Las entidades en runtime siguen utilizando $RPC$ (Remote Procedure Call) para resolver de manera sencilla la comunicación entre ellos, y simular la comunicación además por los medios físicos, tal como se vio en la primera entrega del este sistema.
+
+Como se mencionó, se modificaron diferentes componentes de la arquitectura para cubrir estos nuevos atributos de funcionalidad. Por este motivo, se modificó el funcionamiento de las $TRs$, que ahora en vez de enviar su información a la única $Estacion$ $Central$ que existía, estas reciben suscripciones de diferentes estaciones centrales de la región, y que les interesa recibir algún tipo de información de la $TR$. Sumado a esta nueva funcionalidad, no solo es posible indicarle a cada $TR$ que una $Estacion$ $Central$ desea recibir información de ella, sino que también se le puede indicar que se le envíe un subconjunto de los datos que ella recolecta, por ejemplo, una EC, puede enviarle una solicitud de suscripción a una $TR$ que tiene sensores de presión, temperatura y humedad, diciendo que desea recibir los datos de los sensores de temperatura y presion únicamente. Esta nueva funcionalidad, ayuda a seleccionar la información que se quiere procesar por cada $Estacion$ $Central$ dentro de una región.
+
+Otra modificación importante, está relacionada con la capacidad que tienen que tener las $ECs$ para comunicarse con otras $ECs$ y pedir información sobre las $TRs$ que tienen a su cargo estas últimas. Para realizar esto, también se tuvieron que incorporar nuevos módulos, en este caso en la $Estacion$ $Central$. El protocolo de suscripción es muy parecido al mencionado en el párrafo anterior para $ECs$ y $TRs$, y en este caso, también es posible indicar que subconjunto de la información que maneja cada $TR$ de la $EC$ vecina se quiere obtener.
+
+\subsection{Descripción del funcionamiento}
+
+La descripción de las nuevas funcionalidades implementadas es similar a lo que se comentó en la arquitectura, lo que se intentará hacer es realizar la descripción realizando un mapeo con los componentes de la nueva arquitectura.
+
+Las $TRs$ no envían datos a ninguna $EC$ si no hasta que ellas se lo pidan. Es en este momento, en el cual una $EC$ interesada en la información de una $TR$ le envía un mensaje de tipo suscripción. Este mensaje además de contener datos de identificación de la $EC$, contiene una lista de los sensores a los cuales dicha $EC$ se quiere suscribir. Cuando esto sucede, la $TR$ toma la suscripción y la almacena, de manera de quedar configurada siempre, evitando que las $ECs$ tengas que suscribirse nuevamente ante un reinicio. Con esta información entonces, la $TR$ está en condiciones de comenzar a enviar los datos de interés a la $EC$.
+
+Es importante aclarar que no es necesario tener un estado inicial, en el cual todas las $ECs$ interesadas en la información de una $TR$ se suscriban, sino que éstas lo pueden hacer en cualquier momento, de forma dinámica.
+
+Con respecto a la suscripción de $TRs$ para $ECs$ que sean aledañas a una región. Éstas no se realizan directamente a hacia las $TRs$ de interés, sino através de la $EC$ de la región que maneje la información de misma. Para hacer esto, el funcionamiento, es muy similar al descripto anteriormente, solo que en este caso, la $EC$ que recibe la suscripción reenvía los datos que le llegan de sus $TRs$ a las otras $ECs$ que tiene suscriptas.
+
+
+\subsection{Archivos fuentes utilizados}
+
+Aquí se mostrarán los archivos fuente utilizados para realizar los tests, y se explicarán que parámetros utilizan para poder correrlos en una pc.
+
+\begin{itemize}
+\item Canal.py: Simula el canal de comunicación que se usa para enviar los mensajes entre la TR y la Estación Central, Aquí se implementa el retraso y pérdida de mensajes. No requiere ningún parámetro adicional.
+
+\item EC.py (tiempo para detectar caída, id EC, diccionario de idTR a array de sensores, diccionario de  idEC a diccionario de idTR a array de sensores): Implementa la funcionalidad de 2 componentes de la arquitectura de la $EC$, la $Recepcion Segura$ (RecepcionSegura.py), componente utilizado en la arquitectura del trabajo anterior, que se encarga de recibir la información de las $TRs$ e ir armando los fragmentos que llegan y $Publicador$ $TR$ (Publicador.py) que es el encargado de recibir las suscripciones de las $ECs$ de regiones vecinas. Vale aclarar que los módulos anteriomente nombrados son instancias distintas en tiempo de ejecución, cumpliendo con lo expresado en la arquitectura. Requiere 4 parámetros en total: el primero que indica el tiempo en segundos en el cual se considera que una TR deja de funcionar desde el último mensaje recibido; el segundo indica numero de identificación de la $EC$; el tercero indica las $TRs$ a las cual la $EC$ se va a suscribir dentro de su región; y por último, el cuarto parámetro indica las $TRs$ de las $ECs$ vecinas a las cuales se quiere suscribir.
+
+\item TR.py (tiempo envío, cantidad de mensajes a enviar, ID de la TR, tiempo de vida de la TR): Este código en $Python$ genera una instancia de $Comunicacion$ $EC$ (comunicacionEc.py), una de $Sinconizador$ (sincronizador.py) y otra del $Publicador$ (Publicador.py). Todas son entidades de runtime distintas, y por este motivo TR.py hace que ejecución de estos procesos sea mas automática. El publicador, es el encargado de recibir las peticiones de suscripción de las $RCs$, funcionalidad comentada anteriormente. Requiere 4 parámetros: El primero indica cuál será el intervalo de envío de los mensajes en segundos (en la realidad será de 60 segundos); El segundo indica la cantidad de mensajes que va a enviar la TR, esto se hizo para poder realizar pruebas y los tests; El tercero indica el $ID$ que tendrá la TR; El cuarto y último indica el tiempo de vida en segundos que tendrá la TR. Esto se hizo también para realizar los tests de integridad.
+\end{itemize}
+
+\section{Test de Integridad}
+
+Los tests realizados para la primer entrega, siguen funcionando perfectamente, agregando los nuevos parámetros necesarios. Se decidió no incluirlos en la descripción, aunque se encuentran en las fuentes del trabajo y pueden ser probadas en cualquier momento.
+
+
+\subsection{Test 05}
+
+\begin{itemize}
+	\item Archivo: Test 05.bat
+	\item Descripción: En este caso se simulan cinco TRs de las cuales todas funcionan bien, y dos ECs que se suscriben a los mismos. En particular la EC con id 11 se suscribe a las TRs 1 y 2, y la EC 12 a la 3, 4 y 5.
+	\item Parámetros : Cada TR envia sus mensajes cada 20 segundos y la EC (RecepcionSegura) asume que si no recibe un mensaje luego de 40 segundos de una TR, la misma se cayo.
+	\item Resultado: Este caso de test se ejecutó, y fue verificado el correcto funcionamiento de las suscripciones a las TRs.
+\end{itemize}
+
+\subsection{Test 06}
+
+\begin{itemize}
+	\item Archivo: Test 06.bat
+	\item Descripción: En este caso se simulan tres TRs de las cuales todas funcionan bien. Existen dos ECs, las cuales se suscriben a las TRs, pero además, la EC con id 12 se suscribe a una TR de la EC 11.
+	\item Parámetros : Cada TR envia sus mensajes cada 20 segundos y la RecepcionSegura asume que si no recibe un mensaje luego de 40 segundos de una TR, la misma se cayo.
+	\item Resultado: Este caso de test se ejecutó, y fue verificado que se detecto la el correcto funcionamiento de las suscripciones, tanto entre las ECs y las TRs, como entre las ECs.
+\end{itemize}
+
+
+\subsection{Test 07}
+
+\begin{itemize}
+	\item Archivo: Test 07.bat
+	\item Descripción: En este caso se simulan 3 TRs de las cuales todas funcionan bien y 2 ECs recibiendo información de ellas, luego aparece una nueva EC, que se suscribe a las TRs que ya estaban enviando información.
+	\item Parámetros : Cada TR envía sus mensajes cada 20 segundos y la RecepcionSegura asume que si no recibe un mensaje luego de 40 segundos de una TR, la misma se cayo.
+	\item Resultado: Este caso de test se ejecutó, y fue verificado que se detecto la nueva EC suscribiendose a las TRs que ya estaban funcionando.
+\end{itemize}
+
+\subsection{Test 08}
+
+\begin{itemize}
+	\item Archivo: Test 08.bat
+	\item Descripción: Existen cinco TR que envían cada 20 segundos y 2 EC que se suscriben a varios sensores de cada tr. Las 2 ec comparten la suscripción a la TR 3. Esta se cae a los 42 segundos y luego vuelve, sabiendo a que ECs enviar su info.
+	\item Parámetros : Cada TR envia sus mensajes cada 20 segundos y la RecepcionSegura asume que si no recibe un mensaje luego de 40 segundos de una TR, la misma se cayo.
+	\item Resultado: Este caso de test se ejecutó, y fue verificado que la TR, cuando vuelve a reiniciarse, siga enviando datos a las ECs que se suscribieron antes de la caída de la misma
+\end{itemize}
+
+
+\section{Procesamiento y modelos}
+
+
+\subsection{Datos y casos de test}

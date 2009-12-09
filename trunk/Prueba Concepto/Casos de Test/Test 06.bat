@@ -8,10 +8,9 @@ del BDESTADO\*.pu
 echo **************************************************** 
 echo Caso de Test 06
 echo Descripcion :
-echo    Existen 5 TR que envian cada 20 segundos
-echo    y 2 EC que se suscriben a varios sensores
-echo    de cada tr.
-echo    Ademas una se suscribe a la otra.
+echo    Existen 3 TR que envian cada 20 segundos
+echo    y la EC 12 se suscriben a varios sensores de la
+echo    EC 11.
 echo **************************************************** 
 ::start Canal.py
 ::start RecepcionSegura.py
