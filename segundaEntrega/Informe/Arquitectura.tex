@@ -44,4 +44,70 @@ Esta a su vez sabrá responder que tipo de sensores tiene presentes.
 El último cambio que se realiza es que no sólo se podrá una ECP suscribir a otra para pedir datos de alguna TR en su provincia con ciertos sensores, si no 
 que también se podrá suscribir a datos parcial o totalmente calculados por un modelo en la EC o ECP.
 
+\section{Nuevos componentes en la arquitectura}
+
+Veamos ahora los nuevos componentes agregados a la arquitectura, cabe destacar para esta sección que sólo se agregaron componentes en las TRs y las ECPs, 
+los referentes al publish suscribe tanto de datos directos desde TRs a ECs como tambien los de datos crudos y resultados parciales y finales desde ECP a ECP
+
+\subsection{TR}
+
+\begin{itemize}
+
+\item \textbf{Publicador:} Este es el componente que se encargara de recibir las suscripciones que se envian a la Comunicación EC, guardando estos datos en 
+la base de datos de la TR. Luego cuando el Sincronizador publique los datos a la Comunicación EC, este último le pedira todos suscriptos al Publicador y 
+le enviará los datos correspondientes.
+
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.6]{TR.png}
+\end{figure}
+
+\subsection{ECP}
+
+Tenemos en esta parte grupos de componentes nuevos, unos encargados de la publicación de datos que recibe directo de la TR hacia otra EC y un 
+segundo grupo que se encarga de publicar y recibir los datos parciales y finales de los modelos entre ECs
+
+\subsubsection{Datos Crudos}
+
+\begin{itemize}
+
+\item \textbf{Publicador TR:} Componente encargado de administrar las ECs suscriptas para obtener los datos crudos de las TRs administradas
+por la EC. Se comunica con este componente la Recepción Segura, la cual le envia los suscriptos y luego los pide cuando hay datos completos.
+
+\item \textbf{Suscriptos TR:} Base en donde se guardan los datos de suscripciones para obtener la información cuando sea necesario.
+
+\end{itemize}
+
+\subsubsection{Resultados de Modelos}
+
+\begin{itemize}
+
+\item \textbf{Publicador Modelos:} Al igual que el componente Publicador TR este se encarga de administrar la información de las ECs suscriptas
+tanto a resultados parciales de modelos como a resultados finales de los mismos.
+
+\item \textbf{Suscriptos Modelos:} Base en donde se guardan los datos de suscripciones que administra el Publicador Modelos
+
+\item \textbf{Intercambio Resultado:} Componente encargado de recibir un resultado parcial o total (enviado por el Procesador) para publicarlo 
+a todos los suscriptos. Por medio del Publicador Modelos se entera cuales son estos suscriptos.
+Tambien esta encargado de obtener los datos de otras ECs a las cuales se suscribe y luego guardarlo en Resultados otras ECs para que el Procesador los use
+como resultados parciales o finales de los modelos de otras ECs
+
+\item \textbf{Resultados otras ECs:} Base en donde se guardan los resultados parciales o totales obtenidos por suscripciones a modelos de otras ECs. 
+Es el procesador el que levanta y utiliza estos datos.
+
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.6]{ECP.png}
+\end{figure}
+
+\subsection{SMP}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.6]{SMP.png}
+\end{figure}
 
