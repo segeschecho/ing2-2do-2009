@@ -59,8 +59,8 @@ Notar que se cumple con el requerimiento de configuración sencilla de colaboraci
 Para ésta sección llevamos a cabo 4 casos de test que se encuentran en la carpeta test en el directorio ColModelos. Los mismos denotarán cuatro posibles escenarios:
 
 \begin{itemize}
-\item \textbf{Test01.bat: }Esta es la operatoria normal, cuatro EC se levantan y se suscriben a los resultados de las ECs que le interesan.}  
-\item \textbf{Test02.bat: } Aquí tres ECs se levantan, y luego de 10 segundos una cuarta se levanta  y se suscribe también. La idea es mostrar la suscripción dinámica, y que la EC 1 envía resultados de su primer procesamiento a las ECs que tiene suscriptas en ese momento, y luego cuando se suscribe la cuarta también comienza a enviar a ella. Por lo cual a la EC 4 le deberían llegar procesamientos posteriores al primer envío de la EC 1
+\item \textbf{Test01.bat: }Esta es la operatoria normal, cuatro EC se levantan y se suscriben a los resultados de las ECs que le interesan.
+\item \textbf{Test02.bat: } Aquí tres ECs se levantan, y luego de 10 segundos una cuarta se levanta  y se suscribe también. La idea es mostrar la suscripción dinámica, y que la EC 1 envía resultados de su primer procesamiento a las ECs que tiene suscriptas en ese momento, y luego cuando se suscribe la cuarta también comienza a enviar a ella. Por lo cual a la EC 4 le deberían llegar procesamientos posteriores al primer envío de la EC 1.
 \item \textbf{Test03.bat: } Este es un test triangular, es decir, nadie se suscribe a nada, por lo cual no deberían mandarse ningún tipo de resultados entre las ECs.
 \item \textbf{Test04.bat: } Finalmente éste test es similar al 2. Se levanta la EC 1 y luego de 10 segundos se levantan las ECs 2 y 3 suscribiéndose.
 \end{itemize}
