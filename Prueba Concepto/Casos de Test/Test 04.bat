@@ -6,12 +6,10 @@ del EC\*.ec
 del BDESTADO\*.tr
 del BDESTADO\*.pu
 echo **************************************************** 
-echo Caso de Test 01
+echo Caso de Test 04
 echo Descripcion :
-echo    Existen 5 TR que envian cada 20 segundos y
-echo    una se cae a los 45 segundos.
-echo    Luego de esto 50 seg más tarde la TR se recupera
-echo    y la EC lo reconoce!
+echo    Existen 3 TR que envian cada 20 segundos
+echo    Se corren 2 ECs y se suscriben a los mismos
 echo **************************************************** 
 ::start Canal.py
 ::start RecepcionSegura.py
@@ -20,7 +18,7 @@ start ..\Canal.py
 :: Las TR's tienen 4 parametros : intervalo, cantidad , Id TR, tiempo vida
 echo Levanto las TRs
 start ..\TR.py 20 3 1 80000 
-start ..\TR.py 20 1 2 80000
+start ..\TR.py 20 2 2 80000
 start ..\TR.py 20 1 3 80000
 :: start ..\TR.py 20 9 4 80000
 :: start ..\TR.py 20 9 5 80000
