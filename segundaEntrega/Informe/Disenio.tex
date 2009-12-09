@@ -5,25 +5,25 @@
 
 En éste capítulo se llevará a cabo el diseño especificado para los User Stories asociados al sprint tales que, si bien no necesitaban ser implementados, requerían de un diseño.
 
-Estos user stories son aquellos referidos a la evaluación de modelos utilizando diferentes algoritmos, de manera distribuida y a la fácil configuración entre las subpartes de un determinado modelo.
+Estos user stories son aquellos referidos a la evaluación de modelos utilizando diferentes algoritmos, de manera distribuida y a la fácil configuración entre las sub partes de un determinado modelo.
 
 Para ello lo que se intentó llevar a cabo es la posibilidad de procesar un determinado modelo, siguiendo las reglas de descomposición asociadas a un determinado algoritmo. 
 
-En la imagen que se puede ver a continuación se refleja lo pensado por el grupo para lidiar con el requerimiento solicitado apra ésta parte del trabajo práctico.
+En la imagen que se puede ver a continuación se refleja lo pensado por el grupo para lidiar con el requerimiento solicitado para ésta parte del trabajo práctico.
 
-Cabe destacam como se ha hecho a lo largo de éste informe, que no se utilizó fielmente el paradigma de objetos a la ''Wilkinson", sino que se hicieron varias modificaciones para adaptar los diagramas al programa utilizado para realizarlos. Además se incluyeron(respetando la idea de solo representar conocimiento en diagramas de objetos y subclasificación en el de clases) algunos elementos de composición a la ''Ingeniería I" para darle mayor claridad aún a los mismos.
+Cabe destacar como se ha hecho a lo largo de éste informe, que no se utilizó fielmente el paradigma de objetos a la ''Wilkinson", sino que se hicieron varias modificaciones para adaptar los diagramas al programa utilizado para realizarlos. Además se incluyeron(respetando la idea de solo representar conocimiento en diagramas de objetos y subclasificación en el de clases) algunos elementos de composición a la ''Ingeniería I" para darle mayor claridad aún a los mismos.
 Comencemos a describir entonces ésta idea.
 
 
 Existirán, a diferencia del trabajo práctico anterior algunas fuentes de datos más, no sólo los datos sensados desde las terminales remotas asignadas a la ECP sino los provenientes de otras ECP relevantes. Todos estos datos de manera combinada
-van a ser datos ''crudos" a procesar. Por otro lado vamos a tener también resultados parciales o totales provenientes de otras ECP los cuales serán utilizados en el procesamiento. Hasta aquí todo lo referido al imput de procesamiento.
+van a ser datos ''crudos" a procesar. Por otro lado vamos a tener también resultados parciales o totales provenientes de otras ECP los cuales serán utilizados en el procesamiento. Hasta aquí todo lo referido al input de procesamiento.
 
-Por otro lado tendremos un modelo, un conjunto de reglas a aplicar para los datos, siguiendo la línea del trabajo práctico anterior, la idea es que éstas reglas se refieran a variables o parámetros de algún tipo de almacenamiento de los datos, como pueden ser paquetes, diccionarios, etc, con la idea de no intervenir en la propia regla pasandole los datos que propiamente necesita.
+Por otro lado tendremos un modelo, un conjunto de reglas a aplicar para los datos, siguiendo la línea del trabajo práctico anterior, la idea es que éstas reglas se refieran a variables o parámetros de algún tipo de almacenamiento de los datos, como pueden ser paquetes, diccionarios, etc, con la idea de no intervenir en la propia regla pasándole los datos que propiamente necesita.
 
 
-La idea es que el tipo de procesamiento va a depender prácticamente del algoritmo encargado de procesarlo. Es decir, dado un determinado modelo y un conjunto de datos, el algoritmo será capaz de dividir las reglas en subpartes a su criterio, e intentará correrlas en tantos procesadores como le convenga para agilizar el procesamiento. Por otro lado, una vez obtenidos los resultados, acturará acordemente a lo que se solicite(Ej, pasarlo a otra componente, almacenarlo en una BD, etc).
+La idea es que el tipo de procesamiento va a depender prácticamente del algoritmo encargado de procesarlo. Es decir, dado un determinado modelo y un conjunto de datos, el algoritmo será capaz de dividir las reglas en sub partes a su criterio, e intentará correrlas en tantos procesadores como le convenga para agilizar el procesamiento. Por otro lado, una vez obtenidos los resultados, acturará acordemente a lo que se solicite(Ej, pasarlo a otra componente, almacenarlo en una BD, etc).
 
-Como se verá en la descripción detallada del diseño, itentaremos que el intercambio entre algoritmos se haga de manera sencilla y que además la ejecución concurrente, se pueda llevar a cabo de forma transparente al algoritmo. Con ésto último no contradecimos la idea de es el algoritmo quien determina las subpartes y cómo se ejecutarán, sino que intentaremos utilizar alguna clase adicional que se encargue de brindar fuentes de procesamiento cuando se lo requiera.
+Como se verá en la descripción detallada del diseño, intentaremos que el intercambio entre algoritmos se haga de manera sencilla y que además la ejecución concurrente, se pueda llevar a cabo de forma transparente al algoritmo. Con ésto último no contradecimos la idea de es el algoritmo quien determina las sub partes y cómo se ejecutarán, sino que intentaremos utilizar alguna clase adicional que se encargue de brindar fuentes de procesamiento cuando se lo requiera.
 
 \begin{figure}[h]
 \centering
@@ -39,7 +39,7 @@ Como se verá en la descripción detallada del diseño, itentaremos que el intercam
 En ésta sección describiremos como llevamos a un diagrama de clases las ideas mencionadas con anterioridad de modo tal de lograr una buena trazabilidad entre lo que pensamos y lo que vamos a llevar a cabo.
 
 
-El diagrama correspondiente a dicha sección se puede observar al final de la misma. Cabe destacar que se utilizó para las funciones una notación similar a lenguages tipo C, C++, .Net o Java pero que su equivalente a Smalltalk o similires se puede realizar de manera sencilla, sólo que la herramienta que utilizamos no lo permitía. 
+El diagrama correspondiente a dicha sección se puede observar al final de la misma. Cabe destacar que se utilizó para las funciones una notación similar a lenguajes tipo C, C++, .Net o Java pero que su equivalente a Smalltalk o similares se puede realizar de manera sencilla, sólo que la herramienta que utilizamos no lo permitía. 
 
 
 Pasemos entonces a enumerar las diferentes clases y las funcionalidades asociadas:
@@ -83,7 +83,7 @@ Pasemos entonces a enumerar las diferentes clases y las funcionalidades asociada
   
 \item \textbf{Algoritmo 1: }Esta clase implementa una estrategia, la idea es que implemente la función aplicar de la manera que le convenga.
 	\begin{itemize}
-  \item \textbf{join: }En este caso utiliza una funcion join para juntar los resultados de procesamientos intermedios, podría utilizar otra función de acuerdo al algoritmo.
+  \item \textbf{join: }En este caso utiliza una función join para juntar los resultados de procesamientos intermedios, podría utilizar otra función de acuerdo al algoritmo.
   \item \textbf{hacerAlgoUtil : }Corresponde a posibles funciones adicionales que implemente.
   \end{itemize}
     
@@ -113,17 +113,17 @@ Pasemos entonces a enumerar las diferentes clases y las funcionalidades asociada
 
 Para ésta sección llevaremos a cabo una instancia del problema a modo de mostrar el funcionamiento esperado descripto anteriormente. 
 
-Para ello realicezaremos un diagrama de objetos y un escenario correspondiente al mismo respresentado por varios diagramas de secuencias.
+Para ello realizaremos un diagrama de objetos y un escenario correspondiente al mismo representado por varios diagramas de secuencias.
 
 La idea es simple vamos a tener instancias de los principales clases que intervienen en el procesamiento y surgirán algunos objetos más, propios de los escenarios elegidos.
 
 Nuevamente los diagramas correspondientes se pueden observar al final de ésta sección para poder ir observando los mismos a medida que se lee el informe.
 
-Comencemos con los objetos, vamos a tener instancias de los accesos a la base de datos, del ejecutor, del armador, del algoritmo, de las reglas y de la fábrica. Como resultado del escenario se podrán notar la aparicion de intancias de calculadores, y subconjuntos de reglas con reglas asociadas. Esto es para que se pueda apreciar mejor el diagrama de secuencias.
+Comencemos con los objetos, vamos a tener instancias de los accesos a la base de datos, del ejecutor, del armador, del algoritmo, de las reglas y de la fábrica. Como resultado del escenario se podrán notar la aparición de intancias de calculadores, y subconjuntos de reglas con reglas asociadas. Esto es para que se pueda apreciar mejor el diagrama de secuencias.
 
-Sigamos entonces explicando un poco el funcionamiento de los diagramas de secuencias elegidos. Vamos a contar básicamente el procedimiento ya que la comunicación propiamente dicha es fácilmente observable en los diagramas. La idea es que el eljecutor de modelos tomará un modelo(conjunto de reglas), las bases de datos , y el armador. A su vez como se mencionó anteriormente el ejecutor tiene una estrategia asociada, en este caso el algoritmo 1. Entonces el ejecutor solicitará los datos correspondientes a los accesos a las bases de datos para un determinado tiempo. Una vez hecho ésto solicitará al armador que le provea un paquete con todos los datos necesarios para el procesamiento.
+Sigamos entonces explicando un poco el funcionamiento de los diagramas de secuencias elegidos. Vamos a contar básicamente el procedimiento ya que la comunicación propiamente dicha es fácilmente observable en los diagramas. La idea es que el ejecutor de modelos tomará un modelo(conjunto de reglas), las bases de datos , y el armador. A su vez como se mencionó anteriormente el ejecutor tiene una estrategia asociada, en este caso el algoritmo 1. Entonces el ejecutor solicitará los datos correspondientes a los accesos a las bases de datos para un determinado tiempo. Una vez hecho ésto solicitará al armador que le provea un paquete con todos los datos necesarios para el procesamiento.
 
-Cuando los datos ya están homogeineizados se delega la tarea de ejecución al algoritmo o estrategia. El algoritmo va a dividir las reglas en subpartes de acuerdo a su conveniencia o su manera de operar, en este caso en 2 partes, y para ejecutar concurrentemente estas partes solicitará a la fabrica dos calculadores. A cada uno de los calculadores le solicitará que ejecute el correspondiente subconjunto de reglas, y una vez obtenidos los datos, los unificará para devolver un resultado final.
+Cuando los datos ya están homogeineizados se delega la tarea de ejecución al algoritmo o estrategia. El algoritmo va a dividir las reglas en sub partes de acuerdo a su conveniencia o su manera de operar, en este caso en 2 partes, y para ejecutar concurrentemente estas partes solicitará a la fabrica dos calculadores. A cada uno de los calculadores le solicitará que ejecute el correspondiente subconjunto de reglas, y una vez obtenidos los datos, los unificará para devolver un resultado final.
 
 Es importante destacar que cuando un calculador finalice su ejecución, el algoritmo le solicitará a la fabrica que elimine o detenga el funcionamiento de dicho calculador ya que no es más necesario. La fábrica destruirá éste calculador, y liberará su relación con un determinado procesador para que pueda ser utilizado nuevamente cuando sea solicitado.
 

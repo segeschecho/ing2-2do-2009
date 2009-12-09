@@ -20,7 +20,7 @@ Para solucionar el problema de las regiones y los gobiernos provinciales, se pen
 
 De ésta forma, se tiene un mejor control de los datos y los modelos de las diferentes provincias, además de distribuir la ejecución de una misma región.
 
-La comunicación entre $Estaciones$ $Centrales$ pude realizarse por diferentes medios de comunicación, ya sea por gsm o por internet por ejemplo y eso estará descripto en la descripción de funcionalidad del componente responsable de esa comunicación. Esta comunicación se realizará mediante mensajes de control que permitan a una Estación central, pedir resultados parciales de un modelo, o pedir información de ciertos sensores a otras Estaciones Centrales regionales.
+La comunicación entre $Estaciones$ $Centrales$ pude realizarse por diferentes medios de comunicación, ya sea por gsm o por Internet por ejemplo y eso estará descripto en la descripción de funcionalidad del componente responsable de esa comunicación. Esta comunicación se realizará mediante mensajes de control que permitan a una Estación central, pedir resultados parciales de un modelo, o pedir información de ciertos sensores a otras Estaciones Centrales regionales.
 
 \section{Estructura}
 
@@ -47,7 +47,7 @@ que también se podrá suscribir a datos parcial o totalmente calculados por un mo
 \section{Nuevos componentes en la arquitectura}
 
 Veamos ahora los nuevos componentes agregados a la arquitectura, cabe destacar para esta sección que sólo se agregaron componentes en las TRs y las ECPs, 
-los referentes al publish suscribe tanto de datos directos desde TRs a ECs como tambien los de datos crudos y resultados parciales y finales desde ECP a ECP.
+los referentes al publish suscribe tanto de datos directos desde TRs a ECs como también los de datos crudos y resultados parciales y finales desde ECP a ECP.
 
 
 Si bien no se agregaron nuevas componentes al sistema de monitoreo, se quitaron algunas, como por ejemplo los web services a la página de la infraestructura en los SMP, los de las otras empresas podrían estar o no de acuerdo a los criterios de la provincia, y lo mismo con el sistema eólico, por eso preferimos mostrar en las imágenes posteriores el sistema de monitoreo de la primera entrega sin la parte web a la página de infraestructura ya que la forma depende propiamente de cada una de las provincias.
@@ -55,8 +55,8 @@ Si bien no se agregaron nuevas componentes al sistema de monitoreo, se quitaron 
 
 \begin{itemize}
 
-\item \textbf{Publicador:} Este es el componente que se encargara de recibir las suscripciones que se envian a la Comunicación EC, guardando estos datos en 
-la base de datos de la TR. Luego cuando el Sincronizador publique los datos a la Comunicación EC, este último le pedira todos suscriptos al Publicador y 
+\item \textbf{Publicador:} Este es el componente que se encargara de recibir las suscripciones que se envían a la Comunicación EC, guardando estos datos en 
+la base de datos de la TR. Luego cuando el Sincronizador publique los datos a la Comunicación EC, este último le pedirá todos suscriptos al Publicador y 
 le enviará los datos correspondientes.
 
 \end{itemize}
@@ -76,7 +76,7 @@ segundo grupo que se encarga de publicar y recibir los datos parciales y finales
 \begin{itemize}
 
 \item \textbf{Publicador TR:} Componente encargado de administrar las ECs suscriptas para obtener los datos crudos de las TRs administradas
-por la EC. Se comunica con este componente la Recepción Segura, la cual le envia los suscriptos y luego los pide cuando hay datos completos.
+por la EC. Se comunica con este componente la Recepción Segura, la cual le envía los suscriptos y luego los pide cuando hay datos completos.
 
 \item \textbf{Suscriptos TR:} Base en donde se guardan los datos de suscripciones para obtener la información cuando sea necesario.
 
@@ -93,7 +93,7 @@ tanto a resultados parciales de modelos como a resultados finales de los mismos.
 
 \item \textbf{Intercambio Resultado:} Componente encargado de recibir un resultado parcial o total (enviado por el Procesador) para publicarlo 
 a todos los suscriptos. Por medio del Publicador Modelos se entera cuales son estos suscriptos.
-Tambien esta encargado de obtener los datos de otras ECs a las cuales se suscribe y luego guardarlo en Resultados otras ECs para que el Procesador los use
+Cambien esta encargado de obtener los datos de otras ECs a las cuales se suscribe y luego guardarlo en Resultados otras ECs para que el Procesador los use
 como resultados parciales o finales de los modelos de otras ECs
 
 \item \textbf{Resultados otras ECs:} Base en donde se guardan los resultados parciales o totales obtenidos por suscripciones a modelos de otras ECs. 
