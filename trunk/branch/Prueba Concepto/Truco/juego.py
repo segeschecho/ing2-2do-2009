@@ -26,14 +26,15 @@ class Juego():
           
     def jugar(self):
         while puntajePropio < 15 and puntajeJugador < 15:
-            if mazo.vacio():
-                mazo = Mazo(palos) 
+            mazo = Mazo(palos) 
+            mazo.mezclar()
             partida = Partida(mazo, self.turno)
             partida.jugar()
             self.turno = not self.turno
             puntajePropio += partida.puntajePropio()
             puntajeJugador += partida.puntajeJugador()
-        
+            print "Gonzalo: ",self.puntajePropio
+            print self.jugador + self.puntajeJugador
         if puntajePropio > puntajeJugador:
             print "GANE YO !!!!!"
         else:
