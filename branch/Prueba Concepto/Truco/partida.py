@@ -1,6 +1,7 @@
+from mazo import Mazo
 
-
-
+probabilidadMentiraEnvido = 0.7
+probabilidadMentiraTruco = 0.8
 
 class Partida():
     
@@ -13,8 +14,15 @@ class Partida():
     
     
     def jugar():
-       pass
-      # if turno:
+        carta1J = mazo.tomarUna()
+        carta2J = mazo.tomarUna()
+        carta3J = mazo.tomarUna()
+        carta1 = mazo.tomarUna()
+        carta2 = mazo.tomarUna()
+        carta3 = mazo.tomarUna()
+        
+        if turno:
+            
             
             
     def sumarEnvido(carta1, carta2, carta3):

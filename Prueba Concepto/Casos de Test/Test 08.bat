@@ -23,16 +23,16 @@ start ..\Canal.py
 echo Levanto las TRs
 start ..\TR.py 20 3 1 80000 
 start ..\TR.py 20 2 2 80000
-start ..\TR.py 20 2 3 42
+start ..\TR.py 20 2 3 20
 start ..\TR.py 20 9 4 80000
 start ..\TR.py 20 9 5 80000
 
 echo Levanto La RecepcionSegura de la EC
 :: La RecepcionSegura tiene un parametro : tiempo para detectar caida, id ec, dicc de idTR a array de sensores
 Pause.py 5
-start ..\EC.py 40 11 "{\"1\":[\"Presion\",\"Temperatura\"],\"2\":[\"Temperatura\"], \"3\":[\"Temperatura\"]}" "{}"
-start ..\EC.py 40 12 "{\"3\":[\"Humedad\"], \"4\":[\"Presion\", \"Humedad\"], \"5\":[\"Presion\", \"Humedad\"]}" "{}"
-Pause.py 42
+start ..\EC.py 15 11 "{\"1\":[\"Presion\",\"Temperatura\"],\"2\":[\"Temperatura\"], \"3\":[\"Temperatura\"]}" "{}"
+start ..\EC.py 15 12 "{\"3\":[\"Humedad\"], \"4\":[\"Presion\", \"Humedad\"], \"5\":[\"Presion\", \"Humedad\"]}" "{}"
+Pause.py 30
 echo Se cae TR 3
 Pause.py 50
 echo Se levanta TR 3
